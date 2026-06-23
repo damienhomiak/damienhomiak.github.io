@@ -1464,7 +1464,7 @@ function setAud(key,fromUser,locked){
   if(key==='all'){ wrap.style.display=''; bar.classList.remove('show'); }
   else { wrap.style.display='none'; bar.classList.add('show'); }
   if(bottom){ bottom.classList.remove('show'); }
-  if(fromUser){ var t=document.getElementById('work'); if(t) window.scrollTo({top:t.offsetTop-70,behavior:'smooth'}); }
+  if(fromUser){ window.scrollTo({top:0,behavior:'smooth'}); }
 }
 function copyLane(key,btn){
   var pretty={therapy:'therapy',health:'healthcare',nonprofit:'AI'};
