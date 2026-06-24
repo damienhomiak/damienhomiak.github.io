@@ -239,6 +239,19 @@ body.is-landing .hero-art:hover .brand-mark{animation:spin 7s linear infinite}
 .wins-box h3{font-family:'DM Sans',sans-serif;font-size:1.1rem;font-weight:700;margin-bottom:12px}
 .wins-box p{color:rgba(255,255,255,.85);font-size:.92rem;line-height:1.74}
 .wins-box .em{color:var(--orange);font-weight:600}
+.wins-box .wins-list{list-style:none;margin:6px 0 0;padding:0;display:grid;grid-template-columns:1fr 1fr;gap:10px 24px}
+.wins-box .wins-list li{position:relative;padding-left:20px;color:rgba(255,255,255,.9);font-size:.9rem;line-height:1.5}
+.wins-box .wins-list li::before{content:"";position:absolute;left:0;top:.5em;width:7px;height:7px;border-radius:50%;background:var(--orange)}
+.wins-ba{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-top:24px;padding-top:22px;border-top:1px solid rgba(255,255,255,.16)}
+.wins-ba-cap{grid-column:1 / -1;font-family:'DM Sans',sans-serif;font-size:.95rem;font-weight:700;color:#fff;margin:0 0 2px}
+.wins-ba-col{background:#b3ccc4;border:1px solid #9fbcb3;border-radius:12px;padding:16px 18px}
+.wins-ba-col.after{background:#ddd6b6;border-color:#ccc59e}
+.wba-label{font-size:.7rem;font-weight:700;letter-spacing:.08em;text-transform:uppercase;margin-bottom:11px;color:#3f5d57}
+.wins-ba-col.after .wba-label{color:#7a5a1c}
+.wins-ba-col ul{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:8px}
+.wins-ba-col li{font-size:.88rem;line-height:1.42;color:#314b46}
+.wins-ba-col.after li{color:#3d3a22;font-weight:600}
+@media(max-width:680px){.wins-box .wins-list,.wins-ba{grid-template-columns:1fr}}
 .merge-cta{margin-top:26px;text-align:center;max-width:660px;margin-left:auto;margin-right:auto}
 .merge-cta p{color:var(--gray);font-size:.95rem;line-height:1.7;margin-bottom:14px}
 .sec-divider{border:none;border-top:1px solid var(--border);max-width:760px;margin:40px auto 0}
@@ -322,14 +335,14 @@ body.is-landing .hero-art:hover .brand-mark{animation:spin 7s linear infinite}
 .llm-badge.gemini{color:#2a5fb8;border-color:#a9c4f0}
 .llm-badge.gpt{color:#0a7a5c;border-color:#9ad9c4}
 
-.college-card{background:linear-gradient(155deg,#fff,var(--orange-soft));border:1px solid #f0d9a8;border-left:5px solid var(--orange);border-radius:var(--radius-lg);padding:34px 38px;display:grid;grid-template-columns:200px 1fr;gap:30px;align-items:center}
-.college-stat{text-align:center;background:#fff;border:1px solid #f0d9a8;border-radius:18px;padding:24px 18px}
+.college-card{background:#e3e7cf;border:1px solid #ccd2ad;border-radius:var(--radius-lg);padding:34px 38px;display:grid;grid-template-columns:200px 1fr;gap:30px;align-items:center}
+.college-stat{text-align:center;background:#fff;border:1px solid #ccd2ad;border-radius:18px;padding:24px 18px}
 .college-stat .n{font-family:'DM Sans',sans-serif;font-weight:700;font-size:2.6rem;color:var(--orange-deep);line-height:1}
 .college-stat .l{font-size:.8rem;color:#6b5418;margin-top:8px;font-weight:600}
-.college-eyebrow{font-size:.72rem;font-weight:700;text-transform:uppercase;letter-spacing:2px;color:var(--orange-deep);margin-bottom:10px}
+.college-eyebrow{font-size:.72rem;font-weight:700;text-transform:uppercase;letter-spacing:2px;color:#4e5826;margin-bottom:10px}
 .college-card h3{font-family:'DM Sans',sans-serif;font-size:1.3rem;font-weight:700;color:var(--dark);letter-spacing:-.4px;margin-bottom:4px}
-.college-card .org{font-size:.85rem;color:var(--orange-deep);font-weight:600;margin-bottom:12px}
-.college-card p{font-size:.9rem;color:#5e5444;line-height:1.7}
+.college-card .org{font-size:.85rem;color:#4e5826;font-weight:600;margin-bottom:12px}
+.college-card p{font-size:.9rem;color:#3f4530;line-height:1.7}
 
 .ai-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:16px;margin-top:8px}
 .ai-card.clickable{cursor:pointer}
@@ -341,6 +354,13 @@ body.is-landing .hero-art:hover .brand-mark{animation:spin 7s linear infinite}
 .ai-case .aci-eyebrow{font-size:.72rem;font-weight:700;text-transform:uppercase;letter-spacing:1.5px;color:#16d3c6;margin-bottom:8px}
 .ai-case h3{font-family:'DM Sans',sans-serif;font-size:1.4rem;font-weight:700;color:#fff;margin-bottom:14px;padding-right:30px}
 .ai-case h4{font-size:.85rem;font-weight:700;color:#ffd9a0;margin:16px 0 4px}
+.ai-case h4:nth-of-type(1){color:#ffd9a0}
+.ai-case h4:nth-of-type(2){color:#f5a623}
+.ai-case h4:nth-of-type(3){color:#d97a14}
+.aci-full{display:inline-block;margin-top:16px;margin-left:14px;background:transparent;border:1px solid #16d3c6;color:#16d3c6;font-family:'Inter',sans-serif;font-weight:700;font-size:.88rem;padding:9px 17px;border-radius:100px;cursor:pointer;transition:background .18s}
+.aci-full:hover{background:rgba(22,211,198,.14)}
+.aci-back{display:inline-block;margin-bottom:18px;background:rgba(255,255,255,.1);border:none;color:#cfeeee;font-family:'Inter',sans-serif;font-weight:600;font-size:.85rem;padding:7px 15px;border-radius:100px;cursor:pointer}
+.aci-back:hover{background:rgba(255,255,255,.2)}
 .ai-case p{font-size:.93rem;line-height:1.65;color:rgba(234,253,253,.88);margin-bottom:6px}
 .ai-case .aci-link{display:inline-block;margin-top:14px;color:#16d3c6;font-weight:700;font-size:.9rem;text-decoration:none}
 .ai-card{background:var(--card);border:1px solid var(--border);border-radius:16px;padding:24px;box-shadow:var(--shadow);transition:all .25s;display:flex;flex-direction:column}
@@ -387,6 +407,21 @@ body.is-landing .hero-art:hover .brand-mark{animation:spin 7s linear infinite}
 .verdict .badge.human{background:rgba(245,166,35,.18);color:#ffd98a}
 .verdict .why{font-size:.79rem;color:rgba(255,255,255,.72);line-height:1.5}
 .widget-foot{margin-top:22px;padding-top:18px;border-top:1px solid rgba(255,255,255,.12);font-size:.85rem;color:rgba(255,255,255,.7);display:flex;gap:10px;align-items:center}
+.wsum{display:none;margin-top:22px;padding-top:20px;border-top:1px solid rgba(255,255,255,.14)}
+.wsum.show{display:block;animation:wsumIn .5s ease}
+@keyframes wsumIn{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:none}}
+.wsum-eyebrow{font-size:.68rem;font-weight:700;text-transform:uppercase;letter-spacing:1.5px;color:var(--orange);margin-bottom:6px}
+.wsum-head{font-family:'DM Sans',sans-serif;font-weight:700;color:#fff;font-size:1.1rem;margin-bottom:14px;line-height:1.3}
+.wsum-cols{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+.wsum-card{background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.12);border-radius:12px;padding:16px 18px}
+.wsum-card h4{font-family:'DM Sans',sans-serif;font-size:.92rem;margin:0 0 10px;color:#9be7e8}
+.wsum-card.dont h4{color:#ffd98a}
+.wsum-card ul{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:7px}
+.wsum-card li{position:relative;padding-left:16px;font-size:.82rem;color:rgba(255,255,255,.82);line-height:1.4}
+.wsum-card li::before{content:"";position:absolute;left:0;top:.5em;width:6px;height:6px;border-radius:50%;background:#5bc0c2}
+.wsum-card.dont li::before{background:var(--orange)}
+.wsum-note{margin-top:14px;font-size:.85rem;color:rgba(255,255,255,.8);line-height:1.55;max-width:700px}
+@media(max-width:680px){.wsum-cols{grid-template-columns:1fr}}
 .widget-foot .brand-mark{width:22px;height:22px;flex:0 0 22px}
 
 .gallery-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:14px}
@@ -443,7 +478,10 @@ body.is-landing .hero-art:hover .brand-mark{animation:spin 7s linear infinite}
 .about3-bottom{margin-top:34px;padding-top:30px;border-top:1px solid #e8e0d6}
 .about3-chips{display:flex;flex-wrap:wrap;gap:9px;margin-bottom:22px}
 .a3chip{background:#fff;border:1px solid #e6ded4;color:#5a544c;font-size:.84rem;font-weight:600;padding:7px 14px;border-radius:999px}
-.about3-close{font-size:1.06rem;line-height:1.7;color:#3f3a33;max-width:760px;margin-bottom:22px}
+.about3-stick{margin-top:6px;text-align:center;display:flex;flex-direction:column;align-items:center}
+.about3-close{font-family:'DM Sans',sans-serif;font-size:clamp(1.2rem,2.7vw,1.58rem);line-height:1.45;color:var(--teal-deep);font-weight:700;max-width:820px;margin:0 auto 14px}
+.about3-arrow svg{width:30px;height:30px;color:var(--orange);animation:a3bounce 1.8s ease-in-out infinite}
+@keyframes a3bounce{0%,100%{transform:translateY(0)}50%{transform:translateY(7px)}}
 .about3-btn{display:inline-block;background:#6f928b;color:#fff;font-family:'Inter',sans-serif;font-weight:600;font-size:.95rem;padding:13px 28px;border-radius:100px;text-decoration:none;transition:background .18s,transform .18s;box-shadow:0 6px 18px rgba(111,146,139,.32)}
 .about3-btn:hover{background:#5f827b;transform:translateY(-2px)}
 .about3-cta{display:flex;flex-direction:column;gap:12px;align-items:flex-start;background:#fff;border:1px solid #e8e0d6;border-radius:16px;padding:20px 22px;max-width:520px}
@@ -740,6 +778,60 @@ nav{padding:0 20px}.nav-links{gap:14px}.nav-links a:not(.nav-cta){display:none}
 .bottom-switch{padding-left:20px;padding-right:20px}
 .footer-inner{flex-direction:column;align-items:flex-start}.footer-meta{text-align:left}
 }
+/* --- view upgrades: problem-first, framework, metrics, responsible AI --- */
+.up-head{margin-bottom:16px}
+.up-head .lane-eyebrow{margin-bottom:6px}
+.up-head h2{font-family:'DM Sans',sans-serif;font-size:clamp(1.3rem,2.6vw,1.9rem);color:var(--dark);line-height:1.2;margin:0}
+.signs-list{list-style:none;margin:0;padding:0;display:grid;grid-template-columns:1fr 1fr;gap:11px 26px}
+.signs-list li{position:relative;padding-left:24px;font-size:.98rem;color:var(--dark);line-height:1.45}
+.signs-list li::before{content:"";position:absolute;left:0;top:.42em;width:9px;height:9px;border-radius:50%;background:var(--orange)}
+.ba-grid{display:grid;grid-template-columns:1fr 1fr;border:1px solid var(--border);border-radius:var(--radius-lg);overflow:hidden}
+.ba-col{padding:18px 22px}
+.ba-col.before{background:#f6f4f1}
+.ba-col.after{background:var(--teal-light)}
+.ba-col h4{font-size:.74rem;letter-spacing:.09em;text-transform:uppercase;margin:0 0 11px;font-weight:700}
+.ba-col.before h4{color:var(--gray)}
+.ba-col.after h4{color:var(--teal-deep)}
+.ba-col ul{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:9px}
+.ba-col li{font-size:.95rem;line-height:1.4}
+.ba-col.before li{color:var(--gray)}
+.ba-col.after li{color:var(--dark);font-weight:600}
+.framework{display:grid;grid-template-columns:repeat(5,1fr);gap:12px}
+.framework.six{grid-template-columns:repeat(3,1fr)}
+.fw-step{background:var(--card);border:1px solid var(--border);border-radius:14px;padding:15px 14px}
+.fw-step .fw-n{font-family:'DM Sans',sans-serif;font-weight:700;color:var(--orange);font-size:.82rem}
+.fw-step h4{font-size:1rem;margin:5px 0 4px;color:var(--teal-deep)}
+.fw-step p{font-size:.84rem;color:var(--gray);line-height:1.4;margin:0}
+.flow-strip{display:flex;align-items:center;flex-wrap:wrap;gap:9px}
+.flow-node{background:var(--teal-light);color:var(--teal-deep);font-weight:600;border-radius:100px;padding:9px 18px;font-size:.92rem}
+.flow-arrow{color:var(--orange);font-weight:700;font-size:1.05rem}
+.metric-strip{display:grid;grid-template-columns:repeat(4,1fr);gap:14px}
+.metric{background:var(--card);border:1px solid var(--border);border-radius:14px;padding:16px 18px}
+.metric .mv{font-family:'DM Sans',sans-serif;font-weight:700;font-size:1.7rem;color:var(--teal-deep);line-height:1}
+.metric .ml{font-size:.82rem;color:var(--gray);margin-top:7px;line-height:1.35}
+.two-col{display:grid;grid-template-columns:1fr 1fr;gap:20px}
+.mini-card{background:var(--card);border:1px solid var(--border);border-radius:var(--radius-lg);padding:20px 22px}
+.mini-card h3{font-family:'DM Sans',sans-serif;font-size:1.08rem;color:var(--teal-deep);margin:0 0 11px}
+.mini-card ul{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:8px}
+.mini-card li{position:relative;padding-left:18px;font-size:.93rem;color:var(--dark);line-height:1.42}
+.mini-card li::before{content:"";position:absolute;left:0;top:.5em;width:6px;height:6px;border-radius:50%;background:var(--teal)}
+.mini-card.dont li::before{background:var(--orange)}
+.ux-note{margin-top:14px;color:var(--gray);font-size:.95rem;line-height:1.5;max-width:780px}
+.philo{background:#faf7f3;border:1px solid #ece3d6;border-radius:var(--radius-lg);padding:32px 34px 30px;position:relative;overflow:hidden}
+.philo .lane-eyebrow{color:var(--orange);margin-bottom:12px;position:relative;z-index:1}
+.philo blockquote{font-family:'DM Sans',sans-serif;font-size:clamp(1.2rem,2.6vw,1.6rem);line-height:1.4;margin:0;color:var(--teal-deep);font-weight:600;position:relative;z-index:1}
+.philo .philo-sub{color:var(--gray);margin:16px 0 0;font-size:.98rem;line-height:1.6;max-width:820px;position:relative;z-index:1}
+.philo::before{content:"\201C";position:absolute;top:-26px;right:20px;font-family:Georgia,serif;font-size:170px;line-height:1;color:rgba(224,138,30,.13);pointer-events:none}
+.philo-bcap{margin:20px 0 0;font-size:.72rem;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--gray);position:relative;z-index:1}
+.philo-bubbles{display:flex;flex-wrap:wrap;gap:8px;margin-top:10px;position:relative;z-index:1}
+.philo-bubble{background:#fff;border:1px solid #e6dccb;color:var(--teal-deep);font-size:.82rem;font-weight:600;padding:7px 14px;border-radius:100px;box-shadow:0 1px 3px rgba(0,0,0,.04)}
+.signs-list.pos li::before{background:var(--teal)}
+.signs-if{font-family:'DM Sans',sans-serif;font-weight:600;font-size:clamp(1.15rem,3vw,1.5rem);color:var(--dark);line-height:1;letter-spacing:-.3px;margin:18px 0 6px}
+.closing-line{font-family:'DM Sans',sans-serif;font-size:clamp(1.1rem,2.3vw,1.38rem);color:var(--teal-deep);line-height:1.4;max-width:800px;font-weight:500;margin:0}
+.claude-credit{display:flex;align-items:center;justify-content:center;gap:9px;color:var(--gray);font-size:.9rem;font-weight:600;letter-spacing:.02em;opacity:.85}
+.claude-credit .brand-mark{width:18px;height:18px;flex:0 0 18px}
+.claude-credit-foot{padding:26px 20px}
+@media(max-width:680px){.signs-list,.ba-grid,.framework,.framework.six,.metric-strip,.two-col{grid-template-columns:1fr}.framework{grid-template-columns:1fr 1fr}.metric-strip{grid-template-columns:1fr 1fr}}
 </style>
 </head>
 <body>
@@ -775,6 +867,7 @@ nav{padding:0 20px}.nav-links{gap:14px}.nav-links a:not(.nav-cta){display:none}
     <div class="hero-badge"><span class="badge-dot"></span><span id="heroBadgeText">Olympia, WA &amp; Remote</span></div>
     <h1 class="hero-h1" id="heroH1">I help mission-driven organizations <em>serve people well</em>.</h1>
     <p class="hero-desc" id="heroDesc">I handle the customer support, client communication, and front-line coordination that keep people cared for, and I build the systems and tools that make that work easier behind the scenes. I care as much about how the work feels to receive as I do about how reliably it runs.</p>
+    <div data-aud="therapy" class="lane-only" style="margin:-4px 0 16px"><button class="dl-summary" type="button" onclick="return docLinkPrompt(event,'summary-therapy','one-page summary')" data-track="dl_therapy_hero">View one-page summary</button></div>
     <div class="aud-wrap" id="audWrap">
       <div class="aud-row">
         <button class="aud-btn" data-key="health" onclick="setAud('health',true)">Healthcare administration</button>
@@ -796,14 +889,22 @@ nav{padding:0 20px}.nav-links{gap:14px}.nav-links a:not(.nav-cta){display:none}
   <!-- ============ THERAPY ============ -->
   <div class="section tight lane-only" data-aud="therapy">
     <div class="lane-intro" style="border-left:1px solid var(--border)">
-      <div class="lane-eyebrow"><span class="brand-mark"></span>For therapy practices &amp; solo clinicians</div>
+      <div class="lane-eyebrow" style="color:var(--gray)"><span class="brand-mark"></span>For therapy practices &amp; solo clinicians</div>
       <h2>I take the non-clinical work off your plate so you can focus on clients.</h2>
       <p>I am a freelance Operations Assistant who knows the therapy world from the inside out: intake, scheduling, insurance pre-screening, documentation, payroll support, hiring, content, and the steady admin that pulls clinicians away from sessions. I am happy to take on any non-clinical support project that helps your practice run better.</p>
+      <div class="signs-if">IF&hellip;</div>
+      <ul class="signs-list" style="margin:6px 0 6px">
+        <li>Referrals get lost or go cold</li>
+        <li>Clients wait too long for a callback</li>
+        <li>You answer every operational question</li>
+        <li>Clinicians keep asking the same things</li>
+        <li>Key processes live only in someone&rsquo;s head</li>
+        <li>Growth feels chaotic instead of planned</li>
+      </ul>
       <div class="lane-btns">
         <a href="#contact" class="btn-primary">Talk to me about your practice</a>
         <a href="https://spectralconsulting.square.site/" target="_blank" rel="noopener" class="btn-secondary">Book a free consultation</a>
       </div>
-      <button class="dl-summary" type="button" onclick="return docLinkPrompt(event,'summary-therapy','one-page summary')" data-track="dl_therapy">View one-page summary</button>
     </div>
   </div>
 
@@ -830,6 +931,21 @@ nav{padding:0 20px}.nav-links{gap:14px}.nav-links a:not(.nav-cta){display:none}
         <div class="why-item"><span class="why-num">02</span><h4>Patient &amp; client-focused</h4><p>I love helping people, and I take the time to understand what works best for each client.</p></div>
         <div class="why-item"><span class="why-num">03</span><h4>Innovative &amp; unconventional</h4><p>I explore new ideas, create unique solutions, and thrive in uncharted territory.</p></div>
       </div>
+    </div>
+  </div>
+
+  <!-- Therapy: how I work (method) -->
+  <div class="section tight" data-aud="therapy">
+    <div class="up-head">
+      <div class="lane-eyebrow"><span class="brand-mark"></span>How I work</div>
+      <h2>One clear method, every engagement.</h2>
+    </div>
+    <div class="framework">
+      <div class="fw-step"><div class="fw-n">01</div><h4>Understand</h4><p>Learn the people, the goals, and where it hurts.</p></div>
+      <div class="fw-step"><div class="fw-n">02</div><h4>Map</h4><p>Trace the real workflow and where it breaks down.</p></div>
+      <div class="fw-step"><div class="fw-n">03</div><h4>Simplify</h4><p>Cut steps, clarify handoffs, remove friction.</p></div>
+      <div class="fw-step"><div class="fw-n">04</div><h4>Implement</h4><p>Build the system and document how it runs.</p></div>
+      <div class="fw-step"><div class="fw-n">05</div><h4>Support</h4><p>Train the team and adjust until it sticks.</p></div>
     </div>
   </div>
 
@@ -898,6 +1014,17 @@ nav{padding:0 20px}.nav-links{gap:14px}.nav-links a:not(.nav-cta){display:none}
       <p class="tp-quote">"Damien has that rare combination of being both genuinely warm and competent. If you need someone who can organize complexity, strengthen systems, collaborate thoughtfully, and reliably move projects across the finish line, Damien is the person you want in your corner."</p>
       <div class="tp-name">Cappy Shapiro</div>
       <div class="tp-role">Clinical Manager · <a href="https://www.femmeandthem.co" target="_blank" rel="noopener">Femme &amp; Them, PLLC</a></div>
+    </div>
+  </div>
+
+  <!-- Health: operational clarity method -->
+  <div class="section tight" data-aud="health">
+    <div class="framework">
+      <div class="fw-step"><div class="fw-n">01</div><h4>Understand</h4><p>Learn the stakeholders, goals, and constraints.</p></div>
+      <div class="fw-step"><div class="fw-n">02</div><h4>Map</h4><p>Trace the workflow and where it breaks down.</p></div>
+      <div class="fw-step"><div class="fw-n">03</div><h4>Simplify</h4><p>Remove steps and clarify every handoff.</p></div>
+      <div class="fw-step"><div class="fw-n">04</div><h4>Implement</h4><p>Build the system and document how it runs.</p></div>
+      <div class="fw-step"><div class="fw-n">05</div><h4>Support</h4><p>Train staff and measure the outcomes.</p></div>
     </div>
   </div>
 
@@ -1012,8 +1139,8 @@ nav{padding:0 20px}.nav-links{gap:14px}.nav-links a:not(.nav-cta){display:none}
   <div class="section tight lane-only" data-aud="nonprofit">
     <div class="lane-intro np-intro">
       <div class="lane-eyebrow"><span class="brand-mark"></span>AI reskilling for nonprofits</div>
-      <h2>I teach people to use AI well, and I build the tools that prove it works.</h2>
-      <p>I am an AI educator and a utility player for mission-driven teams. I taught a 30-plus person Adobe-sponsored AI and creative academy after going through it as a student, and I have built real working tools with AI in behavioral health.</p>
+      <h2>AI works when people feel capable, not replaced.</h2>
+      <p>Most teams are more capable than they are told. Given clear explanations, honest conversations about ethics, and enough psychological safety to learn, people pick up hard skills and make AI genuinely useful on their own terms. My job is to help them get there, and to build the tools that prove it works.</p>
       <div class="np-creds">
         <span class="np-cred"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 10v6M2 10l10-5 10 5-10 5z"/><path d="M6 12v5c3 3 9 3 12 0v-5"/></svg>Claude 101</span>
         <span class="np-cred"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2l2.4 7.4H22l-6 4.5 2.3 7.1L12 16.7 5.7 21l2.3-7.1-6-4.5h7.6z"/></svg>AI Fluency</span>
@@ -1022,11 +1149,26 @@ nav{padding:0 20px}.nav-links{gap:14px}.nav-links a:not(.nav-cta){display:none}
     </div>
   </div>
 
+  <!-- Health: how I think about operations (below IMH) -->
+  <div class="section tight" data-aud="health">
+    <div class="up-head">
+      <div class="lane-eyebrow"><span class="brand-mark"></span>How I think about operations</div>
+      <h2>I follow the patient&rsquo;s path and fix what slows it down.</h2>
+    </div>
+    <div class="flow-strip">
+      <span class="flow-node">Referral</span><span class="flow-arrow">&rarr;</span>
+      <span class="flow-node">Intake</span><span class="flow-arrow">&rarr;</span>
+      <span class="flow-node">Scheduling</span><span class="flow-arrow">&rarr;</span>
+      <span class="flow-node">Care</span>
+    </div>
+    <p class="ux-note">I map the whole journey, find the bottlenecks and access barriers, and improve the handoffs between steps. Better workflows mean fewer people falling through the cracks.</p>
+  </div>
+
   <!-- Career timeline (nonprofit, right under intro) -->
   <div class="section tight" data-aud="nonprofit">
     <div class="section-label"><span class="brand-mark"></span>My path here</div>
     <h2 class="section-title">Experience timeline</h2>
-    <p class="section-sub">From conservation corps and community college to behavioral health operations and teaching AI. Tap any role to expand it.</p>
+    <p class="section-sub">An early-career path with under two years of full-time professional experience: most of this was part-time, externships, and national service held while studying. Tap any role to expand it.</p>
     <div class="tl-section">
       <div class="tl-body"><div class="tl-spine"></div><div id="tlItems"></div></div>
     </div>
@@ -1044,7 +1186,7 @@ nav{padding:0 20px}.nav-links{gap:14px}.nav-links a:not(.nav-cta){display:none}
         <div class="tstat"><div class="n">100%</div><div class="l">remote: Zoom, Slack, Discord, Canvas</div></div>
         <div class="tstat"><div class="n">Student→Instructor</div><div class="l">took the program, then taught it</div></div>
       </div>
-      <p>I translate complex AI tools into accessible, applied workflows, run live demonstrations, and read whether a technical idea is landing in a non-technical room. I rebuilt incomplete curriculum into clear lessons, and fed real learner experience back into the program's design.</p>
+      <p>I translate complex AI tools into accessible, applied workflows, run live demonstrations, and read whether a technical idea is landing in a non-technical room. I rebuilt incomplete curriculum into clear lessons, and fed real learner experience back into the program's design. It is the clearest proof of what I believe: with the right support, people who are sure they are not tech people surprise themselves.</p>
       <div class="llm-wrap">
         <div class="llm-label">Models I teach with and build on</div>
         <div class="llm-row">
@@ -1052,6 +1194,26 @@ nav{padding:0 20px}.nav-links{gap:14px}.nav-links a:not(.nav-cta){display:none}
           <span class="llm-badge gemini">Gemini</span>
           <span class="llm-badge gpt">ChatGPT</span>
         </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- AI: philosophy / recurring theme (after teaching) -->
+  <div class="section tight" data-aud="nonprofit">
+    <div class="philo">
+      <div class="lane-eyebrow"><span class="brand-mark"></span>What I have learned</div>
+      <blockquote>People don&rsquo;t resist technology because they are incapable. They resist because they are uncertain, overwhelmed, left out of the conversation, or worried about the consequences.</blockquote>
+      <p class="philo-sub">So I treat adoption as a human process. I listen first, talk about ethics openly, start from real problems, show practical value, and respect people&rsquo;s autonomy. Most of the work is helping people move from uncertainty to confidence.</p>
+      <div class="philo-bcap">What that resistance usually sounds like</div>
+      <div class="philo-bubbles">
+        <span class="philo-bubble">Uncertainty about where to start</span>
+        <span class="philo-bubble">Overwhelm from too many tools</span>
+        <span class="philo-bubble">People left out of decisions</span>
+        <span class="philo-bubble">Real worry about risk and privacy</span>
+        <span class="philo-bubble">Inconsistent use</span>
+        <span class="philo-bubble">Training that never sticks</span>
+        <span class="philo-bubble">Ethical dilemmas</span>
+        <span class="philo-bubble">Misunderstanding the limits of the technology</span>
       </div>
     </div>
   </div>
@@ -1088,6 +1250,26 @@ nav{padding:0 20px}.nav-links{gap:14px}.nav-links a:not(.nav-cta){display:none}
     </div>
   </div>
 
+  <!-- Trauma-informed change (bullets + example) -->
+  <div class="section tight" data-aud="nonprofit">
+    <div class="trauma-box">
+      <h3>Trauma-informed change management</h3>
+      <p class="intro">New tools land on real people, often people who are stretched thin, skeptical, or anxious that technology has moved on without them. Technical explanations alone rarely change minds; what works is slower and more human. I bring AI and systems change in a way that protects trust. In practice that means:</p>
+      <ul class="trauma-list">
+        <li><span class="tcheck"><svg class="ic-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></span><div><b>Start where the worry is.</b> I listen to the real concern, talk about ethics openly rather than defensively, and begin from a problem people already care about, not from the tool.</div></li>
+        <li><span class="tcheck"><svg class="ic-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></span><div><b>Explain the why before the how.</b> People adopt change they understand and resist change that feels done to them.</div></li>
+        <li><span class="tcheck"><svg class="ic-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></span><div><b>Give choice and control over pace.</b> Opt-in steps and a say in the rollout, never a forced switch overnight.</div></li>
+        <li><span class="tcheck"><svg class="ic-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></span><div><b>Make "I don't get this yet" safe to say.</b> No shame, no public quizzing. Questions are welcome and expected.</div></li>
+        <li><span class="tcheck"><svg class="ic-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></span><div><b>Pair every new tool with a person to ask.</b> Hands-on support and a clear runbook, not a link and good luck.</div></li>
+        <li><span class="tcheck"><svg class="ic-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></span><div><b>Build feedback loops.</b> The people using the tool shape it, so it gets better and stays trusted.</div></li>
+      </ul>
+      <div class="trauma-eg">
+        <b>How I handle learners who feel left behind</b>
+        <p>In my Adobe academy cohorts, some of the most anxious learners were older professionals who felt technology had moved on without them. I slowed down, connected each new tool to something they already knew, celebrated small wins out loud, and gave them a judgment-free way to ask questions outside the group. Most went from "I will never get this" to teaching the person next to them. That shift, from left behind to leading, is the whole point.</p>
+      </div>
+    </div>
+  </div>
+
   <!-- AI projects -->
   <div class="section tight" data-aud="nonprofit">
     <div class="section-label"><span class="brand-mark"></span>Built with Claude</div>
@@ -1116,38 +1298,38 @@ nav{padding:0 20px}.nav-links{gap:14px}.nav-links a:not(.nav-cta){display:none}
     </div>
   </div>
 
-  <!-- Trauma-informed change (bullets + example) -->
-  <div class="section tight" data-aud="nonprofit">
-    <div class="trauma-box">
-      <h3>Trauma-informed change management</h3>
-      <p class="intro">New tools land on real people, often people already stretched thin. I bring AI and systems change in a way that protects trust. In practice that means:</p>
-      <ul class="trauma-list">
-        <li><span class="tcheck"><svg class="ic-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></span><div><b>Explain the why before the how.</b> People adopt change they understand and resist change that feels done to them.</div></li>
-        <li><span class="tcheck"><svg class="ic-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></span><div><b>Give choice and control over pace.</b> Opt-in steps and a say in the rollout, never a forced switch overnight.</div></li>
-        <li><span class="tcheck"><svg class="ic-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></span><div><b>Make "I don't get this yet" safe to say.</b> No shame, no public quizzing. Questions are welcome and expected.</div></li>
-        <li><span class="tcheck"><svg class="ic-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></span><div><b>Pair every new tool with a person to ask.</b> Hands-on support and a clear runbook, not a link and good luck.</div></li>
-        <li><span class="tcheck"><svg class="ic-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></span><div><b>Build feedback loops.</b> The people using the tool shape it, so it gets better and stays trusted.</div></li>
-      </ul>
-      <div class="trauma-eg">
-        <b>How I handle learners who feel left behind</b>
-        <p>In my Adobe academy cohorts, some of the most anxious learners were older professionals who felt technology had moved on without them. I slowed down, connected each new tool to something they already knew, celebrated small wins out loud, and gave them a judgment-free way to ask questions outside the group. Most went from "I will never get this" to teaching the person next to them. That shift, from left behind to leading, is the whole point.</p>
-      </div>
-    </div>
-  </div>
-
   <!-- Interactive widget -->
   <div class="section tight" data-aud="nonprofit">
     <div class="widget">
       <div class="widget-eyebrow"><span class="brand-mark"></span>Try it · where does AI actually belong?</div>
       <h3>Good AI judgment means knowing what not to automate</h3>
-      <p class="lead">Tap each task to see where I would put AI to work, and where I would keep a human firmly in the loop. This is the judgment I teach teams to build.</p>
+      <p class="lead">Tap each task to see where I would put AI to work, and where I would keep a human firmly in the loop. Tap any one to see the rule of thumb behind it. Part of the job is saying when not to build, like keeping crisis response with a person, on purpose.</p>
       <div class="wtiles">
-        <div class="wtile" onclick="this.classList.toggle('revealed')"><div class="task">Drafting a donor newsletter</div><div class="tap">Tap to reveal</div><div class="verdict"><span class="badge ai">Great for AI</span><div class="why">A strong first draft in seconds, then a human edits for voice and accuracy.</div></div></div>
-        <div class="wtile" onclick="this.classList.toggle('revealed')"><div class="task">Summarizing long meeting notes</div><div class="tap">Tap to reveal</div><div class="verdict"><span class="badge ai">Great for AI</span><div class="why">Fast, consistent summaries free staff to act on decisions instead of transcribing them.</div></div></div>
-        <div class="wtile" onclick="this.classList.toggle('revealed')"><div class="task">Cleaning a messy spreadsheet</div><div class="tap">Tap to reveal</div><div class="verdict"><span class="badge ai">Great for AI</span><div class="why">Standardizing names and formats is exactly the tedious work AI handles well.</div></div></div>
-        <div class="wtile" onclick="this.classList.toggle('revealed')"><div class="task">Deciding who gets limited funds</div><div class="tap">Tap to reveal</div><div class="verdict"><span class="badge human">Keep a human</span><div class="why">High-stakes, values-laden calls belong to accountable people, not a model.</div></div></div>
-        <div class="wtile" onclick="this.classList.toggle('revealed')"><div class="task">Responding to someone in crisis</div><div class="tap">Tap to reveal</div><div class="verdict"><span class="badge human">Keep a human</span><div class="why">Care and safety need real human judgment and presence, full stop.</div></div></div>
-        <div class="wtile" onclick="this.classList.toggle('revealed')"><div class="task">Setting program strategy</div><div class="tap">Tap to reveal</div><div class="verdict"><span class="badge human">Keep a human</span><div class="why">AI can inform options, but direction comes from the people who own the mission.</div></div></div>
+        <div class="wtile" onclick="wTile(this)"><div class="task">Drafting a donor newsletter</div><div class="tap">Tap to reveal</div><div class="verdict"><span class="badge ai">Great for AI</span><div class="why">A strong first draft in seconds, then a human edits for voice and accuracy.</div></div></div>
+        <div class="wtile" onclick="wTile(this)"><div class="task">Summarizing long meeting notes</div><div class="tap">Tap to reveal</div><div class="verdict"><span class="badge ai">Great for AI</span><div class="why">Fast, consistent summaries free staff to act on decisions instead of transcribing them.</div></div></div>
+        <div class="wtile" onclick="wTile(this)"><div class="task">Cleaning a messy spreadsheet</div><div class="tap">Tap to reveal</div><div class="verdict"><span class="badge ai">Great for AI</span><div class="why">Standardizing names and formats is exactly the tedious work AI handles well.</div></div></div>
+        <div class="wtile" onclick="wTile(this)"><div class="task">Deciding who gets limited funds</div><div class="tap">Tap to reveal</div><div class="verdict"><span class="badge human">Keep a human</span><div class="why">High-stakes, values-laden calls belong to accountable people, not a model.</div></div></div>
+        <div class="wtile" onclick="wTile(this)"><div class="task">Responding to someone in crisis</div><div class="tap">Tap to reveal</div><div class="verdict"><span class="badge human">Keep a human</span><div class="why">Care and safety need real human judgment and presence, full stop.</div></div></div>
+        <div class="wtile" onclick="wTile(this)"><div class="task">Setting program strategy</div><div class="tap">Tap to reveal</div><div class="verdict"><span class="badge human">Keep a human</span><div class="why">AI can inform options, but direction comes from the people who own the mission.</div></div></div>
+      </div>
+      <div class="wsum" id="wgSummary">
+        <div class="wsum-eyebrow">That instinct, written down</div>
+        <div class="wsum-head">The same judgment, as a rule of thumb you can hand your team.</div>
+        <div class="wsum-cols">
+          <div class="wsum-card"><h4>Responsible AI, on your terms</h4><ul>
+            <li>Human oversight on every output</li>
+            <li>Transparency about what AI did</li>
+            <li>Accessible to non-technical staff</li>
+            <li>Practical, sustainable implementation</li>
+            <li>Mission alignment first</li>
+          </ul></div>
+          <div class="wsum-card dont"><h4>Where AI doesn&rsquo;t belong</h4><ul>
+            <li>Clinical decision-making</li>
+            <li>Sensitive client decisions</li>
+            <li>Final human judgment</li>
+            <li>High-risk compliance decisions</li>
+          </ul></div>
+        </div>
       </div>
       <div class="widget-foot"><span class="brand-mark"></span><div>Designed by Claude.</div></div>
     </div>
@@ -1164,7 +1346,7 @@ nav{padding:0 20px}.nav-links{gap:14px}.nav-links a:not(.nav-cta){display:none}
       <div class="sg-frame">
         <div class="sg-bar">
           <span class="sg-dot"></span><span class="sg-dot"></span><span class="sg-dot"></span>
-          <span class="sg-path" id="sgPath">skills / </span>
+          <span class="sg-path" id="sgPath">hire-someone-with-real-skills / </span>
           <button class="sg-back" id="sgBack" onclick="sgShowCategories()" style="display:none">&#8592; All topics</button>
         </div>
         <div class="sg-body" id="sgBody"></div>
@@ -1200,7 +1382,29 @@ nav{padding:0 20px}.nav-links{gap:14px}.nav-links a:not(.nav-cta){display:none}
   <div class="section tight">
     <div class="wins-box">
       <h3>Recent wins at <a href="https://www.femmeandthem.co" target="_blank" rel="noopener" style="color:var(--orange)">Femme &amp; Them</a></h3>
-      <p>I built a full <span class="em">operations manual</span> so clinicians have everything they need day to day, created <span class="em">custom onboarding instructions</span> for new hires and supported their onboarding, helped create <span class="em">group trainings</span> for therapists and support-group clients, built a <span class="em">community resource referral directory</span>, and helped <span class="em">write and develop fair handbook policies</span>. Consultation and implementation, both done by the same person.</p>
+      <ul class="wins-list">
+        <li>Built a full operations manual clinicians use day to day</li>
+        <li>Created custom onboarding and supported new hires</li>
+        <li>Helped build group trainings for therapists and clients</li>
+        <li>Built a community resource referral directory</li>
+        <li>Helped write and develop fair handbook policies</li>
+        <li>Consultation and implementation, by the same person</li>
+      </ul>
+      <div class="wins-ba">
+        <div class="wins-ba-cap">What changed for the practice</div>
+        <div class="wins-ba-col"><div class="wba-label">Before</div><ul>
+          <li>Referrals scattered everywhere</li>
+          <li>Owner-dependent systems</li>
+          <li>Missed or late follow-up</li>
+          <li>Administrative stress</li>
+        </ul></div>
+        <div class="wins-ba-col after"><div class="wba-label">After</div><ul>
+          <li>One place to track every referral</li>
+          <li>Documented processes your team follows</li>
+          <li>Consistent client communication</li>
+          <li>Operational clarity</li>
+        </ul></div>
+      </div>
     </div>
   </div>
   <div class="section">
@@ -1227,7 +1431,7 @@ nav{padding:0 20px}.nav-links{gap:14px}.nav-links a:not(.nav-cta){display:none}
           <h2 class="about3-name">Damien Homiak <span class="about3-pn">they / them</span></h2>
           <p class="about3-tag">A systems thinker who cares how things feel to use.</p>
           <p class="about3-lead">I help organizations and the people in them work better.</p>
-          <p class="about3-body">I build practical systems and supportive workflows, keep things organized and responsive, and care as much about how the work feels to receive as whether it runs. My experience spans client support, operations, process improvement, and teaching.</p>
+          <p class="about3-body">I build practical systems and supportive workflows, keep things organized and responsive, and care as much about how the work feels to receive as whether it runs. My experience spans client support, operations, process improvement, teaching, and helping teams adopt AI responsibly: assessing readiness, starting small with safeguards, training people, and measuring what changes.</p>
         </div>
       </div>
       <div class="about3-bottom">
@@ -1239,11 +1443,24 @@ nav{padding:0 20px}.nav-links{gap:14px}.nav-links a:not(.nav-cta){display:none}
           <span class="a3chip">AI teaching</span>
           <span class="a3chip">Project-based work</span>
         </div>
-        <p class="about3-close">If you need someone who can make sense of complexity, support people well, and build systems that last, I would love to connect.</p>
+        <div class="about3-stick">
+          <p class="about3-close">If you need someone who can make sense of complexity, support people well, and build systems that last, I would love to connect.</p>
+          <div class="about3-arrow"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg></div>
+        </div>
       </div>
     </div>
   </div>
 </div>
+
+  <!-- Health: key accomplishments (above education) -->
+  <div class="section tight" data-aud="health">
+    <div class="metric-strip">
+      <div class="metric"><div class="mv">160+</div><div class="ml">providers in a referral network I built</div></div>
+      <div class="metric"><div class="mv">3 to 1</div><div class="ml">intake channels unified into one pipeline</div></div>
+      <div class="metric"><div class="mv">10+</div><div class="ml">clinician practice operations owned</div></div>
+      <div class="metric"><div class="mv">$0</div><div class="ml">new software to ship the referral tool</div></div>
+    </div>
+  </div>
 
 <!-- CREDENTIALS (health + everything) -->
 <div data-aud="health">
@@ -1353,6 +1570,9 @@ nav{padding:0 20px}.nav-links{gap:14px}.nav-links a:not(.nav-cta){display:none}
   </div>
 </div>
 
+<!-- AI view: site credit below contact -->
+<div data-aud="nonprofit" class="lane-only"><div class="claude-credit claude-credit-foot"><span class="brand-mark"></span> Website designed with Claude</div></div>
+
 <footer>
   <div class="footer-inner">
     <div class="footer-brand"><span class="brand-mark"></span><div class="fb-name">Damien Homiak<span id="fbTag">Systems, support, and ethical AI</span></div></div>
@@ -1425,9 +1645,9 @@ document.addEventListener('click',function(ev){
 },true);
 var HERO={
   all:{h:'I help mission-driven organizations <em>serve people well</em>.',d:'I handle the customer support, client communication, and front-line coordination that keep people cared for, and I build the systems and tools that make that work easier behind the scenes. I care as much about how the work feels to receive as I do about how reliably it runs.'},
-  therapy:{h:'I keep your <em>practice</em> running so you can focus on clients.',d:'I am an operations coordinator for therapists, solo practitioners, and group practices. I handle intake, client communication, scheduling, and the admin that pulls you away from sessions, and I build the systems and content that make the whole practice easier to run.'},
-  health:{h:'Healthcare operations that make care <em>safer and easier to access</em>.',d:'I am a healthcare operations professional focused on patient access, care coordination, and process improvement. I keep the front line running with care, and I use Lean Six Sigma and HIPAA-aware systems to fix what slows care down. I start my BS in Healthcare Administration in July.'},
-  nonprofit:{h:'I help mission-driven teams <em>put AI to work</em>.',d:'I teach people to use AI well, build practical tools with it, and leave work that keeps running. I turn AI from an intimidating idea into something a non-technical team actually uses day to day.'}
+  therapy:{h:'Focus on your clients, not <em>administrative chaos</em>.',d:'I help therapy practices improve intake, referrals, scheduling, client communication, and the operational systems behind them, so the work stops living in your head and you can focus on care.'},
+  health:{h:'Healthcare <em>Administration</em>.',d:'I support patient access, workflow improvement, program coordination, and operational excellence, using Lean Six Sigma and HIPAA-aware systems to fix what slows care down. I am starting a Bachelors in Healthcare Administration at Western Governors University in July 2026.'},
+  nonprofit:{h:'Practical AI adoption for <em>mission-driven teams</em>.',d:'I help nonprofits and healthcare teams adopt AI the way people actually change: with context, support, and a real say in how it is used. I treat adoption as a human process, not a technical one, and I use AI to expand what your team can do, never to replace their judgment.'}
 };
 function applyFilter(key){
   document.querySelectorAll('[data-aud]').forEach(function(el){
@@ -1510,6 +1730,13 @@ function landingReveal(){
   if(!landingMode) return;
   var c=document.getElementById('contact');
   if(c && window.scrollY>40){ c.classList.remove('landing-hidden'); c.classList.add('landing-reveal'); }
+}
+function wTile(el){
+  el.classList.toggle('revealed');
+  var w=el.closest('.widget'); if(!w)return;
+  var tiles=w.querySelectorAll('.wtile');
+  var any=Array.prototype.some.call(tiles,function(t){return t.classList.contains('revealed');});
+  var sum=w.querySelector('.wsum'); if(sum) sum.classList.toggle('show', any);
 }
 window.addEventListener('scroll',landingReveal,{passive:true});
 (function(){
@@ -1594,7 +1821,7 @@ var TL_ROLES=[
    bullets:['Evaluated Molina Healthcare with the Incorruptible framework and proposed a governance fix, presented to author Eric Ries.'],
    skills:['Claude','Strategic Analysis','Research Synthesis','Stakeholder Communication']},
   {role:'Operations Coordinator',org:'Femme and Them, PLLC',type:'Part-time',start:[2025,10],end:[2026,7],color:'#E8912A',
-   bullets:['Used Claude and Google Apps Script to design and deploy AI-assisted operational systems for a 10+ clinician behavioral health practice, creating infrastructure that remains in active use.','Scoped, built, documented, and implemented systems, supporting adoption through training and knowledge transfer so tools could be maintained independently.','Owned end-to-end operations for a trans, queer, and neurodiversity-affirming practice: intake, scheduling, referral coordination, client communication, and admin infrastructure.','Led workforce development for 10+ team members with SOPs, training modules, and onboarding programs.'],
+   bullets:['Discover and scope: mapped operations for a 10+ clinician behavioral health practice and defined what to fix first, from intake to referrals.','Build: used Claude and Google Apps Script to design and deploy AI-assisted systems and a live referral tool that remain in active use.','Enable: trained the team with SOPs, onboarding, and hands-on support so non-technical staff could use the tools with confidence.','Hand off: documented every system and transferred ownership so the tools keep running without me.','Exercise judgment: kept clinical and crisis decisions with people, and built AI only where it genuinely helped.'],
    skills:['Claude','Google Apps Script','AI Workflow Design','SOP Development','Training','Healthcare Operations']},
   {role:'Strategy & Operations Extern',org:'Institute of Mental Health, Singapore',type:'Externship',start:[2026,2],end:[2026,4],color:'#D4782F',
    bullets:['Analyzed clinical workflows across an acute mental health hospital to find patient-experience gaps and operational inefficiencies.','Applied root cause analysis, fishbone diagrams, and 5 Whys to surface systemic breakdowns.','Synthesized findings into structured reports and evidence-based recommendations.','Designed early-stage decision-support prototypes from the workflow insights.'],
@@ -1749,7 +1976,7 @@ function sgIcon(cat){ return '<div class="sg-ic" style="background:'+sgHexA(cat.
 function sgShowCategories(){
   var body=document.getElementById('sgBody'); if(!body)return; body.innerHTML='';
   var back=document.getElementById('sgBack'); if(back)back.style.display='none';
-  var path=document.getElementById('sgPath'); if(path)path.textContent='skills / ';
+  var path=document.getElementById('sgPath'); if(path)path.textContent='hire-someone-with-real-skills / ';
   var grid=document.createElement('div'); grid.className='sg-cats';
   SKILL_DATA.children.forEach(function(cat,i){
     var cell=document.createElement('div'); cell.className='sg-cat'; cell.style.setProperty('--cc',cat.c);
@@ -1764,7 +1991,7 @@ function sgShowSkills(i){
   var cat=SKILL_DATA.children[i];
   var body=document.getElementById('sgBody'); if(!body)return; body.innerHTML='';
   var back=document.getElementById('sgBack'); if(back)back.style.display='';
-  var path=document.getElementById('sgPath'); if(path)path.textContent='skills / '+cat.name.toLowerCase().replace(/[^a-z0-9]+/g,'_').replace(/^_|_$/g,'');
+  var path=document.getElementById('sgPath'); if(path)path.textContent='hire-someone-with-real-skills / '+cat.name.toLowerCase().replace(/[^a-z0-9]+/g,'_').replace(/^_|_$/g,'');
   track('skill_topic_open',{topic:cat.name});
   var head=document.createElement('div'); head.className='sg-head';
   head.innerHTML=sgIcon(cat)+'<h4 style="color:'+cat.c+'">'+cat.name+'</h4>';
@@ -1811,19 +2038,28 @@ var ROLE_ROTATIONS=[
 
 // ===== AI project case studies (expand above trauma section) =====
 var AI_CASES={
-  referral:{eyebrow:'Live tool · Behavioral health',title:'Referral Finder',link:'https://script.google.com/macros/s/AKfycbxIz2Jema8YNkJVo1NyDZ6kNaWqJ-hKwzRklRHlUF5ixH-vWY0tcgYvpknuPsZyczNl9g/exec',linkText:'Open the live tool →',body:'<h4>The problem</h4><p>Clinicians needed to refer clients to outside providers, but the list lived in scattered spreadsheets and inboxes. Finding an affirming, in-network match meant guesswork and lost time.</p><h4>What I built</h4><p>A searchable directory of 160+ affirming providers, filterable by specialty and insurance, built with Claude on the practice\'s own Google tools. A verification step keeps entries trustworthy, and an annual reset expires stale checks so the list stays current.</p><h4>The result</h4><p>It is live and in daily use. Staff find a match in seconds instead of minutes, and the directory stays accurate as providers and plans change.</p>'},
-  dashboards:{eyebrow:'Internal tool · Behavioral health',title:'Intake & clinician dashboards',link:'',linkText:'',body:'<h4>The problem</h4><p>Three separate intake channels fed new clients into the practice with no shared view. Things slipped, and no one could see the whole picture at once.</p><h4>What I built</h4><p>I merged the three channels into one routing pipeline and built a private dashboard for each clinician, all inside the practice\'s compliant tools so no data left the building.</p><h4>The result</h4><p>Intake is now one clear flow, each clinician sees only what is theirs, and the system runs without me maintaining it.</p>'},
-  postdischarge:{eyebrow:'Workflow design · Acute psychiatric hospital',title:'Post-discharge follow-up',link:'',linkText:'',body:'<h4>The problem</h4><p>After discharge from an acute mental health hospital, follow-up depended on memory and goodwill. The highest-risk moment in care had the least structure.</p><h4>What I built</h4><p>Starting from root cause analysis, I designed a closed-loop care-transition system: an owner assigned at discharge, follow-up timing based on risk, and a role-based dashboard so every handoff is visible and nothing relies on someone remembering.</p><h4>The result</h4><p>A clear, accountable process that turns the riskiest gap in care into a tracked, owned workflow.</p>'},
+  referral:{eyebrow:'Live tool · Behavioral health',title:'Referral Finder',link:'https://script.google.com/macros/s/AKfycbxIz2Jema8YNkJVo1NyDZ6kNaWqJ-hKwzRklRHlUF5ixH-vWY0tcgYvpknuPsZyczNl9g/exec',linkText:'Open the live tool →',body:'<h4>The problem</h4><p>Clinicians needed to refer clients to outside providers, but the list lived in scattered spreadsheets and inboxes. Finding an affirming, in-network match meant guesswork and lost time.</p><h4>What I built</h4><p>A searchable directory of 160+ affirming providers, filterable by specialty and insurance, built with Claude on the practice\'s own Google tools, under real constraints: HIPAA, no new vendor, and a $0 budget, and simple enough for non-technical staff to run. A verification step keeps entries trustworthy, and an annual reset expires stale checks so the list stays current.</p><h4>The result</h4><p>It is live and in daily use. Staff find a match in seconds instead of minutes, and the directory stays accurate as providers and plans change. I trained the non-technical staff who use it to maintain it, so it keeps running without me.</p>',full:'cs-referral'},
+  dashboards:{eyebrow:'Internal tool · Behavioral health',title:'Intake & clinician dashboards',link:'',linkText:'',body:'<h4>The problem</h4><p>Three separate intake channels fed new clients into the practice with no shared view. Things slipped, and no one could see the whole picture at once.</p><h4>What I built</h4><p>I merged the three channels into one routing pipeline and built a private dashboard for each clinician, all inside the practice\'s compliant tools so no data left the building.</p><h4>The result</h4><p>Intake is now one clear flow, each clinician sees only what is theirs, and the system runs without me maintaining it.</p>',full:'cs-dashboards'},
+  postdischarge:{eyebrow:'Workflow design · Acute psychiatric hospital',title:'Post-discharge follow-up',link:'',linkText:'',body:'<h4>The problem</h4><p>After discharge from an acute mental health hospital, follow-up depended on memory and goodwill. The highest-risk moment in care had the least structure.</p><h4>What I built</h4><p>Starting from root cause analysis, I designed a closed-loop care-transition system: an owner assigned at discharge, follow-up timing based on risk, and a role-based dashboard so every handoff is visible and nothing relies on someone remembering.</p><h4>The result</h4><p>A clear, accountable process that turns the riskiest gap in care into a tracked, owned workflow.</p>',full:'cs-imh'},
   healthsync:{eyebrow:'Capstone · Health tech marketing',title:'HealthSync campaign',link:'https://www.youtube.com/watch?v=HieuRHQdmMo',linkText:'Watch the walkthrough →',body:'<h4>The concept</h4><p>HealthSync is a health tech app concept that syncs smartwatch data with EHR systems. I built its full marketing campaign as my General Assembly capstone.</p><h4>What I did</h4><p>Using AI tools throughout, I ran market research and positioning, set the strategy, and produced the finished creative, framing the product around its audience and the problem it solves.</p><h4>The result</h4><p>A complete, presentation-ready campaign that led to my Instructional Associate role at General Assembly.</p>'}
 };
 function openAiCase(key){
   var c=AI_CASES[key]; if(!c)return;
   var html='<div class="aci-eyebrow">'+c.eyebrow+'</div><h3>'+c.title+'</h3>'+c.body;
   if(c.link){ html+='<a class="aci-link" href="'+c.link+'" target="_blank" rel="noopener">'+c.linkText+'</a>'; }
+  if(c.full){ html+='<button class="aci-full" onclick="openAiFull(\''+key+'\')">Read the full case study &rarr;</button>'; }
   document.getElementById('aiCaseBody').innerHTML=html;
   var sec=document.getElementById('aiCaseSection'); sec.style.display='';
   track('ai_case_open',{tool:key});
   window.scrollTo({top:sec.offsetTop-70,behavior:'smooth'});
+}
+function openAiFull(key){
+  var c=AI_CASES[key]; if(!c||!c.full)return;
+  var src=document.getElementById(c.full); if(!src)return;
+  var card=src.querySelector('.cs-card');
+  document.getElementById('aiCaseBody').innerHTML='<button class="aci-back" onclick="openAiCase(\''+key+'\')">&#8592; Back to summary</button>'+(card?card.outerHTML:'');
+  track('ai_case_full',{tool:key});
+  var sec=document.getElementById('aiCaseSection'); window.scrollTo({top:sec.offsetTop-70,behavior:'smooth'});
 }
 function closeAiCase(){ document.getElementById('aiCaseSection').style.display='none'; }
 function applyResumeLinks(url){
@@ -1846,6 +2082,12 @@ function resumeLink(ev){
 try{ var _ru=localStorage.getItem('dh_resume_url'); if(_ru) applyResumeLinks(_ru); }catch(e){}
 function docLinkPrompt(ev,key,label){
   if(ev) ev.preventDefault();
+  var DOC_DEFAULTS={
+    'summary-nonprofit':'https://drive.google.com/file/d/1i8unv22QafcO_w4HCKCxRv-rm0jgRSUv/view?usp=sharing',
+    'summary-health':'https://drive.google.com/file/d/1sV7DUMcPM_PavpWW5j1sdq5E4bEaKgG4/view',
+    'summary-therapy':'https://drive.google.com/file/d/148BFBvHRLq0hgqSH92UYtdd6ZHOsfH_i/view'
+  };
+  if(DOC_DEFAULTS[key]){ window.open(DOC_DEFAULTS[key],'_blank','noopener'); if(typeof track==='function') track('doc_open',{key:key}); return false; }
   var K='dh_'+key, stored=null;
   try{ stored=localStorage.getItem(K); }catch(e){}
   if(!stored){
