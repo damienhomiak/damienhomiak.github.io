@@ -73,6 +73,14 @@ body.is-landing .hero-art:hover .brand-mark{animation:spin 7s linear infinite}
 .launcher{position:fixed;inset:0;z-index:9999;background:radial-gradient(circle at 50% 44%,#fbfaf7 0%,#f2efe9 64%,#e9e6df 100%);display:none;align-items:center;justify-content:center;opacity:0;transition:opacity .35s}
 .launcher::before{content:"";position:absolute;inset:0;background-image:radial-gradient(rgba(13,107,110,.05) 1.4px,transparent 1.5px);background-size:30px 30px;pointer-events:none;-webkit-mask:radial-gradient(circle at 50% 45%,#000 28%,transparent 80%);mask:radial-gradient(circle at 50% 45%,#000 28%,transparent 80%)}
 .launcher.open{display:flex;opacity:1}
+.lx-cap{position:absolute;top:8.5%;left:0;right:0;text-align:center;font-family:'DM Sans',sans-serif;font-weight:600;font-size:1.05rem;color:var(--gray);letter-spacing:.2px;padding:0 20px}
+.stat-band{display:flex;align-items:center;gap:12px;font-size:.92rem;color:var(--gray);line-height:1.6;margin:2px 0}
+.stat-band b{color:var(--orange-deep);font-weight:700}
+.sb-ico{flex:0 0 auto;width:26px;height:26px;color:var(--teal);display:flex;align-items:center;justify-content:center}
+.sb-ico svg{width:100%;height:100%}
+.fsocial{width:32px;height:32px;border-radius:9px;border:1px solid var(--border);background:#fff;color:var(--teal);display:inline-flex;align-items:center;justify-content:center;transition:all .15s}
+.fsocial:hover{background:var(--teal);color:#fff;border-color:var(--teal)}
+.fsocial svg{width:16px;height:16px}
 .lx-close{position:absolute;top:18px;right:24px;background:none;border:none;color:var(--gray);font-size:2.1rem;line-height:1;cursor:pointer;z-index:6}
 .lx-close:hover{color:var(--dark)}
 .lx-stage{position:relative;width:min(92vw,540px);height:min(92vw,540px);display:flex;align-items:center;justify-content:center}
@@ -91,6 +99,13 @@ body.is-landing .hero-art:hover .brand-mark{animation:spin 7s linear infinite}
 .lx-left{left:0;top:50%;margin-top:calc(min(31vw,140px) / -2);animation-delay:.42s}
 .lx-right{right:0;top:50%;margin-top:calc(min(31vw,140px) / -2);animation-delay:.52s}
 .lx-bottom{bottom:0;left:50%;margin-left:calc(min(31vw,140px) / -2);animation-delay:.62s}
+.lx-circle{flex-direction:column;gap:6px}
+.lx-ico{width:26px;height:26px;color:var(--teal-deep);display:flex;align-items:center;justify-content:center}
+.lx-ico svg{width:100%;height:100%}
+.lx-left{background:#fff7ec;border-color:#f0e2cb}
+.lx-top{background:#fdedd1;border-color:#eed9af}
+.lx-right{background:#fbe0b4;border-color:#ebcd97}
+.lx-bottom{background:#f9d59e;border-color:#e7c182}
 @keyframes lxfade{to{opacity:1}}
 .lx-loading .lx-logo{opacity:0;animation:none!important;transition:opacity .45s ease}
 .lx-loading .lx-key{opacity:0;transition:opacity .45s ease}
@@ -146,6 +161,8 @@ body.is-landing .hero-art:hover .brand-mark{animation:spin 7s linear infinite}
 .lane-intro h2{font-family:'DM Sans',sans-serif;font-size:clamp(1.4rem,2.5vw,1.95rem);font-weight:700;letter-spacing:-.6px;line-height:1.16;margin-bottom:12px}
 .lane-intro p{color:var(--gray);font-size:.97rem;line-height:1.74;max-width:700px;margin-bottom:12px}
 .lane-intro p:last-of-type{margin-bottom:0}
+.health-intro{background:#dce5e3;border-left:1px solid var(--border);position:relative;isolation:isolate;overflow:hidden}
+.health-intro::after{content:"";position:absolute;inset:0;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='150' height='150'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");opacity:.07;pointer-events:none;z-index:-1}
 .lane-btns{display:flex;gap:10px;flex-wrap:wrap;margin-top:20px}
 
 /* CAROUSEL */
@@ -832,6 +849,39 @@ nav{padding:0 20px}.nav-links{gap:14px}.nav-links a:not(.nav-cta){display:none}
 .claude-credit .brand-mark{width:18px;height:18px;flex:0 0 18px}
 .claude-credit-foot{padding:26px 20px}
 @media(max-width:680px){.signs-list,.ba-grid,.framework,.framework.six,.metric-strip,.two-col{grid-template-columns:1fr}.framework{grid-template-columns:1fr 1fr}.metric-strip{grid-template-columns:1fr 1fr}}
+/* ===== Dark mode (auto, system preference) ===== */
+@media (prefers-color-scheme: dark){
+  :root{
+    --off-white:#14181a;--dark:#e9edec;--gray:#9aa6a4;--gray-light:#7e8a88;
+    --border:#283032;--card:#1b2123;--teal-light:#15302f;--orange-soft:#2a2113;
+    --shadow:0 2px 12px rgba(0,0,0,.45);--shadow-hover:0 10px 34px rgba(0,0,0,.6)
+  }
+  body{background:var(--off-white);color:var(--dark)}
+  nav{background:rgba(20,24,26,.92);border-bottom-color:var(--border)}
+  a,.nav-logo .nl-name{color:#4cc3c0}
+  .nav-links a{color:var(--gray)}
+  .nav-links a:hover{color:#4cc3c0}
+  .launcher{background:radial-gradient(circle at 50% 44%,#1b2123 0%,#14181a 64%,#0e1213 100%)}
+  .lane-intro{background:var(--card);border-color:var(--border)}
+  .health-intro{background:#1d2627;border-left-color:var(--border)}
+  .cs-card,.exp-card,.lead-card,.framework,.fw-step,.metric,.ai-card,.about3,.about-photo,.cover-letter,.contact-inner,.np-intro,.why-show,.testi-plain,.rebecca-ad,.car-card,.video-section,.flow-node,.mini-card{background:var(--card)!important;border-color:var(--border)!important}
+  .pill,.a3chip,.built-chip,.signs-list li,.philo-bubble{background:#222a2c!important;border-color:var(--border)!important;color:var(--dark)!important}
+  .section-title,h1,h2,h3,h4,.about3-name,.about3-lead,.tp-quote,.tp-name,.lane-intro h2,.cs-title{color:var(--dark)}
+  .philo{background:#1e2422!important}
+  footer{background:#0e1213}
+  .fsocial{background:#1b2123;border-color:var(--border)}
+  img,.about3-photo img{filter:brightness(.92)}
+}
+/* ===== Mobile trims ===== */
+@media (max-width:600px){
+  .section{padding-top:30px;padding-bottom:30px}
+  .hero-art{display:none}
+  .lane-intro{padding:22px 20px}
+  .lx-circle{font-size:.72rem;padding:9px}
+  .lx-ico{width:20px;height:20px}
+  .lx-cap{font-size:.92rem;top:6%}
+  .stat-band{font-size:.86rem;flex-wrap:wrap}
+}
 </style>
 </head>
 <body>
@@ -903,7 +953,7 @@ nav{padding:0 20px}.nav-links{gap:14px}.nav-links a:not(.nav-cta){display:none}
       </ul>
       <div class="lane-btns">
         <a href="#contact" class="btn-primary">Talk to me about your practice</a>
-        <a href="https://spectralconsulting.square.site/" target="_blank" rel="noopener" class="btn-secondary">Book a free consultation</a>
+        <a href="https://spectralconsulting.square.site/" target="_blank" rel="noopener" class="btn-secondary">Book a free 30-min operations review</a>
       </div>
     </div>
   </div>
@@ -993,7 +1043,7 @@ nav{padding:0 20px}.nav-links{gap:14px}.nav-links a:not(.nav-cta){display:none}
 
   <!-- ============ HEALTHCARE ============ -->
   <div class="section tight lane-only" data-aud="health">
-    <div class="lane-intro">
+    <div class="lane-intro health-intro">
       <div class="lane-eyebrow"><span class="brand-mark"></span>For healthcare administration</div>
       <h2>Healthcare operations that make care safer and easier to access.</h2>
       <p>I am a healthcare operations professional who has owned end-to-end operations for a 10-plus clinician behavioral health practice and analyzed clinical workflows inside an acute psychiatric hospital.</p>
@@ -1006,6 +1056,11 @@ nav{padding:0 20px}.nav-links{gap:14px}.nav-links a:not(.nav-cta){display:none}
         <span class="pill">Patient access</span><span class="pill">Care coordination</span><span class="pill">Care transitions</span><span class="pill">Insurance verification</span><span class="pill">HIPAA compliance</span><span class="pill">Lean Six Sigma</span><span class="pill">Root cause analysis</span><span class="pill">Revenue cycle basics</span><span class="pill">Payroll support</span><span class="pill">SOPs &amp; documentation</span>
       </div>
     </div>
+  </div>
+
+  <!-- Health: quick numbers (high) -->
+  <div class="section tight" data-aud="health" style="padding-bottom:0">
+    <div class="stat-band"><span class="sb-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/><path d="M4.5 11.6H8l1.6-3.2 2.3 5.4 1.6-2.2H19.5"/></svg></span><span class="sb-txt"><b>160+</b> providers in a referral network I built &nbsp;·&nbsp; <b>3</b> intake channels unified into one &nbsp;·&nbsp; <b>10+</b> clinician practice &nbsp;·&nbsp; <b>$0</b> new software</span></div>
   </div>
 
   <!-- Cappy quote high in health -->
@@ -1218,15 +1273,6 @@ nav{padding:0 20px}.nav-links{gap:14px}.nav-links a:not(.nav-cta){display:none}
     </div>
   </div>
 
-  <!-- Psychological safety carousel -->
-  <div class="section tight" data-aud="nonprofit">
-    <div class="section-label"><span class="brand-mark"></span>Teaching practice</div>
-    <h2 class="section-title" style="font-size:1.4rem">Psychological safety and creativity in the room</h2>
-    <p class="section-sub" style="margin-bottom:20px">As an Adobe Creative Educator, I use creativity to build connection and make it safe to learn something new. This short series walks through how.</p>
-    <div class="carousel" data-int="7000" style="max-width:540px;margin:0 auto;"><div class="cstrack" style="aspect-ratio:4/3;"><div class="cframe active"><img src="./ACE%201.png" alt="Slide 1" loading="lazy" onerror="cfail(this,1)"></div><div class="cframe"><img src="./ACE%202.png" alt="Slide 2" loading="lazy" onerror="cfail(this,2)"></div><div class="cframe"><img src="./ACE%203.png" alt="Slide 3" loading="lazy" onerror="cfail(this,3)"></div><div class="cframe"><img src="./ACE%204.png" alt="Slide 4" loading="lazy" onerror="cfail(this,4)"></div></div><div class="cdots"></div></div>
-    <div class="carousel-cap">On psychological safety and using creativity to make connections while teaching</div>
-  </div>
-
   <!-- College (orange, distinct) -->
   <div class="section tight" data-aud="nonprofit">
     <div class="college-card">
@@ -1236,16 +1282,6 @@ nav{padding:0 20px}.nav-links{gap:14px}.nav-links a:not(.nav-cta){display:none}
         <h3>Supporting students through real barriers</h3>
         <div class="org">Office Assistant &amp; Peer Mentor · South Puget Sound Community College</div>
         <p>I ran scheduling, data, and student-facing communication for a student services program, and supported the IGNITE retention initiative for students navigating systemic barriers across race, 2SLGBTQIA+ identity, disability, age, and income. I helped train other mentors and connected students to academic and personal support. This is the social-impact pull behind my work.</p>
-      </div>
-    </div>
-  </div>
-
-  <!-- AI view Cappy quote 1 -->
-  <div class="section tight" data-aud="nonprofit">
-    <div class="testi-early">
-      <div>
-        <q>Damien operates as external executive functioning for our team. They bring clarity where there's complexity, structure where there's ambiguity, and momentum where things might otherwise stall.</q>
-        <div class="who"><b>Cappy Shapiro</b>, Therapist · <a href="https://www.femmeandthem.co" target="_blank" rel="noopener">Femme &amp; Them, PLLC</a></div>
       </div>
     </div>
   </div>
@@ -1268,6 +1304,15 @@ nav{padding:0 20px}.nav-links{gap:14px}.nav-links a:not(.nav-cta){display:none}
         <p>In my Adobe academy cohorts, some of the most anxious learners were older professionals who felt technology had moved on without them. I slowed down, connected each new tool to something they already knew, celebrated small wins out loud, and gave them a judgment-free way to ask questions outside the group. Most went from "I will never get this" to teaching the person next to them. That shift, from left behind to leading, is the whole point.</p>
       </div>
     </div>
+  </div>
+
+  <!-- Psychological safety carousel (moved under trauma) -->
+  <div class="section tight" data-aud="nonprofit">
+    <div class="section-label"><span class="brand-mark"></span>Teaching practice</div>
+    <h2 class="section-title" style="font-size:1.4rem">Psychological safety and creativity in the room</h2>
+    <p class="section-sub" style="margin-bottom:20px">As an Adobe Creative Educator, I use creativity to build connection and make it safe to learn something new. This short series walks through how.</p>
+    <div class="carousel" data-int="7000" style="max-width:540px;margin:0 auto;"><div class="cstrack" style="aspect-ratio:4/3;"><div class="cframe active"><img src="./ACE%201.png" alt="Slide 1" loading="lazy" onerror="cfail(this,1)"></div><div class="cframe"><img src="./ACE%202.png" alt="Slide 2" loading="lazy" onerror="cfail(this,2)"></div><div class="cframe"><img src="./ACE%203.png" alt="Slide 3" loading="lazy" onerror="cfail(this,3)"></div><div class="cframe"><img src="./ACE%204.png" alt="Slide 4" loading="lazy" onerror="cfail(this,4)"></div></div><div class="cdots"></div></div>
+    <div class="carousel-cap">On psychological safety and using creativity to make connections while teaching</div>
   </div>
 
   <!-- AI projects -->
@@ -1355,6 +1400,15 @@ nav{padding:0 20px}.nav-links{gap:14px}.nav-links a:not(.nav-cta){display:none}
   </div>
 </div>
 
+  <!-- AI view Cappy quote (moved under skills explorer, minimal) -->
+  <div class="section tight" data-aud="nonprofit">
+    <div class="testi-plain">
+      <p class="tp-quote">"Damien operates as external executive functioning for our team. They bring clarity where there's complexity, structure where there's ambiguity, and momentum where things might otherwise stall."</p>
+      <div class="tp-name">Cappy Shapiro</div>
+      <div class="tp-role">Therapist · <a href="https://www.femmeandthem.co" target="_blank" rel="noopener">Femme &amp; Them, PLLC</a></div>
+    </div>
+  </div>
+
 <!-- SKILLS (everything view only; therapy/health/nonprofit use the interactive viz) -->
 <div id="skills" data-aud="all">
   <div class="section">
@@ -1414,7 +1468,7 @@ nav{padding:0 20px}.nav-links{gap:14px}.nav-links a:not(.nav-cta){display:none}
       <div class="about-text">
         <p>I keep practices organized and responsive, and I care as much about how the work feels to receive as whether it runs: listen first, communicate clearly, follow through, and leave things better than I found them.</p>
         <p style="font-family:'DM Sans',sans-serif;font-size:1.15rem;font-weight:700;color:var(--teal);margin-top:8px">Ready to take the busywork off your plate?</p>
-        <a href="https://spectralconsulting.square.site/" target="_blank" rel="noopener" class="btn-orange" data-track="about_therapy_book" style="margin-top:6px">Book a free consultation</a>
+        <a href="https://spectralconsulting.square.site/" target="_blank" rel="noopener" class="btn-orange" data-track="about_therapy_book" style="margin-top:6px">Book a free 30-min operations review</a>
       </div>
     </div>
   </div>
@@ -1444,7 +1498,7 @@ nav{padding:0 20px}.nav-links{gap:14px}.nav-links a:not(.nav-cta){display:none}
           <span class="a3chip">Project-based work</span>
         </div>
         <div class="about3-stick">
-          <p class="about3-close">If you need someone who can make sense of complexity, support people well, and build systems that last, I would love to connect.</p>
+          <p class="about3-close" style="text-align:center">If you need someone who can make sense of complexity, support people well, and build systems that last, I would love to connect.</p>
           <div class="about3-arrow"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg></div>
         </div>
       </div>
@@ -1522,6 +1576,12 @@ nav{padding:0 20px}.nav-links{gap:14px}.nav-links a:not(.nav-cta){display:none}
       <a class="btn-light lcta-btn" href="#contact" data-track="cta_health_contact">Contact me</a>
     </div>
   </div></div></div>
+  <div data-aud="nonprofit" class="lane-only"><div class="section tight"><div class="lane-cta reveal-on-scroll">
+    <h3>Bring practical AI to your team.</h3>
+    <div class="lcta-row">
+      <a class="btn-orange lcta-btn" href="#contact" data-track="cta_np_contact">Discuss AI training for your team</a>
+    </div>
+  </div></div></div>
   <div data-aud="all" class="lane-only"><div class="section tight"><div class="lane-cta">
     <h3>Let's talk about how I can help.</h3>
     <a class="btn-orange lcta-btn" href="#contact" data-track="cta_all_contact">Get in touch</a>
@@ -1578,9 +1638,9 @@ nav{padding:0 20px}.nav-links{gap:14px}.nav-links a:not(.nav-cta){display:none}
     <div class="footer-brand"><span class="brand-mark"></span><div class="fb-name">Damien Homiak<span id="fbTag">Systems, support, and ethical AI</span></div></div>
     <div class="footer-meta">
       <div class="footer-share">
-        <button class="fshare" data-lane="therapy" title="Copy link to Therapy practice support" aria-label="Copy link to Therapy practice support" onclick="copyLane('therapy',this)"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.5.5l3-3a5 5 0 0 0-7-7l-1.5 1.5"/><path d="M14 11a5 5 0 0 0-7.5-.5l-3 3a5 5 0 0 0 7 7l1.5-1.5"/></svg></button>
-        <button class="fshare" data-lane="health" title="Copy link to Healthcare administration" aria-label="Copy link to Healthcare administration" onclick="copyLane('health',this)"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.5.5l3-3a5 5 0 0 0-7-7l-1.5 1.5"/><path d="M14 11a5 5 0 0 0-7.5-.5l-3 3a5 5 0 0 0 7 7l1.5-1.5"/></svg></button>
-        <button class="fshare" data-lane="nonprofit" title="Copy link to AI reskilling for nonprofits" aria-label="Copy link to AI reskilling for nonprofits" onclick="copyLane('nonprofit',this)"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.5.5l3-3a5 5 0 0 0-7-7l-1.5 1.5"/><path d="M14 11a5 5 0 0 0-7.5-.5l-3 3a5 5 0 0 0 7 7l1.5-1.5"/></svg></button>
+        <a class="fsocial" href="https://www.linkedin.com/in/damienhomiak" target="_blank" rel="noopener" title="LinkedIn" aria-label="LinkedIn"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M19 3a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h14zM8.34 17v-6.8H6.06V17h2.28zM7.2 9.16a1.32 1.32 0 1 0 0-2.64 1.32 1.32 0 0 0 0 2.64zM18 17v-3.73c0-1.99-.43-3.52-2.75-3.52-1.12 0-1.87.61-2.18 1.19h-.03V10.2H10.8V17h2.27v-3.36c0-.89.17-1.75 1.27-1.75 1.09 0 1.1 1.02 1.1 1.81V17H18z"/></svg></a>
+        <a class="fsocial" href="mailto:damienhomiak@gmail.com" title="Email damienhomiak@gmail.com" aria-label="Email"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="m3 7 9 6 9-6"/></svg></a>
+        <a class="fsocial" href="tel:+13604864267" title="Call or text (360) 486-4267" aria-label="Call or text"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.13.96.36 1.9.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.91.34 1.85.57 2.81.7A2 2 0 0 1 22 16.92z"/></svg></a>
       </div>
       Olympia, WA &amp; Remote &nbsp;·&nbsp; &copy; 2026
     </div>
@@ -1591,12 +1651,13 @@ nav{padding:0 20px}.nav-links{gap:14px}.nav-links a:not(.nav-cta){display:none}
 <!-- Logo launcher -->
 <div id="launcher" class="launcher" aria-hidden="true">
   <button class="lx-close" onclick="closeLauncher()" aria-label="Close menu">&times;</button>
+  <div class="lx-cap">What brings you here?</div>
   <div class="lx-stage" id="lxStage">
     <div class="lx-rings"><span></span><span></span><span></span></div>
-    <button class="lx-circle lx-top" onclick="lxGo('health')"><span>Healthcare administration</span></button>
-    <button class="lx-circle lx-left" onclick="lxGo('therapy')"><span>Therapy practice support</span></button>
-    <button class="lx-circle lx-right" onclick="lxGo('nonprofit')"><span>AI reskilling for nonprofits</span></button>
-    <button class="lx-circle lx-bottom" onclick="lxSomethingElse()"><span>Something else</span></button>
+    <button class="lx-circle lx-top" onclick="lxGo('health')"><span class="lx-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/><path d="M4.5 11.6H8l1.6-3.2 2.3 5.4 1.6-2.2H19.5"/></svg></span><span>Healthcare administration</span></button>
+    <button class="lx-circle lx-left" onclick="lxGo('therapy')"><span class="lx-ico"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2c.5 4.9 2.2 6.6 8 7-5.8.5-7.5 2.1-8 8-.5-5.9-2.2-7.5-8-8 5.8-.4 7.5-2.1 8-7z"/></svg></span><span>Therapy practice support</span></button>
+    <button class="lx-circle lx-right" onclick="lxGo('nonprofit')"><span class="lx-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M12 4v16M5 7.5l14 9M19 7.5l-14 9"/></svg></span><span>AI reskilling for nonprofits</span></button>
+    <button class="lx-circle lx-bottom" onclick="lxSomethingElse()"><span class="lx-ico"><svg viewBox="0 0 24 24"><text x="12" y="18.5" text-anchor="middle" font-family="'DM Sans',sans-serif" font-size="19" font-weight="700" fill="currentColor">?</text></svg></span><span>Something else</span></button>
     <div class="lx-key" id="lxKey"><span class="lx-logo brand-mark"></span></div>
   </div>
   <div class="lx-else" id="lxElse">
@@ -1644,7 +1705,7 @@ document.addEventListener('click',function(ev){
   if(a){ track('link_click',{id:a.getAttribute('data-track'),lane:currentKey}); }
 },true);
 var HERO={
-  all:{h:'I help mission-driven organizations <em>serve people well</em>.',d:'I handle the customer support, client communication, and front-line coordination that keep people cared for, and I build the systems and tools that make that work easier behind the scenes. I care as much about how the work feels to receive as I do about how reliably it runs.'},
+  all:{h:'Operations, patient access, and practical AI for <em>healthcare and behavioral health teams</em>.',d:'I handle the customer support, client communication, and front-line coordination that keep people cared for, and I build the systems and tools that make that work easier behind the scenes. I care as much about how the work feels to receive as I do about how reliably it runs.'},
   therapy:{h:'Focus on your clients, not <em>administrative chaos</em>.',d:'I help therapy practices improve intake, referrals, scheduling, client communication, and the operational systems behind them, so the work stops living in your head and you can focus on care.'},
   health:{h:'Healthcare <em>Administration</em>.',d:'I support patient access, workflow improvement, program coordination, and operational excellence, using Lean Six Sigma and HIPAA-aware systems to fix what slows care down. I am starting a Bachelors in Healthcare Administration at Western Governors University in July 2026.'},
   nonprofit:{h:'Practical AI adoption for <em>mission-driven teams</em>.',d:'I help nonprofits and healthcare teams adopt AI the way people actually change: with context, support, and a real say in how it is used. I treat adoption as a human process, not a technical one, and I use AI to expand what your team can do, never to replace their judgment.'}
@@ -2068,18 +2129,11 @@ function applyResumeLinks(url){
 }
 function resumeLink(ev){
   if(ev) ev.preventDefault();
-  var KEY='dh_resume_url', stored=null;
-  try{ stored=localStorage.getItem(KEY); }catch(e){}
-  if(!stored){
-    var url=window.prompt('Paste your Google Drive resume share link.\nSet sharing to "Anyone with the link can view" so it opens for everyone:');
-    if(!url) return false; url=url.trim(); if(!url) return false;
-    stored=url; try{ localStorage.setItem(KEY,url); }catch(e){}
-    applyResumeLinks(url);
-    if(typeof track==='function') track('resume_set',{});
-  }
-  window.open(stored,'_blank','noopener'); return false;
+  window.open('https://docs.google.com/document/d/1Lyqhci8hPM53UcZE9OOXKC3pNBsSQB8W/edit?usp=sharing','_blank','noopener');
+  if(typeof track==='function') track('resume_open',{});
+  return false;
 }
-try{ var _ru=localStorage.getItem('dh_resume_url'); if(_ru) applyResumeLinks(_ru); }catch(e){}
+applyResumeLinks('https://docs.google.com/document/d/1Lyqhci8hPM53UcZE9OOXKC3pNBsSQB8W/edit?usp=sharing');
 function docLinkPrompt(ev,key,label){
   if(ev) ev.preventDefault();
   var DOC_DEFAULTS={
