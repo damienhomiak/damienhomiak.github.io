@@ -1,0 +1,1116 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<base target="_top">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Intake Dashboard — Demo Mode</title>
+<style>
+/* ─── DEMO BANNER ─────────────────────────────────────────────────── */
+.demo-banner{
+  position:fixed; top:0; left:0; right:0; z-index:200;
+  background:linear-gradient(90deg,#5C3D2E,#8B4513,#5C3D2E);
+  color:#FFE4B5; font-size:12px; font-weight:700; letter-spacing:.6px;
+  text-align:center; padding:6px 12px; text-transform:uppercase;
+  box-shadow:0 2px 8px rgba(0,0,0,.4);
+  display:flex; align-items:center; justify-content:center; gap:10px;
+}
+.demo-banner .db-pill{
+  background:rgba(255,228,181,.15); border:1px solid rgba(255,228,181,.4);
+  padding:2px 10px; border-radius:999px; font-size:10px;
+}
+body{ padding-top:32px; } /* offset for banner */
+
+/* ─── THEME VARIABLES ─────────────────────────────────────────────── */
+:root{
+  --bg:#06050D; --bg2:#0B0918;
+  --ink:#ECE9F8; --mute:#9C97BC; --faint:#6E6A8C;
+  --glass:rgba(255,255,255,.045); --glass-2:rgba(255,255,255,.08); --edge:rgba(255,255,255,.10);
+  --violet:#B79CF0; --teal:#5FD3B2; --pink:#EBB6D6; --orange:#F0A35C;
+  --plan:#C9A2F0; --finder:#5FD3B2;
+  --green-bg:rgba(95,211,178,.14); --grey-bg:rgba(255,255,255,.06); --violet-bg:rgba(183,156,240,.16);
+  --amber:#E7B36A; --amber-bg:rgba(231,179,106,.14); --rose:#F0888A; --rose-bg:rgba(240,136,138,.14);
+  --grid:rgba(255,255,255,.08); --r:22px; --skyop:1; --btnaccent:#6E5AC0;
+}
+:root[data-theme="light"]{
+  --bg:#EAD9DF; --bg2:#F7F3F1;
+  --ink:#211B1F; --mute:#473742; --faint:#7C6E74;
+  --glass:rgba(247,243,241,.66); --glass-2:rgba(247,243,241,.9); --edge:rgba(92,74,86,.24);
+  --violet:#4E3C49; --teal:#46553F; --pink:#955073; --orange:#8A5E38;
+  --plan:#8E4585; --finder:#46553F;
+  --green-bg:rgba(85,99,87,.22); --grey-bg:rgba(92,74,86,.09); --violet-bg:rgba(78,60,73,.15);
+  --amber:#8A5E38; --amber-bg:rgba(138,94,56,.16); --rose:#A85254; --rose-bg:rgba(168,82,84,.16);
+  --grid:rgba(92,74,86,.16); --skyop:.5; --btnaccent:#5C4A56;
+}
+*{ box-sizing:border-box; }
+html,body{ margin:0; }
+body{ font-family:system-ui,-apple-system,"Segoe UI",Arial,sans-serif; color:var(--ink); line-height:1.55; font-weight:400; background:var(--bg); min-height:100vh; -webkit-text-size-adjust:100%; }
+
+/* ─── NIGHT SKY ───────────────────────────────────────────────────── */
+.sky{ position:fixed; inset:0; z-index:-3; pointer-events:none; opacity:var(--skyop);
+  background:
+    radial-gradient(125% 72% at 50% 120%, rgba(183,156,240,.22) 0%, rgba(95,211,178,.10) 32%, transparent 60%),
+    radial-gradient(85% 55% at 10% -8%, rgba(124,98,200,.16) 0%, transparent 55%),
+    linear-gradient(180deg,var(--bg) 0%, var(--bg2) 100%); }
+.stars,.stars2{ position:fixed; inset:0; z-index:-2; pointer-events:none; background-repeat:repeat; opacity:var(--skyop); }
+.stars{ background-image:
+  radial-gradient(1.4px 1.4px at 8% 12%,#fff 50%,transparent), radial-gradient(1px 1px at 19% 27%,#fff 50%,transparent),
+  radial-gradient(1.6px 1.6px at 31% 7%,#fff 50%,transparent), radial-gradient(1px 1px at 44% 19%,#fff 50%,transparent),
+  radial-gradient(1.3px 1.3px at 55% 9%,#fff 50%,transparent), radial-gradient(1.1px 1.1px at 67% 24%,#fff 50%,transparent),
+  radial-gradient(1.5px 1.5px at 78% 5%,#fff 50%,transparent), radial-gradient(1px 1px at 89% 17%,#fff 50%,transparent),
+  radial-gradient(1.2px 1.2px at 15% 41%,#fff 50%,transparent), radial-gradient(1.4px 1.4px at 36% 47%,#fff 50%,transparent),
+  radial-gradient(1px 1px at 60% 38%,#fff 50%,transparent), radial-gradient(1.3px 1.3px at 83% 44%,#fff 50%,transparent);
+  background-size:100% 100%; }
+.stars2{ background-image:
+  radial-gradient(1px 1px at 23% 15%,#fff 50%,transparent), radial-gradient(1.4px 1.4px at 51% 22%,var(--pink) 50%,transparent),
+  radial-gradient(1px 1px at 74% 11%,#fff 50%,transparent), radial-gradient(1.3px 1.3px at 38% 33%,#fff 50%,transparent);
+  background-size:100% 100%; animation:tw 4.2s ease-in-out infinite; }
+@keyframes tw{ 0%,100%{opacity:.35} 50%{opacity:.95} }
+:root[data-theme="light"] .sky{ background:
+  radial-gradient(125% 72% at 50% 120%, rgba(125,139,120,.22) 0%, rgba(203,183,195,.18) 32%, transparent 62%),
+  linear-gradient(180deg,var(--bg) 0%, var(--bg2) 100%); }
+:root[data-theme="light"] .stars{ opacity:.35; }
+:root[data-theme="light"] .stars2{ animation:none; }
+@media(prefers-reduced-motion:reduce){ .stars2{ animation:none; } }
+
+/* ─── LAYOUT ──────────────────────────────────────────────────────── */
+#app{ max-width:720px; margin:0 auto; padding:24px 16px 90px; position:relative; }
+.top{ display:flex; align-items:flex-start; justify-content:space-between; gap:14px; flex-wrap:wrap;
+  padding-bottom:16px; margin-bottom:6px; border-bottom:1px solid transparent;
+  border-image:linear-gradient(90deg, transparent, rgba(183,156,240,.5), rgba(95,211,178,.5), rgba(235,182,214,.5), transparent) 1; }
+.brand{ display:flex; align-items:center; gap:13px; }
+.logo{ width:46px; height:46px; border-radius:50%; flex:none;
+  background:radial-gradient(circle at 35% 30%, #B79CF0, #5FD3B2 70%, #5C9BE8);
+  box-shadow:0 0 18px rgba(183,156,240,.45), 0 0 0 1px rgba(255,255,255,.12); }
+.brand h1{ margin:0; font-size:22px; font-weight:600; letter-spacing:.3px; text-shadow:0 0 24px rgba(183,156,240,.4); line-height:1.15; }
+.brand p{ margin:4px 0 0; color:var(--mute); font-size:13px; }
+.acts{ display:flex; gap:8px; flex-wrap:wrap; }
+.btn{ font:inherit; font-size:13.5px; font-weight:500; color:var(--ink); cursor:pointer; min-height:44px;
+  padding:0 16px; border-radius:999px; background:var(--glass); border:1px solid var(--edge);
+  backdrop-filter:blur(8px); -webkit-backdrop-filter:blur(8px); display:inline-flex;
+  align-items:center; justify-content:center; gap:7px; transition:background .15s, transform .1s; }
+.btn:hover{ background:var(--glass-2); } .btn:active{ transform:translateY(1px); }
+.btn.key{ border-color:rgba(183,156,240,.45); box-shadow:0 0 0 1px rgba(95,211,178,.12) inset, 0 4px 22px rgba(124,98,200,.18); }
+.btn.full{ width:100%; } .btn[disabled]{ opacity:.55; pointer-events:none; }
+#addTask{ color:#fff; background:var(--btnaccent); border:1px solid var(--btnaccent); }
+#addTask:hover{ filter:brightness(1.08); }
+.themebtn{ font-size:17px; width:44px; height:44px; min-height:44px; border-radius:999px; cursor:pointer;
+  color:var(--ink); background:var(--glass); border:1px solid var(--edge);
+  backdrop-filter:blur(8px); -webkit-backdrop-filter:blur(8px);
+  display:inline-flex; align-items:center; justify-content:center; }
+
+/* ─── COUNTS ──────────────────────────────────────────────────────── */
+.counts{ display:flex; gap:10px; flex-wrap:wrap; margin:2px 0 14px; }
+.cpill{ flex:1; min-width:120px; display:flex; align-items:center; gap:8px; font-size:13px;
+  font-weight:600; color:var(--mute); padding:11px 14px; border-radius:14px;
+  background:var(--glass); border:1px solid var(--edge); }
+.cpill .cn{ font-size:20px; font-weight:700; color:var(--ink); }
+
+/* ─── SECTIONS ────────────────────────────────────────────────────── */
+.sec{ margin-top:26px; }
+.sec-h{ display:flex; align-items:center; gap:10px; margin:0 0 12px; padding-left:4px; }
+.sec-h .label{ font-size:11.5px; font-weight:600; letter-spacing:2.4px; text-transform:uppercase; color:var(--mute); }
+.sec-h .count{ font-size:11px; font-weight:600; color:var(--violet); background:var(--violet-bg);
+  padding:3px 11px; border-radius:999px; margin-left:auto; }
+.alert{ display:inline-flex; align-items:center; gap:6px; font-size:12px; font-weight:700;
+  padding:5px 11px; border-radius:999px; background:var(--rose-bg); border:1px solid var(--rose); color:var(--rose); }
+.alert.tri{ background:var(--violet-bg); border-color:var(--violet); color:var(--violet); }
+.alert.wait{ background:var(--amber-bg); border-color:var(--amber); color:var(--amber); }
+
+/* ─── BUBBLES ─────────────────────────────────────────────────────── */
+.bubble{ background:var(--glass); border:1px solid var(--edge); border-radius:var(--r);
+  padding:16px 18px; margin-bottom:11px; backdrop-filter:blur(13px);
+  -webkit-backdrop-filter:blur(13px); box-shadow:0 1px 0 rgba(255,255,255,.05) inset, 0 10px 30px rgba(0,0,0,.28); }
+.empty{ border:1px dashed var(--edge); border-radius:var(--r); padding:18px;
+  color:var(--mute); font-size:13.5px; text-align:center; background:rgba(255,255,255,.02); }
+.tiny{ color:var(--faint); font-size:12.5px; padding:9px 4px; }
+.caught{ display:flex; align-items:center; gap:11px; font-size:14.5px;
+  color:var(--teal); border-color:rgba(95,211,178,.3); box-shadow:0 0 24px rgba(95,211,178,.12) inset; }
+.caught .em{ font-size:20px; }
+
+/* ─── TASKS ───────────────────────────────────────────────────────── */
+.task{ display:flex; gap:14px; align-items:flex-start; }
+.cbx{ -webkit-appearance:none; appearance:none; flex:none; width:26px; height:26px; margin-top:1px;
+  border-radius:50%; border:1.5px solid rgba(255,255,255,.28); background:rgba(255,255,255,.04);
+  cursor:pointer; position:relative; transition:.15s; }
+.cbx:checked{ background:linear-gradient(135deg,var(--teal),var(--violet)); border-color:transparent; box-shadow:0 0 16px rgba(95,211,178,.4); }
+.cbx:checked::after{ content:''; position:absolute; left:8.5px; top:4px; width:6px; height:12px;
+  border:solid #0a0a14; border-width:0 2.5px 2.5px 0; transform:rotate(45deg); }
+:root[data-theme="light"] .cbx{ border:2px solid #556357; background:#fff; }
+:root[data-theme="light"] .cbx:checked{ background:linear-gradient(135deg,#556357,#7D8B78); border-color:#556357; }
+:root[data-theme="light"] .cbx:checked::after{ border-color:#fff; }
+.task .nm{ font-weight:500; font-size:15px; }
+.task .meta{ font-size:13px; color:var(--mute); margin-top:3px; }
+.flag{ font-size:11px; font-weight:600; padding:4px 11px; border-radius:999px; margin-left:auto;
+  white-space:nowrap; align-self:center; }
+.flag.late{ background:var(--rose-bg); color:var(--rose); }
+.flag.today{ background:var(--amber-bg); color:var(--amber); }
+.flag.due{ background:var(--grey-bg); color:var(--mute); }
+
+/* ─── INQUIRIES ───────────────────────────────────────────────────── */
+.inq .nm{ font-weight:600; font-size:17px; }
+.inq .ln{ font-size:13.5px; color:var(--mute); margin-top:4px; }
+.inq .ln b{ color:var(--ink); font-weight:500; }
+.note{ font-size:12.5px; color:var(--mute); margin-top:6px; font-style:italic; }
+.plan{ color:var(--plan); font-weight:600; }
+.recv{ font-size:11.5px; color:var(--faint); }
+.daybubble{ display:inline-flex; align-items:center; font-size:11px; font-weight:700;
+  padding:2px 9px; border-radius:999px; background:var(--violet-bg); color:var(--violet);
+  border:1px solid var(--edge); margin-left:8px; }
+.daybubble.warn{ background:var(--amber-bg); color:var(--amber); }
+.daybubble.hot{ background:var(--rose-bg); color:var(--rose); }
+.contact{ font-size:11px; padding:3px 10px; border-radius:999px; border:1px solid var(--edge);
+  cursor:pointer; color:#fff; margin-right:7px; vertical-align:middle; }
+.contact.off{ background:rgba(245,158,66,.30); border-color:rgba(245,158,66,.62); color:#F7C58A; }
+.contact.on{ background:rgba(86,185,124,.34); border-color:rgba(86,185,124,.58); }
+.row-actions{ display:flex; gap:8px; margin-top:11px; flex-wrap:wrap; }
+
+/* ─── WAITLIST ────────────────────────────────────────────────────── */
+.wl .nm{ font-weight:500; font-size:15px; }
+.wl .ln{ font-size:13px; color:var(--mute); margin-top:3px; }
+.wlhead{ display:flex; align-items:center; justify-content:flex-end; gap:8px; }
+.wlhead .daybubble{ margin-left:0; }
+.wlfor{ font-size:11px; font-weight:600; padding:2px 9px; border-radius:999px;
+  background:var(--green-bg); color:var(--teal); border:1px solid var(--edge); }
+.wlgroup{ font-size:11.5px; font-weight:700; letter-spacing:1px; text-transform:uppercase;
+  color:var(--mute); margin:14px 0 8px 2px; }
+.wlgroup:first-child{ margin-top:2px; }
+.emptywl{ font-size:13px; color:var(--mute); padding:8px 2px; }
+.starbtn{ width:30px; height:30px; min-height:30px; border-radius:999px; cursor:pointer;
+  font-size:13px; color:var(--ink); background:var(--glass); border:1px solid var(--edge);
+  display:inline-flex; align-items:center; justify-content:center; margin-left:8px; }
+.starbtn.on{ color:var(--violet); border-color:var(--violet); background:var(--violet-bg); }
+
+/* ─── CLINICIANS ──────────────────────────────────────────────────── */
+.clin-grid{ display:grid; grid-template-columns:repeat(4,1fr); gap:10px; }
+@media(max-width:480px){ .clin-grid{ grid-template-columns:repeat(2,1fr); } }
+.cc{ background:var(--glass); border:1px solid var(--edge); border-radius:18px;
+  padding:15px 10px 14px; text-align:center; backdrop-filter:blur(13px); -webkit-backdrop-filter:blur(13px); }
+.cc .nm{ font-weight:600; font-size:14px; margin-bottom:8px; }
+.cc .n{ font-size:27px; font-weight:600; line-height:1; }
+.cc .l{ font-size:10px; color:var(--faint); letter-spacing:.8px; margin:2px 0 11px; }
+.cc .cdot{ display:inline-block; width:8px; height:8px; border-radius:50%; margin-right:6px; vertical-align:middle; }
+.ccbtns{ display:flex; flex-direction:column; gap:7px; }
+.cstatus{ font-size:11px; font-weight:700; letter-spacing:.4px; padding:3px 0; border-radius:999px; margin:0 0 9px; }
+.cstatus.yes{ background:#C9A2F0; color:#2A1F35; }
+.cstatus.no{ background:var(--grey-bg); color:var(--mute); }
+.cstatus.tbd{ background:var(--violet-bg); color:var(--violet); }
+.pill{ font:inherit; font-weight:600; font-size:12.5px; cursor:pointer; min-height:36px;
+  padding:0 14px; border-radius:999px; border:1px solid transparent; transition:transform .1s; }
+.pill:active{ transform:scale(.96); }
+.pill.upd{ background:var(--violet-bg); color:var(--violet); border-color:rgba(183,156,240,.35); }
+.pill.dash{ background:transparent; color:var(--teal); border-color:var(--edge); }
+.cc.mute .pill.upd, .cc.mute .pill.dash{ background:transparent; color:#8C8790; border-color:rgba(140,135,144,.4); }
+.cc.newhire{ border-style:dashed; opacity:.95; display:flex; flex-direction:column; justify-content:center; }
+.cc.newhire .nm{ color:#5E5563; margin-bottom:14px; }
+.pill.add{ background:#9FCBB0; color:#1A2A20; border-color:#9FCBB0; font-weight:700; }
+
+/* ─── CHARTS ──────────────────────────────────────────────────────── */
+.chart{ background:var(--glass); border:1px solid var(--edge); border-radius:var(--r);
+  padding:18px 18px 12px; margin-bottom:11px; backdrop-filter:blur(13px); -webkit-backdrop-filter:blur(13px); }
+.chart h3{ margin:0 0 18px; font-size:14px; font-weight:600; }
+.chart h3 .sub{ font-weight:400; font-size:11.5px; color:var(--mute); margin-left:8px; }
+.dot{ display:inline-block; width:8px; height:8px; border-radius:50%;
+  box-shadow: inset -0.18em -0.06em 0 0 #EDEAF6, 0 0 0.34em rgba(183,156,240,.5); flex:none; }
+:root[data-theme="light"] .dot{ background:var(--violet); box-shadow:none; }
+.plot{ position:relative; padding-left:34px; }
+.gline{ position:absolute; left:34px; right:4px; height:1px; background:var(--grid); }
+.glab{ position:absolute; left:-34px; top:-7px; width:28px; text-align:right; font-size:10px; color:var(--faint); }
+.bars{ position:absolute; left:34px; right:4px; bottom:0; display:flex; gap:10px; align-items:flex-end; }
+.bcol{ flex:1; display:flex; justify-content:center; align-items:flex-end; height:100%; }
+.bar{ position:relative; width:78%; max-width:58px; min-height:3px; border-radius:12px 12px 5px 5px;
+  background:linear-gradient(180deg, rgba(199,168,255,.95), rgba(123,160,255,.7) 45%, rgba(95,211,178,.5) 100%);
+  box-shadow:0 0 18px rgba(167,139,250,.4), inset 0 1px 0 rgba(255,255,255,.3); }
+.bar.zero{ background:transparent; box-shadow:none; min-height:0; }
+.barval{ position:absolute; top:-21px; left:0; right:0; text-align:center; font-size:11.5px; font-weight:600; color:var(--ink); }
+.barmoon{ position:absolute; top:-5px; left:50%; transform:translateX(-50%); width:9px; height:9px;
+  border-radius:50%; background:transparent; box-shadow: inset -2px -1px 0 0 #EDEAF6, 0 0 7px rgba(237,234,246,.7); }
+:root[data-theme="light"] .bar{ background:linear-gradient(180deg,#A98598,#7D8B78); }
+:root[data-theme="light"] .barmoon{ background:var(--violet); box-shadow:none; border-radius:50%; }
+.dlabels{ display:flex; gap:10px; margin-left:34px; margin-right:4px; margin-top:8px; }
+.dlabels .dl{ flex:1; text-align:center; font-size:10.5px; color:var(--faint); white-space:nowrap; }
+.hbd{ display:flex; align-items:center; gap:11px; margin:11px 0; }
+.hbd .hname{ width:72px; flex:none; font-size:13px; text-align:right; }
+.hbd .hdots{ flex:1; display:flex; flex-wrap:wrap; gap:6px; align-content:center; min-height:14px; padding:4px 0; }
+.hbd .hv{ width:24px; font-size:12.5px; font-weight:600; color:var(--violet); }
+
+/* ─── MODAL ───────────────────────────────────────────────────────── */
+.scrim{ position:fixed; inset:0; background:rgba(3,3,8,.64); display:none;
+  align-items:flex-end; justify-content:center; z-index:90;
+  backdrop-filter:blur(4px); -webkit-backdrop-filter:blur(4px); }
+.scrim.on{ display:flex; }
+.sheet{ position:relative; background:rgba(16,14,28,.97); border:1px solid var(--edge);
+  border-bottom:none; width:100%; max-width:560px; border-radius:26px 26px 0 0;
+  padding:22px 20px calc(22px + env(safe-area-inset-bottom)); max-height:92vh; overflow:auto; }
+:root[data-theme="light"] .sheet{ background:#F7F3F1; }
+.closex{ position:absolute; top:14px; right:14px; width:34px; height:34px; border-radius:999px;
+  border:1px solid var(--edge); background:var(--glass); color:var(--ink); font-size:15px;
+  cursor:pointer; display:inline-flex; align-items:center; justify-content:center; z-index:2; }
+.closex:hover{ background:var(--glass-2); }
+.sheet h3{ margin:0 0 4px; font-size:19px; font-weight:600; }
+.sheet p{ margin:0 0 6px; color:var(--mute); font-size:13px; }
+.sheet label{ display:block; font-size:11px; font-weight:600; color:var(--mute);
+  margin:15px 0 5px; text-transform:uppercase; letter-spacing:1px; }
+.sheet input, .sheet textarea{ width:100%; font:inherit; font-size:15px; color:var(--ink);
+  padding:12px 13px; border:1px solid var(--edge); border-radius:14px; background:rgba(255,255,255,.04); }
+:root[data-theme="light"] .sheet input, :root[data-theme="light"] .sheet textarea{ background:#fff; color:#211B1F; }
+.sheet textarea{ min-height:200px; resize:vertical; line-height:1.55; }
+.sheet .acts{ display:flex; gap:10px; margin-top:20px; }
+@media(min-width:560px){ .scrim{ align-items:center; } .sheet{ border-radius:26px; border-bottom:1px solid var(--edge); } }
+
+/* ─── MODAL ASSIGN BUTTONS ────────────────────────────────────────── */
+.asgbtns{ display:flex; flex-wrap:wrap; gap:8px; margin:6px 0 4px; }
+.asgbtn{ font:inherit; font-size:13px; font-weight:600; cursor:pointer; padding:9px 13px;
+  border-radius:14px; color:var(--ink); background:var(--glass); border:1px solid var(--edge);
+  display:inline-flex; align-items:center; gap:7px; }
+.asgbtn:hover{ border-color:var(--violet); }
+.asgbtn.sel{ background:var(--violet-bg); border-color:var(--violet); color:var(--violet); }
+.asgbtn.yes::before{ content:''; width:8px; height:8px; border-radius:50%; background:var(--teal); display:inline-block; }
+.asgbtn .asgspots{ font-size:11px; font-weight:600; color:var(--mute); }
+.asgbtn.refer{ border-color:var(--finder); color:var(--finder); }
+.asgbtn.wait{ border-color:var(--plan); color:var(--plan); }
+.asgbtn.ignore{ border-color:var(--edge); color:var(--faint); }
+.switch{ display:flex; align-items:center; gap:9px; cursor:pointer; margin:10px 0 4px;
+  font-size:13px; font-weight:600; color:var(--ink); user-select:none; }
+.switch input{ position:absolute; opacity:0; width:0; height:0; }
+.switch .track{ width:42px; height:24px; border-radius:999px; background:var(--edge);
+  position:relative; transition:background .15s; flex:0 0 auto; }
+.switch .track::after{ content:''; position:absolute; top:3px; left:3px; width:18px; height:18px;
+  border-radius:50%; background:#fff; transition:left .15s; box-shadow:0 1px 3px rgba(0,0,0,.3); }
+.switch input:checked + .track{ background:var(--teal); }
+.switch input:checked + .track::after{ left:21px; }
+.modetog{ display:flex; gap:6px; margin-left:auto; }
+.modetog .asgbtn{ padding:6px 11px; font-size:12px; }
+.prorow{ display:flex; align-items:center; gap:10px; flex-wrap:wrap; margin:8px 0 2px; }
+.prorow select{ width:auto; min-width:96px; margin:0; }
+.warnbubble{ margin:8px 0 4px; padding:9px 12px; border-radius:12px; font-size:12px; font-weight:600;
+  background:var(--rose-bg); border:1px solid var(--rose); color:var(--rose); }
+
+/* ─── FAKE SEND TOAST ─────────────────────────────────────────────── */
+.fake-toast{ position:fixed; bottom:24px; left:50%; transform:translateX(-50%) translateY(80px);
+  background:rgba(22,18,36,.97); border:1px solid rgba(95,211,178,.4); border-radius:18px;
+  padding:14px 20px; max-width:380px; width:calc(100% - 32px); z-index:300;
+  transition:transform .35s cubic-bezier(.22,.61,.36,1), opacity .35s;
+  opacity:0; box-shadow:0 8px 40px rgba(0,0,0,.55); }
+.fake-toast.show{ transform:translateX(-50%) translateY(0); opacity:1; }
+:root[data-theme="light"] .fake-toast{ background:#F7F3F1; border-color:#46553F; }
+.fake-toast .ft-head{ display:flex; align-items:center; gap:8px; margin-bottom:6px; }
+.fake-toast .ft-icon{ font-size:18px; }
+.fake-toast .ft-title{ font-size:13px; font-weight:700; color:var(--teal); }
+.fake-toast .ft-demo{ font-size:10.5px; font-weight:700; letter-spacing:.8px; text-transform:uppercase;
+  color:var(--mute); margin-left:auto; background:var(--grey-bg); padding:2px 7px; border-radius:999px; }
+.fake-toast .ft-body{ font-size:12.5px; color:var(--mute); line-height:1.45; }
+.fake-toast .ft-detail{ margin-top:5px; font-size:12px; color:var(--faint); font-style:italic; }
+
+/* ─── FAKE CAL PREVIEW ────────────────────────────────────────────── */
+.cal-preview{ background:rgba(95,211,178,.06); border:1px solid rgba(95,211,178,.25);
+  border-radius:14px; padding:11px 14px; margin:10px 0; font-size:13px; }
+.cal-preview .cp-head{ font-weight:700; color:var(--teal); margin-bottom:4px; }
+.cal-preview .cp-row{ display:flex; gap:6px; color:var(--mute); margin:2px 0; }
+.cal-preview .cp-lbl{ font-size:11px; font-weight:600; min-width:60px; color:var(--faint); text-transform:uppercase; }
+
+/* ─── MISC ────────────────────────────────────────────────────────── */
+.spinner{ display:inline-flex; align-items:center; gap:7px; font-size:12px; font-weight:600; color:var(--mute); padding:5px 11px; border-radius:999px; background:var(--glass); border:1px solid var(--edge); }
+.spin{ width:13px; height:13px; border-radius:50%; border:2px solid var(--edge); border-top-color:var(--violet); animation:spin .7s linear infinite; }
+@keyframes spin{ to{ transform:rotate(360deg); } }
+.loadrow{ display:flex; align-items:center; gap:8px; color:var(--mute); font-size:13px; }
+.btn.loading, .pill.loading{ display:inline-flex; align-items:center; justify-content:center; gap:7px; }
+.btn .spin, .pill .spin{ border-color:rgba(255,255,255,.45); border-top-color:#fff; }
+.credit{ font-size:10px; color:var(--faint); margin-top:9px; text-align:center; }
+.btnrow{ display:flex; gap:8px; justify-content:center; align-items:center; flex-wrap:wrap; }
+.urlbtn{ display:inline-flex; align-items:center; gap:4px; font-size:12px; font-weight:500;
+  color:var(--teal); text-decoration:none; background:var(--green-bg); border:1px solid rgba(95,211,178,.3);
+  padding:5px 11px; border-radius:999px; margin:3px 5px 1px 0; }
+.matchbox{ border:1px solid var(--edge); border-radius:14px; padding:10px 12px; margin:8px 0;
+  background:var(--grey-bg); font-size:13px; }
+.matchbox .m{ margin:3px 0; }
+.finderlink{ display:inline-flex; align-items:center; gap:6px; font-size:13px; font-weight:600;
+  padding:9px 14px; border-radius:999px; background:transparent; color:var(--finder);
+  border:1px solid var(--finder); text-decoration:none; margin-top:4px; }
+.finderlink:hover{ background:var(--green-bg); }
+.linkrow{ display:flex; gap:8px; flex-wrap:wrap; margin-top:4px; }
+.specwrap{ display:flex; flex-wrap:wrap; gap:7px; margin:6px 0 10px; }
+.spec{ font-size:12px; padding:5px 11px; border-radius:999px; cursor:pointer;
+  color:var(--ink); background:var(--glass); border:1px solid var(--edge); }
+.spec.on{ background:var(--violet-bg); border-color:var(--violet); color:var(--violet); font-weight:600; }
+.swatches{ display:flex; flex-wrap:wrap; gap:11px; margin-top:6px; }
+.sw{ width:36px; height:36px; border-radius:50%; cursor:pointer; border:2px solid transparent;
+  position:relative; padding:0; }
+.sw.sel{ border-color:#fff; box-shadow:0 0 0 3px rgba(255,255,255,.16); }
+.sel{ font:inherit; font-size:15px; color:var(--ink); padding:0 12px; min-height:46px;
+  border:1px solid var(--edge); border-radius:14px; background:rgba(20,18,34,.9); flex:1; min-width:160px; }
+.sel option{ color:#111; }
+.slotbox{ display:flex; flex-direction:column; gap:6px; max-height:340px; overflow-y:auto; padding:2px; }
+.slotrow{ display:flex; align-items:center; gap:9px; }
+.slotrow .slotn{ font-size:12px; font-weight:600; color:var(--mute); min-width:54px; }
+.slotrow .slotin{ flex:1; margin:0; }
+@media(max-width:430px){ #app{ padding:20px 13px 90px; } }
+</style>
+</head>
+<body>
+
+<!-- DEMO BANNER -->
+<div class="demo-banner">
+  <span>🧪 Demo / Test Mode</span>
+  <span class="db-pill">No Permissions</span>
+  <span class="db-pill">No Emails Sent</span>
+  <span class="db-pill">No Calendar Access</span>
+  <span class="db-pill">All Data is Fake</span>
+</div>
+
+<div class="sky"></div><div class="stars"></div><div class="stars2"></div>
+
+<div id="app">
+  <div class="top">
+    <div class="brand">
+      <div class="logo"></div>
+      <div>
+        <h1>Your Therapy Practice Name Here</h1>
+        <p>Intake Dashboard</p>
+      </div>
+    </div>
+    <div class="acts">
+      <button class="themebtn" id="themeToggle" title="Switch light / dark" aria-label="Switch light or dark mode"><span id="themeIcon">☾</span></button>
+      <span class="alert tri" id="triageAlert" style="display:none"></span>
+      <span class="alert wait" id="waitAlert" style="display:none"></span>
+      <span class="alert" id="taskAlert" style="display:none"></span>
+      <button class="btn" id="editReply">Edit Automated Email</button>
+    </div>
+  </div>
+
+  <div class="counts" id="counts">
+    <div class="cpill"><span class="cn" id="cCon">0</span> Consult requests</div>
+    <div class="cpill"><span class="cn" id="cWait">0</span> Waitlist</div>
+    <div class="cpill"><span class="cn" id="cTask">0</span> Tasks</div>
+  </div>
+
+  <div class="sec" id="caughtSec" style="display:none">
+    <div class="bubble caught"><span class="em">✅</span> There is nothing you need to do at this time.</div>
+  </div>
+
+  <div class="sec">
+    <div class="sec-h"><span class="label">Tasks</span><span class="count" id="taskCount"></span></div>
+    <div id="tasks"><div class="tiny">Loading tasks...</div></div>
+    <button class="btn key full" id="addTask" style="margin-top:4px">+ Add task</button>
+  </div>
+
+  <div class="sec" id="triageSec" style="display:none">
+    <div class="sec-h"><span class="label">Inquiries to assign</span><span class="count" id="triageCount"></span></div>
+    <div id="triage"></div>
+  </div>
+
+  <div class="sec">
+    <div class="sec-h"><span class="label">Consult requests</span></div>
+    <div id="charts"></div>
+  </div>
+
+  <div class="sec" id="waitSec">
+    <div class="sec-h">
+      <span class="label">Waitlist</span>
+      <button class="starbtn" id="wlStar" title="Group by therapist">★</button>
+      <span class="count" id="wlCount"></span>
+    </div>
+    <div id="waitlist"></div>
+  </div>
+
+  <div class="sec" id="clinSec">
+    <div class="sec-h"><span class="label">Clinicians</span><span class="count" id="acceptCount"></span></div>
+    <div id="clin"></div>
+  </div>
+
+  <div class="sec" style="text-align:center;margin-top:30px">
+    <div class="btnrow">
+      <button class="btn" id="refresh">Refresh (Demo)</button>
+    </div>
+    <div class="credit">Dashboard Created by Damien Homiak · June 2026 · Demo / No-Permissions Build</div>
+  </div>
+</div>
+
+<!-- MODAL SCRIM -->
+<div class="scrim" id="scrim"></div>
+
+<!-- FAKE SEND TOAST -->
+<div class="fake-toast" id="fakeToast">
+  <div class="ft-head">
+    <span class="ft-icon">📬</span>
+    <span class="ft-title" id="ftTitle">Email queued</span>
+    <span class="ft-demo">Demo Only</span>
+  </div>
+  <div class="ft-body" id="ftBody"></div>
+  <div class="ft-detail" id="ftDetail"></div>
+</div>
+
+<script>
+// ─────────────────────────────────────────────────────────────────────
+//  DEMO DATA — all fake, all local, no APIs, no permissions
+// ─────────────────────────────────────────────────────────────────────
+
+const PRACTICE = 'Your Therapy Practice Name Here';
+
+const CLINICIAN_META = {
+  'Morgan':{ fullName:'Morgan Avery, LMHC (she/her)', pronoun:'She', bio:'Morgan Avery, LMHC (she/her) works with adults navigating anxiety, burnout, and life transitions. Warm and collaborative, she draws on CBT and parts work.' },
+  'Devin':{ fullName:'Devin Cross, LMFTA (he/they)', pronoun:'He/they', bio:'Devin Cross, LMFTA (he/they) sees couples and individuals around communication, ADHD, and identity.' },
+  'Sasha':{ fullName:'Sasha Lindqvist, LMHCA (she/they)', pronoun:'She/they', bio:'Sasha Lindqvist, LMHCA (she/they) specializes in perinatal mental health, pregnancy loss, and the early parenting years.' },
+  'Priya':{ fullName:'Priya Raman, LCSW (she/her)', pronoun:'She', bio:'Priya Raman, LCSW (she/her) supports people healing from trauma, chronic illness, and grief.' },
+  'Theo':{ fullName:'Theo Brandt, LMHCA (they/them)', pronoun:'They', bio:'Theo Brandt, LMHCA (they/them) is an affirming therapist for LGBTQ+ folks exploring gender, identity, and relationships.' },
+  'Nadia':{ fullName:'Nadia Okafor, Clinical Intern (she/her)', pronoun:'She', bio:'Nadia Okafor, Clinical Intern (she/her) focuses on anxiety, self-esteem, and BIPOC mental health.' },
+  'Quinn':{ fullName:'Quinn Mercer, Clinical Intern (they/them)', pronoun:'They', bio:'Quinn Mercer, Clinical Intern (they/them) works with neurodivergent and queer folks healing trauma and grief.' }
+};
+
+const DEFAULT_COLORS = {
+  'Morgan':'#E8C45A','Devin':'#DB4E84','Sasha':'#56B97C','Priya':'#EE8A82',
+  'Theo':'#3FBEB0','Nadia':'#9B7EDE','Quinn':'#5C9BE8'
+};
+
+// Fake slot times per clinician
+const AVAIL_DATA = [
+  {name:'Morgan', taking:'Yes', spots:5, times:['Mon 10:00 AM','Mon 1:00 PM','Wed 11:00 AM','Thu 9:00 AM','Thu 3:00 PM']},
+  {name:'Devin',  taking:'Yes', spots:3, times:['Tue 12:00 PM','Tue 4:00 PM','Fri 10:00 AM']},
+  {name:'Sasha',  taking:'Yes', spots:2, times:['Wed 2:00 PM','Fri 1:00 PM']},
+  {name:'Priya',  taking:'No',  spots:0, times:[]},
+  {name:'Theo',   taking:'Yes', spots:3, times:['Mon 4:00 PM','Wed 9:00 AM','Thu 1:00 PM']},
+  {name:'Nadia',  taking:'TBD', spots:1, times:['Tue 10:00 AM']},
+  {name:'Quinn',  taking:'Yes', spots:5, times:['Mon 9:00 AM','Tue 2:00 PM','Wed 4:00 PM','Fri 11:00 AM','Fri 3:00 PM']}
+];
+
+const TODAY = new Date();
+const todayStr = fmt(TODAY);
+function fmt(d){ return d.toISOString().slice(0,10); }
+function daysAgo(n){ const d=new Date(); d.setDate(d.getDate()-n); return d; }
+function daysAhead(n){ const d=new Date(); d.setDate(d.getDate()+n); return d; }
+
+// Mutable state — tasks, triage, waitlist all live in JS arrays
+let TASKS = [
+  {id:1, name:"Call this week's new inquiries", due:todayStr, what:'A few came in over the weekend', link:'', done:false},
+  {id:2, name:"Confirm Morgan's open times for next month", due:fmt(daysAhead(2)), what:'Check before sending match emails', link:'', done:false},
+  {id:3, name:"Refresh the intake form copy", due:fmt(daysAhead(5)), what:'Update the "what to expect" section', link:'', done:false},
+  {id:4, name:"Follow up with waitlist folks past 14 days", due:fmt(daysAgo(1)), what:'Two are overdue', link:'', done:false},
+  {id:5, name:"Order new client welcome packets", due:'', what:'Running low on printed copies', link:'', done:false}
+];
+let nextTaskId = 10;
+
+let TRIAGE = [
+  {id:1, name:'Jordan Ellison', ts:fmt(daysAgo(2)), email:'jordan.ellison@test.com', phone:'555-0110', who:'No preference', insurance:'Apple Health (Molina)', looking:'Anxiety and burnout, prefers evenings', contacted:false, done:false},
+  {id:2, name:'Maya Hoffman', ts:fmt(daysAgo(4)), email:'maya.hoffman@test.com', phone:'555-0111', who:'Someone LGBTQ-affirming', insurance:'Self-pay', looking:'Navigating a recent breakup and low mood', contacted:false, done:false},
+  {id:3, name:'Liam Castellano', ts:fmt(daysAgo(1)), email:'liam.castellano@test.com', phone:'555-0112', who:'No preference', insurance:'Premera', looking:'ADHD support and coping strategies', contacted:false, done:false},
+  {id:4, name:'Aisha Bello', ts:fmt(daysAgo(9)), email:'aisha.bello@test.com', phone:'555-0113', who:'Prefers a woman', insurance:'Coordinated Care (Apple Health)', looking:'Postpartum support after first baby', contacted:true, done:false},
+  {id:5, name:'Ethan Park', ts:fmt(daysAgo(6)), email:'ethan.park@test.com', phone:'555-0114', who:'No preference', insurance:'Regence', looking:'Grief after losing a parent', contacted:false, done:false},
+  {id:6, name:'Sofia Reyes', ts:fmt(daysAgo(3)), email:'sofia.reyes@test.com', phone:'555-0115', who:'Couples-focused therapist', insurance:'Self-pay', looking:'Couple wanting to improve communication', contacted:false, done:false},
+  {id:7, name:'Noah Whitfield', ts:fmt(daysAgo(12)), email:'noah.whitfield@test.com', phone:'555-0116', who:'No preference', insurance:'Apple Health (Molina)', looking:'Trauma history, wants a slow pace', contacted:false, done:false},
+  {id:8, name:'Harper Lindgren', ts:fmt(daysAgo(5)), email:'harper.lindgren@test.com', phone:'555-0117', who:'Nonbinary-affirming therapist', insurance:'Kaiser PPO', looking:'Gender identity exploration', contacted:false, done:false},
+  {id:9, name:'Diego Marquez', ts:fmt(daysAgo(8)), email:'diego.marquez@test.com', phone:'555-0118', who:'No preference', insurance:'Cigna', looking:'Work stress and panic attacks', contacted:true, done:false},
+  {id:10, name:'Chloe Underwood', ts:fmt(daysAgo(1)), email:'chloe.underwood@test.com', phone:'555-0119', who:'No preference', insurance:'Self-pay', looking:'Wants support around food and body image', contacted:false, done:false},
+  {id:11, name:'Rowan Petrov', ts:fmt(daysAgo(15)), email:'rowan.petrov@test.com', phone:'555-0120', who:'Neurodivergent-affirming', insurance:'Apple Health', looking:'Autistic adult seeking unmasking support', contacted:false, done:false},
+  {id:12, name:'Isabel Nakamura', ts:fmt(daysAgo(2)), email:'isabel.nakamura@test.com', phone:'555-0121', who:'Prefers a woman', insurance:'UnitedHealthcare', looking:'Anxiety and perfectionism', contacted:false, done:false},
+  {id:13, name:'Marcus Delaney', ts:fmt(daysAgo(7)), email:'marcus.delaney@test.com', phone:'555-0122', who:'No preference', insurance:'Self-pay', looking:'Depression and low motivation', contacted:false, done:false},
+  {id:14, name:'Freya Andersson', ts:fmt(daysAgo(20)), email:'freya.andersson@test.com', phone:'555-0123', who:'No preference', insurance:'First Choice', looking:'Chronic illness and adjustment', contacted:false, done:false}
+];
+
+let WAITLIST = [
+  {id:1, name:'Tobias Klein', ts:fmt(daysAgo(5)), email:'tobias.klein@test.com', phone:'555-0201', insurance:'Apple Health (Molina)', looking:'Depression, open to any clinician', source:'Morgan', contacted:false},
+  {id:2, name:'Amira Haddad', ts:fmt(daysAgo(12)), email:'amira.haddad@test.com', phone:'555-0202', insurance:'Self-pay', looking:'Anxiety, prefers mornings', source:'Devin', contacted:true},
+  {id:3, name:'Wesley Brooks', ts:fmt(daysAgo(3)), email:'wesley.brooks@test.com', phone:'555-0203', insurance:'Regence', looking:'Grief support', source:'Morgan', contacted:false},
+  {id:4, name:'Lucia Fontaine', ts:fmt(daysAgo(18)), email:'lucia.fontaine@test.com', phone:'555-0204', insurance:'Kaiser PPO', looking:'Couples counseling', source:'Theo', contacted:false},
+  {id:5, name:'Caleb Mensah', ts:fmt(daysAgo(7)), email:'caleb.mensah@test.com', phone:'555-0205', insurance:'Cigna', looking:'Trauma-focused therapy', source:'Quinn', contacted:false},
+  {id:6, name:'Yara Suleiman', ts:fmt(daysAgo(22)), email:'yara.suleiman@test.com', phone:'555-0206', insurance:'Apple Health', looking:'Perinatal support', source:'Sasha', contacted:true},
+  {id:7, name:'Bennett Shaw', ts:fmt(daysAgo(9)), email:'bennett.shaw@test.com', phone:'555-0207', insurance:'Premera', looking:'ADHD support', source:'Devin', contacted:false},
+  {id:8, name:'Talia Rosen', ts:fmt(daysAgo(2)), email:'talia.rosen@test.com', phone:'555-0208', insurance:'Self-pay', looking:'Identity and a life transition', source:'Theo', contacted:false},
+  {id:9, name:'Owen Fitzgerald', ts:fmt(daysAgo(14)), email:'owen.fitzgerald@test.com', phone:'555-0209', insurance:'UnitedHealthcare', looking:'Stress management', source:'Quinn', contacted:false},
+  {id:10, name:'Priscilla Vance', ts:fmt(daysAgo(6)), email:'priscilla.vance@test.com', phone:'555-0210', insurance:'First Choice', looking:'Anxiety and sleep', source:'Morgan', contacted:false}
+];
+
+let CLINICIANS = AVAIL_DATA.map(c => Object.assign({}, c, {color: DEFAULT_COLORS[c.name]||'#9B7EDE'}));
+
+// Chart data — monthly consult count
+const MONTH_DATA = [
+  {label:"Nov '25", count:18}, {label:"Dec '25", count:22}, {label:"Jan '26", count:26},
+  {label:"Feb '26", count:24}, {label:"Mar '26", count:31}, {label:"Apr '26", count:29},
+  {label:"May '26", count:35}, {label:"Jun '26", count:28}
+];
+const CLIN_30DAY = [
+  {name:'Morgan',n:8},{name:'Devin',n:5},{name:'Sasha',n:3},{name:'Priya',n:0},
+  {name:'Theo',n:6},{name:'Nadia',n:2},{name:'Quinn',n:4}
+];
+
+const REFERRAL_DIR = [
+  {name:'Cedar & Sage Counseling', link:'#', specialties:'Trauma, EMDR, Anxiety, PTSD', insurance:'Apple Health, Premera, Self-pay', notes:'Sliding scale available', verified:true},
+  {name:'Harbor Light Therapy', link:'#', specialties:'LGBTQ+, Gender, Identity, Neurodivergent', insurance:'Regence, Kaiser PPO, Self-pay', notes:'Telehealth statewide', verified:true},
+  {name:'Open Door Wellness', link:'#', specialties:'Perinatal, Parenting, Grief & loss', insurance:'Apple Health, Coordinated Care', notes:'Spanish-speaking clinicians', verified:false},
+  {name:'Northstar Psychology', link:'#', specialties:'ADHD, Autism, Children & teens', insurance:'Cigna, UnitedHealthcare, Self-pay', notes:'Testing and assessments', verified:true},
+  {name:'Rooted Mind Collective', link:'#', specialties:'BIPOC, Anxiety, Depression, Substance use', insurance:'Apple Health, First Choice', notes:'Group options available', verified:false},
+  {name:'Quiet Harbor Counseling', link:'#', specialties:'Eating disorders, Body image, Anxiety', insurance:'Premera, Self-pay', notes:'HAES-informed', verified:true}
+];
+
+const REFERRAL_REASONS = [
+  {reason:'Outside our clinical scope', subject:'Some referral options', template:'Hello there,\n\nThank you for reaching out. After reviewing what you\'re looking for, we think you\'d be best supported by a provider who specializes in this area. Below are a few options we trust.\n\n'},
+  {reason:'Looking for in-person sessions', subject:'Referrals for in-person care', template:'Hello there,\n\nThank you for reaching out. Since you\'re looking for in-person sessions, here are some local options that may be a better fit.\n\n'},
+  {reason:'Insurance we do not accept', subject:'Referral options for your plan', template:'Hello there,\n\nThank you for reaching out. We\'re not in network with your plan, so here are a few providers who may be able to bill it.\n\n'},
+  {reason:'We are at capacity', subject:'A few other options', template:'Hello there,\n\nThank you for reaching out. Our team is full right now, so we wanted to share a few other providers who may have openings.\n\n'}
+];
+
+let AUTOREPLY = {
+  from: 'intake@yourpractice.com',
+  replyTo: 'intake@yourpractice.com',
+  subject: 'Thanks for reaching out to ' + PRACTICE,
+  body: 'Hi there,\n\nThank you for reaching out to ' + PRACTICE + '. We have received your request and will be in touch within two business days.\n\nIf anything urgent comes up in the meantime, please contact a crisis line or your nearest emergency room.\n\nWarmly,\n' + PRACTICE
+};
+
+// ─────────────────────────────────────────────────────────────────────
+//  HELPERS
+// ─────────────────────────────────────────────────────────────────────
+const $ = id => document.getElementById(id);
+const esc = s => (''+(s==null?'':s)).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
+const escA = s => esc(s).replace(/"/g,'&quot;').replace(/[\r\n]+/g,' ');
+function daysWaiting(ts){ const d=new Date(ts); if(isNaN(d)) return null; return Math.max(0, Math.floor((Date.now()-d)/86400000)); }
+function fakeDelay(ms=420){ return new Promise(r=>setTimeout(r,ms)); }
+
+// Fake email / calendar sender — shows a toast instead of doing anything real
+let toastTimer=null;
+function fakeSend(type, to, subject, extra={}){
+  const toast=$('fakeToast');
+  const titles = { email:'✉ Email would be sent', cal:'📅 Calendar invite would be created', sms:'📱 SMS would be sent' };
+  const icons = { email:'📬', cal:'📅', sms:'📱' };
+  toast.querySelector('.ft-icon').textContent = icons[type]||'📬';
+  $('ftTitle').textContent = titles[type]||'Action simulated';
+  if(type==='email'){
+    $('ftBody').textContent = 'To: ' + (to||'(no address)') + ' · Subject: ' + (subject||'(no subject)');
+    $('ftDetail').textContent = 'In production, this would send via MailApp. In demo mode, no email was sent and no data left this browser.';
+  } else if(type==='cal'){
+    $('ftBody').textContent = (extra.title||'Appointment') + ' · ' + (extra.when||'TBD');
+    $('ftDetail').textContent = 'In production, this would create a Google Calendar event. In demo mode, nothing was scheduled.';
+  }
+  toast.classList.add('show');
+  if(toastTimer) clearTimeout(toastTimer);
+  toastTimer = setTimeout(()=>toast.classList.remove('show'), 4800);
+}
+
+// ─────────────────────────────────────────────────────────────────────
+//  RENDER — TASKS
+// ─────────────────────────────────────────────────────────────────────
+function renderTasks(){
+  const open = TASKS.filter(t=>!t.done);
+  const n = open.length;
+  const al=$('taskAlert'); if(al){ al.style.display=n>0?'':'none'; al.textContent='🔔 '+n+(n===1?' task':' tasks'); }
+  const tc=$('taskCount'); if(tc){ tc.textContent=n; tc.style.display=n>0?'':'none'; }
+  const ct=$('cTask'); if(ct) ct.textContent=n;
+  if(!n){ $('tasks').innerHTML='<div class="empty">No open tasks.</div>'; return; }
+  $('tasks').innerHTML = open.map(t=>{
+    let flag='';
+    if(t.due && t.due < todayStr) flag='<span class="flag late">past due</span>';
+    else if(t.due === todayStr) flag='<span class="flag today">today</span>';
+    else if(t.due) flag='<span class="flag due">due '+esc(t.due)+'</span>';
+    const meta = [t.what,t.link].filter(Boolean).map(esc).join('  ·  ');
+    return '<div class="bubble"><div class="task">'
+      +'<input type="checkbox" class="cbx" data-task-id="'+t.id+'">'
+      +'<div style="flex:1"><div class="nm">'+esc(t.name)+'</div>'+(meta?'<div class="meta">'+meta+'</div>':'')+'</div>'
+      +flag+'</div></div>';
+  }).join('');
+}
+
+// ─────────────────────────────────────────────────────────────────────
+//  RENDER — TRIAGE
+// ─────────────────────────────────────────────────────────────────────
+function renderTriage(){
+  const list = TRIAGE.filter(t=>!t.done);
+  const n = list.length;
+  $('triageSec').style.display = n ? '' : 'none';
+  $('caughtSec').style.display = n ? 'none' : '';
+  const tc=$('triageCount'); if(tc){ tc.textContent=n; tc.style.display=n>0?'':'none'; }
+  const al=$('triageAlert'); if(al){ al.style.display=n>0?'':'none'; al.textContent='📥 '+n+(n===1?' inquiry':' inquiries'); }
+  $('cCon').textContent = n;
+  if(!n){ $('triage').innerHTML=''; return; }
+  $('triage').innerHTML = list.map(t=>{
+    const dw=daysWaiting(t.ts); const dcls=dw>=14?'hot':(dw>=7?'warn':'');
+    const dbub=dw!==null?'<span class="daybubble '+dcls+'">'+dw+(dw===1?' day':' days')+' waiting</span>':'';
+    const recv=t.ts?'Received '+esc(t.ts):'';
+    const cc=t.contacted?'on':'off';
+    return '<div class="bubble inq" data-triage-id="'+t.id+'">'
+      +'<div class="recv">'+recv+dbub+'</div>'
+      +'<div class="nm" style="margin-top:5px">'
+        +'<button class="contact '+cc+'" data-contact-tri="'+t.id+'">'+(!t.contacted?'Not contacted':'Contacted')+'</button>'
+        +esc(t.name)+'  ·  '+esc(t.phone||'')+'  ·  '+esc(t.email)+'</div>'
+      +(t.who?'<div class="ln">Wants to work with: <b>'+esc(t.who)+'</b></div>':'')
+      +(t.insurance?'<div class="ln"><span class="plan">'+esc(t.insurance)+'</span></div>':'')
+      +(t.looking?'<div class="note">'+esc(t.looking)+'</div>':'')
+      +'<div class="row-actions"><button class="btn key" data-assign-tri="'+t.id+'">Assign</button></div>'
+      +'</div>';
+  }).join('');
+}
+
+// ─────────────────────────────────────────────────────────────────────
+//  RENDER — WAITLIST
+// ─────────────────────────────────────────────────────────────────────
+let wlMode='date';
+function renderWaitlist(list){
+  list = list || WAITLIST;
+  const n=list.length;
+  $('waitSec').style.display='';
+  $('wlCount').textContent = n+(n===1?' person':' people');
+  $('cWait').textContent = n;
+  const a=$('waitAlert'); if(a){ a.style.display=n>0?'':'none'; a.textContent='⏳ '+n+' waiting'; }
+  const st=$('wlStar'); if(st) st.style.display=n?'':'none';
+  if(!n){ $('waitlist').innerHTML='<div class="emptywl">No one is on the waitlist right now.</div>'; return; }
+  const sorted=list.slice().sort((a,b)=>(daysWaiting(b.ts)||0)-(daysWaiting(a.ts)||0));
+  function card(w, hideWho){
+    const dw=daysWaiting(w.ts); const dcls=dw>=14?'hot':(dw>=7?'warn':'');
+    const who=(!hideWho&&w.source)?'<span class="wlfor">'+esc(w.source)+"'s list</span>":'';
+    const dbub=dw!==null?'<span class="daybubble '+dcls+'">'+dw+(dw===1?' day':' days')+' on waitlist</span>':'';
+    const cc=w.contacted?'on':'off';
+    return '<div class="bubble wl" data-wl-id="'+w.id+'">'
+      +'<div class="recv wlhead">'+who+dbub+'</div>'
+      +'<div class="nm" style="margin-top:5px">'
+        +'<button class="contact '+cc+'" data-contact-wl="'+w.id+'">'+(!w.contacted?'Not contacted':'Contacted')+'</button>'
+        +esc(w.name)+'  ·  '+esc(w.phone||'')+'</div>'
+      +(w.insurance?'<div class="ln"><span class="plan">'+esc(w.insurance)+'</span></div>':'')
+      +(w.looking?'<div class="note">'+esc(w.looking)+'</div>':'')
+      +'<div class="row-actions"><button class="btn" data-reassign-wl="'+w.id+'">Reassign</button></div>'
+      +'</div>';
+  }
+  if(wlMode==='therapist'){
+    const groups={}; sorted.forEach(w=>{ const k=(w.source&&w.source.trim())||'Unassigned'; (groups[k]=groups[k]||[]).push(w); });
+    $('waitlist').innerHTML=Object.keys(groups).sort().map(k=>
+      '<div class="wlgroup">'+esc(k)+"'s list ("+groups[k].length+')</div>'
+      +groups[k].map(w=>card(w,true)).join('')
+    ).join('');
+  } else {
+    $('waitlist').innerHTML=sorted.map(w=>card(w,false)).join('');
+  }
+}
+
+// ─────────────────────────────────────────────────────────────────────
+//  RENDER — CLINICIANS
+// ─────────────────────────────────────────────────────────────────────
+function renderClin(){
+  const accepting=CLINICIANS.filter(c=>c.taking==='Yes').length;
+  $('acceptCount').textContent=accepting+' accepting';
+  const ordered=CLINICIANS.slice().sort((a,b)=>{
+    const aY=a.taking==='Yes'?1:0, bY=b.taking==='Yes'?1:0;
+    if(bY!==aY) return bY-aY; return (b.spots||0)-(a.spots||0);
+  });
+  $('clin').innerHTML='<div class="clin-grid">'
+    +ordered.map(c=>{
+      const t=c.taking==='Yes'?'yes':(c.taking==='No'?'no':'tbd');
+      const mute=c.taking!=='Yes';
+      const col=mute?'#7C7780':c.color;
+      const statusTxt=c.taking==='Yes'?'Accepting Clients':(c.taking||'TBD');
+      return '<div class="cc'+(mute?' mute':'')+'" style="border-color:'+col+'44; box-shadow:0 0 0 1px '+col+'22, 0 8px 26px rgba(0,0,0,.28)">'
+        +'<div class="nm"><span class="cdot" style="background:'+col+'; box-shadow:0 0 7px '+col+'"></span>'+esc(c.name)+'</div>'
+        +'<div class="n" style="color:'+col+'">'+c.spots+'</div>'
+        +'<div class="l">OPEN</div>'
+        +'<div class="cstatus '+t+'">'+esc(statusTxt)+'</div>'
+        +'<div class="ccbtns">'
+          +'<button class="pill upd" data-clin-update="'+escA(c.name)+'">Update</button>'
+          +'<button class="pill dash" data-clin-dash="'+escA(c.name)+'">Open dashboard</button>'
+        +'</div></div>';
+    }).join('')
+    +'<div class="cc newhire"><div class="nm">New Hire</div><div class="ccbtns"><button class="pill add" data-add-clin="1">Add</button></div></div>'
+    +'</div>';
+}
+
+// ─────────────────────────────────────────────────────────────────────
+//  RENDER — CHARTS
+// ─────────────────────────────────────────────────────────────────────
+function renderCharts(){
+  const max=Math.max(0,...MONTH_DATA.map(d=>d.count));
+  const niceMax=Math.max(40, Math.ceil(max/10)*10);
+  const H=232;
+  let glines='';
+  for(let v=0;v<=niceMax;v+=10) glines+='<div class="gline" style="bottom:'+(v/niceMax*H)+'px"><span class="glab">'+v+'</span></div>';
+  const cols=MONTH_DATA.map(d=>{
+    const h=d.count/niceMax*H;
+    const bar=d.count>0?'<div class="bar" style="height:'+Math.max(h,3)+'px"><span class="barval">'+d.count+'</span><span class="barmoon"></span></div>':'<div class="bar zero"></div>';
+    return '<div class="bcol">'+bar+'</div>';
+  }).join('');
+  const labels=MONTH_DATA.map(d=>'<div class="dl">'+esc(d.label)+'</div>').join('');
+  const dotRows=CLIN_30DAY.map(c=>{
+    let dots=''; for(let i=0;i<c.n;i++) dots+='<span class="dot"></span>';
+    return '<div class="hbd"><div class="hname">'+esc(c.name)+'</div><div class="hdots">'+dots+'</div><div class="hv">'+c.n+'</div></div>';
+  }).join('');
+  $('charts').innerHTML=
+    '<div class="chart"><h3>New consult requests by month</h3>'
+      +'<div class="plot" style="height:'+H+'px">'+glines+'<div class="bars" style="height:'+H+'px">'+cols+'</div></div>'
+      +'<div class="dlabels">'+labels+'</div></div>'
+    +'<div class="chart"><h3>Clinician Referral Count<span class="sub">Past 30 days</span></h3>'+dotRows+'</div>';
+}
+
+// ─────────────────────────────────────────────────────────────────────
+//  MODAL HELPERS
+// ─────────────────────────────────────────────────────────────────────
+const scrim=$('scrim');
+function closeM(){ scrim.classList.remove('on'); scrim.innerHTML=''; }
+function openSheet(html){ scrim.innerHTML='<div class="sheet">'+html+'</div>'; scrim.classList.add('on'); }
+function confirmClose(host, msg){ host.innerHTML='<div style="text-align:center;padding:34px 16px"><div style="font-size:34px">✅</div><div style="font-size:16px;font-weight:600;margin-top:8px">'+esc(msg)+'</div></div>'; setTimeout(closeM,1600); }
+scrim.addEventListener('click',e=>{ if(e.target===scrim) closeM(); });
+document.addEventListener('keydown',e=>{ if(e.key==='Escape') closeM(); });
+
+function btnLoad(b,txt){ b.disabled=true; b.classList.add('loading'); b.innerHTML='<span class="spin"></span>'+esc(txt||'Working...'); }
+function calPreview(name, slot){
+  return '<div class="cal-preview"><div class="cp-head">📅 Calendar preview (demo)</div>'
+    +'<div class="cp-row"><span class="cp-lbl">Event</span>Intake consult — '+esc(name)+'</div>'
+    +'<div class="cp-row"><span class="cp-lbl">When</span>'+esc(slot||'TBD')+'</div>'
+    +'<div class="cp-row"><span class="cp-lbl">Note</span>No invite will actually be sent in demo mode.</div>'
+    +'</div>';
+}
+
+// ─────────────────────────────────────────────────────────────────────
+//  ASSIGN MODAL
+// ─────────────────────────────────────────────────────────────────────
+function openAssign(id){
+  const t=TRIAGE.find(x=>x.id===id); if(!t) return;
+  const SIG='Best,\n\n'+PRACTICE+'\nintake@yourpractice.com\n555-0100';
+  openSheet(
+    '<button class="closex" id="ax" title="Close">✕</button>'
+    +'<h3>Assign inquiry</h3>'
+    +(t.insurance?'<div class="ln"><span class="plan">'+esc(t.insurance)+'</span></div>':'')
+    +(t.looking?'<div class="note">'+esc(t.looking)+'</div>':'')
+    +'<label>Send to</label>'
+    +'<div class="asgbtns" id="asg-btns">'
+    +CLINICIANS.map(c=>{
+      const yes=c.taking==='Yes';
+      return '<button type="button" class="asgbtn'+(yes?' yes':'')+'" data-clin="'+escA(c.name)+'">'+esc(c.name)+'<span class="asgspots">'+c.spots+' open</span></button>';
+    }).join('')
+    +'<button type="button" class="asgbtn refer" data-act="REFER">Refer Out</button>'
+    +'<button type="button" class="asgbtn wait" data-act="WAIT">Add to Waitlist</button>'
+    +'<button type="button" class="asgbtn ignore" data-act="IGNORE">Ignore</button>'
+    +'<button type="button" class="asgbtn ignore" data-act="DROP">Dropped off</button>'
+    +'</div>'
+    +'<div id="asg-panel"></div>'
+  );
+  const host=scrim.querySelector('.sheet');
+  $('ax').onclick=closeM;
+
+  $('asg-btns').onclick=e=>{
+    const b=e.target.closest('button'); if(!b) return;
+    $('asg-btns').querySelectorAll('button').forEach(x=>x.classList.remove('sel'));
+    b.classList.add('sel');
+    const panel=$('asg-panel');
+    if(b.dataset.clin) fitForm(b.dataset.clin);
+    else if(b.dataset.act==='REFER') referForm();
+    else if(b.dataset.act==='WAIT') waitForm();
+    else if(b.dataset.act==='IGNORE') ignoreForm();
+    else if(b.dataset.act==='DROP') dropForm();
+  };
+
+  function fitForm(name){
+    const meta=CLINICIAN_META[name]||{fullName:name,pronoun:'They',bio:''};
+    const c=CLINICIANS.find(x=>x.name===name)||{times:[]};
+    const slots=(c.times||[]).slice(0,3);
+    let pronoun=meta.pronoun||'They', mode='suggest';
+    function compose(){
+      const times=mode==='reach'
+        ?(name+' will reach out to you directly to schedule a time.')
+        :(pronoun+' has openings at:\n'+(slots.length?slots.join('\n'):'(times to be confirmed)'));
+      return 'Hello there,\n\nThank you for reaching out. We\'re glad you\'re here!\n\n'
+        +meta.fullName+' is currently accepting new clients, and I think they would be a good match for you.\n\n'
+        +(meta.bio?meta.bio+'\n\n':'')+times
+        +'\n\nPlease let us know which time works and we\'ll get you scheduled.\n\n'+SIG;
+    }
+    const PRO=['They','She','He','He/they','She/they','Ze'];
+    if(PRO.indexOf(pronoun)<0) PRO.unshift(pronoun);
+    $('asg-panel').innerHTML=
+      '<label class="switch"><input type="checkbox" id="asg-send" checked><span class="track"></span> Send this email to the client</label>'
+      +(slots.length?calPreview(t.name, slots[0]):'')
+      +'<div class="prorow"><label style="margin:0">Pronouns</label>'
+        +'<select id="asg-pro">'+PRO.map(p=>'<option'+(p===pronoun?' selected':'')+'>'+esc(p)+'</option>').join('')+'</select>'
+        +'<div class="modetog">'
+          +'<button type="button" class="asgbtn sel" id="asg-msug">Suggest times</button>'
+          +'<button type="button" class="asgbtn" id="asg-mreach">Therapist reaches out</button>'
+        +'</div></div>'
+      +'<label>Email to '+esc(t.email)+'</label>'
+      +'<input id="asg-subj" value="'+escA('Consultation Request')+'">'
+      +'<textarea id="asg-body" rows="14">'+esc(compose())+'</textarea>'
+      +'<div class="warnbubble">⚠ Check with '+esc(name)+' about their actual availability before sending in production.</div>'
+      +'<div class="acts"><button class="btn key full" id="asg-go">Assign &amp; send email (demo)</button></div>';
+    $('asg-pro').onchange=()=>{ pronoun=$('asg-pro').value; $('asg-body').value=compose(); };
+    $('asg-msug').onclick=()=>{ mode='suggest'; $('asg-msug').classList.add('sel'); $('asg-mreach').classList.remove('sel'); $('asg-body').value=compose(); };
+    $('asg-mreach').onclick=()=>{ mode='reach'; $('asg-mreach').classList.add('sel'); $('asg-msug').classList.remove('sel'); $('asg-body').value=compose(); };
+    $('asg-go').onclick=async()=>{
+      const send=$('asg-send').checked;
+      btnLoad($('asg-go'),'Assigning...');
+      await fakeDelay();
+      TRIAGE.find(x=>x.id===id).done=true;
+      if(send) fakeSend('email', t.email, $('asg-subj').value);
+      if(send && slots.length) setTimeout(()=>fakeSend('cal', t.email, 'Intake consult — '+t.name, {title:'Intake consult — '+t.name, when:slots[0]}), 600);
+      confirmClose(host, (send?'Assigned and email queued (demo)':'Assigned without emailing') + ' — ' + name);
+      renderTriage(); renderClin();
+    };
+  }
+
+  function waitForm(){
+    $('asg-panel').innerHTML='<label>Add to which clinician\'s waitlist?</label>'
+      +'<div class="asgbtns" id="wf-btns">'+CLINICIANS.map(c=>'<button type="button" class="asgbtn" data-wl-pick="'+escA(c.name)+'">'+esc(c.name)+'</button>').join('')+'</div>'
+      +'<div id="wf-panel"></div>';
+    $('wf-btns').onclick=async e=>{
+      const b=e.target.closest('[data-wl-pick]'); if(!b) return; const name=b.dataset.wlPick;
+      $('wf-btns').querySelectorAll('button').forEach(x=>x.classList.remove('sel')); b.classList.add('sel');
+      const wp=$('wf-panel');
+      const SIG2='Warmly,\n\n'+PRACTICE+'\nintake@yourpractice.com';
+      const body='Hello there,\n\nThank you for reaching out to '+PRACTICE+'. We\'re glad you\'re here!\n\nRight now '+name+' has a short waitlist, and we\'d love to hold a spot for you. We\'ll reach out as soon as an opening comes up.\n\nThank you for your patience.\n\n'+SIG2;
+      wp.innerHTML='<label class="switch"><input type="checkbox" id="wl-send" checked><span class="track"></span> Send waitlist email</label>'
+        +'<label>Email to '+esc(t.email)+'</label>'
+        +'<input id="wl-subj" value="'+escA('Consultation Request')+'">'
+        +'<textarea id="wl-body" rows="12">'+esc(body)+'</textarea>'
+        +'<div class="acts"><button class="btn key full" id="wl-go">Add to waitlist &amp; send (demo)</button></div>';
+      $('wl-go').onclick=async()=>{
+        const send=$('wl-send').checked; btnLoad($('wl-go'),'Adding...');
+        await fakeDelay();
+        TRIAGE.find(x=>x.id===id).done=true;
+        WAITLIST.push({id:Date.now(), name:t.name, ts:t.ts, email:t.email, phone:t.phone, insurance:t.insurance, looking:t.looking, source:name, contacted:false});
+        if(send) fakeSend('email', t.email, $('wl-subj').value);
+        confirmClose(host,(send?'Added to waitlist and email queued (demo)':'Added to '+name+"'s waitlist"));
+        renderTriage(); renderWaitlist();
+      };
+    };
+  }
+
+  function referForm(){
+    const SIG2='Warmly,\n\n'+PRACTICE+'\nintake@yourpractice.com';
+    const chosen=new Set();
+    $('asg-panel').innerHTML=
+      '<label>Reason for referring out</label>'
+      +'<select id="rf-reason"><option value="">Choose a reason...</option>'
+        +REFERRAL_REASONS.map((r,i)=>'<option value="'+i+'">'+esc(r.reason)+'</option>').join('')+'</select>'
+      +'<label>Specialties</label>'
+      +'<div class="specwrap" id="rf-specs">'+['Trans','LGBTQ+','ENM/Poly','Kink','Neurodivergent','BIPOC','Perinatal','Autism','ADHD','Parenting','Children & teens'].map(s=>'<button type="button" class="spec" data-spec="'+escA(s)+'">'+esc(s)+'</button>').join('')+'</div>'
+      +'<div id="rf-matches" class="matchbox">Choose a reason above to find referral matches.</div>'
+      +'<div class="linkrow"><a class="finderlink" href="#" onclick="return false">↗ Referral Finder (demo)</a><a class="finderlink" href="#" onclick="return false">↗ Psychology Today (demo)</a></div>'
+      +'<label>Email to '+esc(t.email)+'</label>'
+      +'<input id="rf-subj" value=""><textarea id="rf-body" rows="11" placeholder="Choose a reason above to load a template..."></textarea>'
+      +'<div class="acts"><button class="btn key full" id="rf-go">Send referral email (demo)</button></div>';
+
+    function refreshMatches(){
+      const ri=$('rf-reason').value;
+      if(ri===''){$('rf-matches').innerHTML='Choose a reason above.';return;}
+      const r=REFERRAL_REASONS[Number(ri)];
+      const specs=Array.from(chosen).map(s=>s.toLowerCase());
+      const matches=REFERRAL_DIR.filter(d=>!specs.length||specs.some(sp=>d.specialties.toLowerCase().includes(sp))).slice(0,3);
+      $('rf-matches').innerHTML=matches.length
+        ?matches.map(m=>'<div class="m">• <b>'+esc(m.name)+'</b>'+(m.notes?' · '+esc(m.notes):'')+' '+(m.verified?'✓':'')+' <div style="font-size:11px;color:var(--faint)">'+esc(m.specialties)+'</div></div>').join('')
+        :'No matches — try fewer specialties.';
+      let body=(r.template||'').trim()+'\n\n';
+      if(matches.length) body+=matches.map((m,i)=>'Option '+(i+1)+': '+m.name).join('\n\n');
+      body+='\n\n'+SIG2;
+      $('rf-body').value=body; $('rf-subj').value=r.subject||'Some referral options';
+    }
+    $('rf-reason').onchange=refreshMatches;
+    $('rf-specs').addEventListener('click',e=>{ const b=e.target.closest('.spec'); if(!b) return; const s=b.dataset.spec; if(chosen.has(s)){ chosen.delete(s); b.classList.remove('on'); } else { chosen.add(s); b.classList.add('on'); } refreshMatches(); });
+    $('rf-go').onclick=async()=>{ btnLoad($('rf-go'),'Sending...'); await fakeDelay(); TRIAGE.find(x=>x.id===id).done=true; fakeSend('email',t.email,$('rf-subj').value); confirmClose(host,'Referral email queued (demo)'); renderTriage(); };
+  }
+
+  function ignoreForm(){
+    $('asg-panel').innerHTML='<div class="note">This inquiry will be hidden from the dashboard. In production it would be marked Ignored on the Triage sheet.</div><div class="acts"><button class="btn key full" id="ig-go">Ignore this inquiry</button></div>';
+    $('ig-go').onclick=async()=>{ btnLoad($('ig-go'),'Working...'); await fakeDelay(); TRIAGE.find(x=>x.id===id).done=true; confirmClose(host,'Marked as ignored'); renderTriage(); };
+  }
+  function dropForm(){
+    $('asg-panel').innerHTML='<div class="note">Marks this client Unresponsive and removes it from the dashboard. In production it stays on the Triage sheet.</div><div class="acts"><button class="btn key full" id="dr-go">Mark as dropped off</button></div>';
+    $('dr-go').onclick=async()=>{ btnLoad($('dr-go'),'Working...'); await fakeDelay(); TRIAGE.find(x=>x.id===id).done=true; confirmClose(host,'Marked unresponsive'); renderTriage(); };
+  }
+}
+
+// ─────────────────────────────────────────────────────────────────────
+//  REASSIGN MODAL
+// ─────────────────────────────────────────────────────────────────────
+function openReassign(id){
+  const w=WAITLIST.find(x=>x.id===id); if(!w) return;
+  openSheet(
+    '<button class="closex" id="rx" title="Close">✕</button>'
+    +'<h3>Reassign '+(w.name?esc(w.name):'')+'</h3>'
+    +(w.source?'<div class="note">Currently on '+esc(w.source)+"'s list.</div>":'')
+    +'<label>Pick a clinician</label>'
+    +'<div class="asgbtns" id="re-btns">'+CLINICIANS.map(c=>'<button type="button" class="asgbtn" data-reto="'+escA(c.name)+'">'+esc(c.name)+'</button>').join('')+'</div>'
+    +'<div id="re-actions" style="display:none">'
+      +'<label>What should happen?</label>'
+      +'<div class="asgbtns">'
+        +'<button type="button" class="asgbtn" id="re-route">Route to them</button>'
+        +'<button type="button" class="asgbtn wait" id="re-wait">Move to their waitlist</button>'
+      +'</div></div>'
+    +'<div style="margin-top:14px"><button type="button" class="asgbtn ignore" id="re-drop">Dropped off</button></div>'
+  );
+  const host=scrim.querySelector('.sheet');
+  $('rx').onclick=closeM;
+  let pick='';
+  $('re-btns').onclick=e=>{ const b=e.target.closest('[data-reto]'); if(!b) return; pick=b.dataset.reto;
+    $('re-btns').querySelectorAll('button').forEach(x=>x.classList.remove('sel')); b.classList.add('sel');
+    $('re-actions').style.display=''; $('re-route').textContent='Route to '+pick; $('re-wait').textContent='Move to '+pick+"'s waitlist"; };
+  $('re-route').onclick=async()=>{ if(!pick) return; btnLoad($('re-route'),'Routing...'); await fakeDelay();
+    WAITLIST=WAITLIST.filter(x=>x.id!==id); confirmClose(host,'Routed to '+pick); renderWaitlist(); };
+  $('re-wait').onclick=async()=>{ if(!pick) return; btnLoad($('re-wait'),'Moving...'); await fakeDelay();
+    const idx=WAITLIST.findIndex(x=>x.id===id); if(idx>-1) WAITLIST[idx].source=pick;
+    confirmClose(host,'Moved to '+pick+"'s waitlist"); renderWaitlist(); };
+  $('re-drop').onclick=async()=>{ btnLoad($('re-drop'),'Working...'); await fakeDelay();
+    WAITLIST=WAITLIST.filter(x=>x.id!==id); confirmClose(host,'Marked as dropped off'); renderWaitlist(); };
+}
+
+// ─────────────────────────────────────────────────────────────────────
+//  CLINICIAN UPDATE MODAL
+// ─────────────────────────────────────────────────────────────────────
+function openClinUpdate(name){
+  const c=CLINICIANS.find(x=>x.name===name); if(!c) return;
+  const SLOT_N=25;
+  const slots=c.times.slice(); while(slots.length<SLOT_N) slots.push('');
+  openSheet(
+    '<button class="closex" id="cu-x" title="Close">✕</button>'
+    +'<h3>Update '+esc(name)+'</h3>'
+    +'<label>Seeing new clients?</label>'
+    +'<div class="asgbtns" id="cu-take">'+['Yes','No','TBD'].map(v=>'<button type="button" class="asgbtn'+(c.taking===v?' sel':'')+'" data-take="'+v+'">'+(v==='Yes'?'Accepting Clients':v)+'</button>').join('')+'</div>'
+    +'<div class="note" style="margin-top:8px">Open spots counted from filled timeslots below ('+c.spots+' right now).</div>'
+    +'<label>Open timeslots <span class="tiny">(leave blank = Full)</span></label>'
+    +'<div class="slotbox">'+slots.map((v,i)=>'<div class="slotrow"><span class="slotn">Slot '+(i+1)+'</span><input class="slotin" data-slot="'+i+'" value="'+escA(v)+'" placeholder="Full"></div>').join('')+'</div>'
+    +'<div class="acts"><button class="btn key full" id="cu-go">Save (demo)</button></div>'
+  );
+  let take=c.taking;
+  $('cu-x').onclick=closeM;
+  $('cu-take').onclick=e=>{ const b=e.target.closest('[data-take]'); if(!b) return; take=b.dataset.take;
+    $('cu-take').querySelectorAll('button').forEach(x=>x.classList.remove('sel')); b.classList.add('sel'); };
+  $('cu-go').onclick=async()=>{
+    btnLoad($('cu-go'),'Saving...');
+    await fakeDelay();
+    const newSlots=[]; scrim.querySelectorAll('.slotin').forEach(inp=>{ newSlots[Number(inp.dataset.slot)]=inp.value.trim(); });
+    const filled=newSlots.filter(Boolean);
+    const idx=CLINICIANS.findIndex(x=>x.name===name);
+    CLINICIANS[idx].taking=take; CLINICIANS[idx].times=filled; CLINICIANS[idx].spots=filled.length;
+    closeM(); renderClin();
+  };
+}
+
+// ─────────────────────────────────────────────────────────────────────
+//  ADD CLINICIAN MODAL
+// ─────────────────────────────────────────────────────────────────────
+const PALETTE=[
+  {name:'Plum',hex:'#5C4A56'},{name:'Forest',hex:'#556357'},{name:'Sage',hex:'#7D8B78'},
+  {name:'Mauve',hex:'#A98598'},{name:'Lavender',hex:'#8E7C99'},{name:'Taupe',hex:'#B9AAA4'},
+  {name:'Raspberry',hex:'#C25A86'},{name:'Teal',hex:'#4C9B96'},{name:'Gold',hex:'#C99A4E'},
+  {name:'Terracotta',hex:'#BE7355'},{name:'Dusty blue',hex:'#6E8BB0'},{name:'Orchid',hex:'#A86FB0'}
+];
+function openAddClin(){
+  const usedHex=CLINICIANS.map(c=>(c.color||'').toUpperCase());
+  const swatches=PALETTE.map(c=>{ const u=usedHex.includes(c.hex.toUpperCase());
+    return '<button type="button" class="sw'+(u?' used':'')+'" data-hex="'+c.hex+'" title="'+c.name+(u?' (in use)':'')+'" style="background:'+c.hex+'"'+(u?' disabled':'')+'></button>'; }).join('');
+  openSheet(
+    '<button class="closex" id="cl-x" title="Close">✕</button>'
+    +'<h3>Add clinician</h3><p>Adds a new clinician to the demo roster.</p>'
+    +'<label>Name</label><input id="cl-name" placeholder="First name">'
+    +'<label>Email</label><input id="cl-email" placeholder="name@yourpractice.com">'
+    +'<label>Color</label><div class="swatches" id="cl-sw">'+swatches+'</div>'
+    +'<div class="acts"><button class="btn key full" id="cl-add">Add clinician (demo)</button></div>'
+  );
+  $('cl-x').onclick=closeM;
+  let sel='';
+  $('cl-sw').addEventListener('click',e=>{ const b=e.target.closest('.sw'); if(!b||b.classList.contains('used')) return;
+    $('cl-sw').querySelectorAll('.sw').forEach(x=>x.classList.remove('sel')); b.classList.add('sel'); sel=b.dataset.hex; });
+  $('cl-add').onclick=async()=>{
+    const n=$('cl-name').value.trim(); if(!n){ $('cl-name').focus(); return; }
+    if(!sel){ $('cl-add').textContent='Pick a color first'; return; }
+    btnLoad($('cl-add'),'Adding...'); await fakeDelay();
+    CLINICIANS.push({name:n, taking:'Yes', spots:0, times:[], color:sel});
+    closeM(); renderClin();
+  };
+}
+
+// ─────────────────────────────────────────────────────────────────────
+//  ADD TASK MODAL
+// ─────────────────────────────────────────────────────────────────────
+$('addTask').onclick=()=>{
+  openSheet(
+    '<button class="closex" id="tx" title="Close">✕</button>'
+    +'<h3>Add task</h3>'
+    +'<label>Task</label><input id="t-name" placeholder="What needs doing">'
+    +'<label>Due date</label><input id="t-due" type="date">'
+    +'<label>Notes</label><input id="t-what" placeholder="Optional">'
+    +'<label>Location or link</label><input id="t-link" placeholder="Optional">'
+    +'<div class="acts"><button class="btn key full" id="t-add">Add task</button></div>'
+  );
+  $('tx').onclick=closeM; $('t-name').focus();
+  $('t-add').onclick=async()=>{
+    const n=$('t-name').value.trim(); if(!n) return;
+    TASKS.push({id:nextTaskId++, name:n, due:$('t-due').value, what:$('t-what').value.trim(), link:$('t-link').value.trim(), done:false});
+    closeM(); renderTasks();
+  };
+};
+
+// ─────────────────────────────────────────────────────────────────────
+//  EDIT AUTO REPLY MODAL
+// ─────────────────────────────────────────────────────────────────────
+$('editReply').onclick=()=>{
+  openSheet(
+    '<h3>Automated email</h3><p>Edit the template that would go out to new inquiries. In production this populates the Automated Reply sheet tab. In demo mode, changes are saved in memory only.</p>'
+    +'<label>From</label><input id="ar-from" value="'+escA(AUTOREPLY.from)+'">'
+    +'<label>Reply-to</label><input id="ar-reply" value="'+escA(AUTOREPLY.replyTo)+'">'
+    +'<label>Subject</label><input id="ar-subj" value="'+escA(AUTOREPLY.subject)+'">'
+    +'<label>Message</label><textarea id="ar-body">'+esc(AUTOREPLY.body)+'</textarea>'
+    +'<div class="acts"><button class="btn key full" id="ar-save">Save (demo)</button><button class="btn" id="ar-x">Cancel</button></div>'
+  );
+  $('ar-x').onclick=closeM;
+  $('ar-save').onclick=async()=>{
+    AUTOREPLY.from=$('ar-from').value; AUTOREPLY.replyTo=$('ar-reply').value;
+    AUTOREPLY.subject=$('ar-subj').value; AUTOREPLY.body=$('ar-body').value;
+    closeM();
+  };
+};
+
+// ─────────────────────────────────────────────────────────────────────
+//  GLOBAL EVENT DELEGATION
+// ─────────────────────────────────────────────────────────────────────
+$('app').addEventListener('change', e=>{
+  if(e.target.dataset.taskId){
+    const id=Number(e.target.dataset.taskId);
+    const t=TASKS.find(x=>x.id===id); if(!t) return;
+    e.target.disabled=true;
+    setTimeout(()=>{ t.done=true; renderTasks(); }, 350);
+  }
+});
+
+$('app').addEventListener('click', e=>{
+  const ctri=e.target.closest('[data-contact-tri]');
+  const cwl=e.target.closest('[data-contact-wl]');
+  const asg=e.target.closest('[data-assign-tri]');
+  const rea=e.target.closest('[data-reassign-wl]');
+  const upd=e.target.closest('[data-clin-update]');
+  const dash=e.target.closest('[data-clin-dash]');
+  const addc=e.target.closest('[data-add-clin]');
+  if(ctri){ const id=Number(ctri.dataset.contactTri); const t=TRIAGE.find(x=>x.id===id); if(t){ t.contacted=!t.contacted; renderTriage(); } return; }
+  if(cwl){ const id=Number(cwl.dataset.contactWl); const w=WAITLIST.find(x=>x.id===id); if(w){ w.contacted=!w.contacted; renderWaitlist(); } return; }
+  if(asg){ openAssign(Number(asg.dataset.assignTri)); return; }
+  if(rea){ openReassign(Number(rea.dataset.reassignWl)); return; }
+  if(upd){ openClinUpdate(upd.dataset.clinUpdate); return; }
+  if(dash){ fakeSend('cal','(demo)','Clinician dashboard — '+esc(dash.dataset.clinDash),{title:'Open dashboard: '+dash.dataset.clinDash, when:'Now'}); return; }
+  if(addc){ openAddClin(); return; }
+});
+
+// ─────────────────────────────────────────────────────────────────────
+//  WAITLIST STAR (group toggle)
+// ─────────────────────────────────────────────────────────────────────
+$('wlStar').onclick=()=>{
+  wlMode=(wlMode==='therapist')?'date':'therapist';
+  const b=$('wlStar'); b.classList.toggle('on', wlMode==='therapist');
+  b.title=wlMode==='therapist'?'Show by date':'Group by therapist';
+  renderWaitlist();
+};
+
+// ─────────────────────────────────────────────────────────────────────
+//  THEME TOGGLE
+// ─────────────────────────────────────────────────────────────────────
+function applyTheme(t){ document.documentElement.setAttribute('data-theme',t); $('themeIcon').textContent=t==='light'?'☀':'☾'; }
+(function(){ let t='dark'; try{ t=localStorage.getItem('ftTheme')||'dark'; }catch(e){} applyTheme(t); })();
+$('themeToggle').onclick=()=>{
+  const cur=document.documentElement.getAttribute('data-theme');
+  const next=cur==='light'?'dark':'light'; applyTheme(next);
+  try{ localStorage.setItem('ftTheme',next); }catch(e){}
+  renderClin();
+};
+
+// ─────────────────────────────────────────────────────────────────────
+//  REFRESH (just re-renders from in-memory state)
+// ─────────────────────────────────────────────────────────────────────
+$('refresh').onclick=async()=>{
+  const b=$('refresh'); b.disabled=true; b.textContent='Refreshing...';
+  await fakeDelay(600); renderAll(); b.textContent='Refresh (Demo)'; b.disabled=false;
+};
+
+function renderAll(){
+  renderTasks(); renderTriage(); renderWaitlist(); renderClin(); renderCharts();
+}
+renderAll();
+</script>
+</body>
+</html>
