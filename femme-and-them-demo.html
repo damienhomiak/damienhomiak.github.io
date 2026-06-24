@@ -1,0 +1,957 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<base target="_top">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Femme & Them Dashboard — Demo Mode</title>
+<style>
+/* ─── DEMO BANNER ─────────────────────────────────────────────────── */
+.demo-banner{
+  position:fixed; top:0; left:0; right:0; z-index:999;
+  background:linear-gradient(90deg,#4C0552,#6E2A72,#4C0552);
+  color:#EAD9DF; font-size:11.5px; font-weight:700; letter-spacing:.5px;
+  text-align:center; padding:7px 12px; text-transform:uppercase;
+  box-shadow:0 2px 10px rgba(76,5,82,.5);
+  display:flex; align-items:center; justify-content:center; gap:10px; flex-wrap:wrap;
+}
+.demo-banner .db-pill{
+  background:rgba(234,217,223,.15); border:1px solid rgba(234,217,223,.35);
+  padding:2px 9px; border-radius:999px; font-size:10px; white-space:nowrap;
+}
+body{ padding-top:36px; }
+
+/* ─── THEMES ──────────────────────────────────────────────────────── */
+:root{
+  --bg:#FBEAF0; --bg2:#FFF6FA; --ink:#3A2A33; --mute:#7A5E6C; --faint:#8C6B79;
+  --glass:rgba(255,255,255,.6); --glass-2:rgba(255,255,255,.85); --edge:rgba(150,90,120,.22);
+  --violet:#B5517E; --teal:#5E9E86; --pink:#E59CC0; --orange:#D98A5E;
+  --plan:#B5517E; --finder:#5E9E86;
+  --green-bg:rgba(94,158,134,.18); --grey-bg:rgba(150,90,120,.08); --violet-bg:rgba(181,81,126,.14);
+  --amber:#946017; --amber-bg:rgba(176,122,56,.16); --rose:#A8384C; --rose-bg:rgba(194,91,110,.14);
+  --ok:#5E9E86; --ok-bg:rgba(94,158,134,.2); --off:#C25B6E; --off-bg:rgba(194,91,110,.16);
+  --skyop:.7; --sheetbg:#FFF6FA; --scrimbg:rgba(120,80,100,.34); --inputbg:#fff; --contact-ink:#3A2A33;
+  --sky:radial-gradient(125% 72% at 50% 120%, rgba(229,156,192,.4) 0%, rgba(255,200,224,.22) 34%, transparent 62%), linear-gradient(180deg,var(--bg) 0%, var(--bg2) 100%);
+  --r:22px; --font:system-ui,-apple-system,"Segoe UI",Arial,sans-serif; --zoom:1;
+}
+:root[data-theme="sun"]{
+  --bg:#FBF7F8; --bg2:#FFFFFF; --ink:#241E26; --mute:#6A5A66; --faint:#9C8C98;
+  --glass:#FFFFFF; --glass-2:#FBF6F8; --edge:rgba(76,5,82,.18);
+  --violet:#4C0552; --teal:#04C3B2; --pink:#EAD9DF; --orange:#C2674F;
+  --plan:#4C0552; --finder:#4C0552;
+  --green-bg:rgba(4,195,178,.16); --grey-bg:rgba(76,5,82,.06); --violet-bg:rgba(76,5,82,.12);
+  --amber:#C2674F; --amber-bg:rgba(194,103,79,.16); --rose:#0B8B80; --rose-bg:rgba(4,195,178,.18);
+  --ok:#4C0552; --ok-bg:rgba(76,5,82,.14); --off:#0B8B80; --off-bg:rgba(4,195,178,.16);
+  --skyop:0; --sheetbg:#FFFFFF; --scrimbg:rgba(40,18,42,.42); --inputbg:#fff; --contact-ink:#241E26;
+  --sky:linear-gradient(180deg,#FBF7F8 0%, #FFFFFF 100%);
+}
+:root[data-theme="midnight"]{
+  --bg:#070A18; --bg2:#0B1024; --ink:#F4F7FF; --mute:#A9B2D8; --faint:#6E78A0;
+  --glass:rgba(255,255,255,.05); --glass-2:rgba(255,255,255,.09); --edge:rgba(150,180,255,.16);
+  --violet:#B49BF2; --teal:#5FE3D0; --pink:#F4D58A; --orange:#F4C45C;
+  --plan:#CDB6FF; --finder:#5FE3D0;
+  --green-bg:rgba(95,227,208,.14); --grey-bg:rgba(255,255,255,.06); --violet-bg:rgba(180,155,242,.18);
+  --amber:#F4D06A; --amber-bg:rgba(244,208,106,.16); --rose:#FF6B6B; --rose-bg:rgba(255,107,107,.16);
+  --ok:#56D6B0; --ok-bg:rgba(86,214,176,.2); --off:#D7A8C8; --off-bg:rgba(215,168,200,.16);
+  --skyop:1; --sheetbg:rgba(12,16,34,.98); --scrimbg:rgba(2,4,12,.66); --inputbg:rgba(255,255,255,.05); --contact-ink:#fff;
+  --sky:radial-gradient(60% 45% at 18% 0%, rgba(150,110,240,.18) 0%, transparent 60%), radial-gradient(120% 80% at 50% 120%, rgba(120,90,220,.20) 0%, rgba(80,210,200,.10) 45%, transparent 75%), linear-gradient(180deg,#070A18 0%, #0B1024 100%);
+}
+:root[data-theme="hicon"]{
+  --bg:#FFFFFF; --bg2:#FFFFFF; --ink:#000000; --mute:#1A1A1A; --faint:#333333;
+  --glass:#FFFFFF; --glass-2:#F0F0F0; --edge:#222222;
+  --violet:#0040A0; --teal:#0040A0; --pink:#7A1FA0;
+  --plan:#0040A0; --finder:#8A4B00;
+  --green-bg:rgba(0,64,160,.12); --grey-bg:#ECECEC; --violet-bg:rgba(0,64,160,.12);
+  --amber:#8A4B00; --amber-bg:rgba(138,75,0,.14); --rose:#B00020; --rose-bg:rgba(176,0,32,.12);
+  --ok:#0040A0; --ok-bg:rgba(0,64,160,.14); --off:#8A4B00; --off-bg:rgba(138,75,0,.16);
+  --skyop:0; --sheetbg:#FFFFFF; --scrimbg:rgba(0,0,0,.5); --inputbg:#fff; --contact-ink:#000;
+  --sky:linear-gradient(180deg,#fff,#fff);
+}
+*{ box-sizing:border-box; }
+html,body{ margin:0; }
+body{ font-family:var(--font); color:var(--ink); line-height:1.55; background:var(--bg); min-height:100vh; -webkit-text-size-adjust:100%; zoom:var(--zoom); }
+.sky{ position:fixed; inset:0; z-index:-3; pointer-events:none; opacity:var(--skyop); background:var(--sky); }
+#fx{ position:fixed; inset:0; z-index:-2; pointer-events:none; overflow:hidden; }
+.petal{ position:absolute; top:-6%; border-radius:0 75% 0 75%; background:radial-gradient(circle at 30% 30%, #ffd9e8, #f3a9c8); opacity:.7; will-change:transform; animation:petalfall linear infinite; }
+@keyframes petalfall{ 0%{ transform:translate(0,-10vh) rotate(0deg);} 100%{ transform:translate(var(--sway,30px),112vh) rotate(420deg);} }
+.star{ position:absolute; border-radius:50%; background:#fff; opacity:.4; animation:twinkle ease-in-out infinite; }
+@keyframes twinkle{ 0%,100%{ opacity:.16;} 50%{ opacity:.95;} }
+@media(prefers-reduced-motion:reduce){ .petal,.star{ animation:none; } }
+
+/* ─── LAYOUT ──────────────────────────────────────────────────────── */
+#app{ max-width:720px; margin:0 auto; padding:24px 16px 100px; position:relative; }
+.top{ display:flex; align-items:flex-start; justify-content:space-between; gap:14px; flex-wrap:wrap; padding-bottom:16px; margin-bottom:6px; border-bottom:1px solid transparent; border-image:linear-gradient(90deg, transparent, var(--violet), var(--teal), var(--pink), transparent) 1; }
+.brand h1{ margin:0; font-size:22px; font-weight:600; letter-spacing:.3px; line-height:1.15; cursor:pointer; }
+.acts{ display:flex; gap:8px; flex-wrap:wrap; align-items:center; }
+.btn{ font:inherit; font-size:13.5px; font-weight:500; color:var(--ink); cursor:pointer; min-height:44px; padding:0 16px; border-radius:999px; background:var(--glass); border:1px solid var(--edge); backdrop-filter:blur(8px); -webkit-backdrop-filter:blur(8px); display:inline-flex; align-items:center; justify-content:center; gap:7px; transition:background .15s, transform .1s; }
+.btn:hover{ background:var(--glass-2); } .btn:active{ transform:translateY(1px); }
+.btn.key{ border-color:var(--violet); box-shadow:0 0 0 1px var(--violet-bg) inset; }
+.btn.cta{ background:var(--violet); color:#fff; border-color:var(--violet); box-shadow:0 6px 22px rgba(0,0,0,.18); }
+.btn.cta:hover{ filter:brightness(1.07); }
+:root[data-theme="midnight"] .btn.cta{ background:#B49BF2; color:#1A1230; border-color:#B49BF2; }
+.btn.full{ width:100%; } .btn[disabled]{ opacity:.7; pointer-events:none; }
+.btn.small{ min-height:40px; padding:0 13px; font-size:13px; }
+.iconbtn{ font-size:17px; width:44px; height:44px; min-height:44px; border-radius:999px; cursor:pointer; color:var(--ink); background:var(--glass); border:1px solid var(--edge); display:inline-flex; align-items:center; justify-content:center; }
+.stats{ font-size:13px; color:var(--mute); margin:14px 0 0; padding-left:4px; font-weight:500; }
+.settings{ display:flex; gap:9px; flex-wrap:wrap; align-items:center; margin:12px 0 2px; }
+.toggle{ font:inherit; font-size:13px; font-weight:600; cursor:pointer; min-height:40px; padding:0 14px; border-radius:999px; border:1px solid var(--edge); background:var(--glass); color:var(--ink); display:inline-flex; align-items:center; gap:8px; }
+.toggle .dot{ width:9px; height:9px; border-radius:50%; background:var(--faint); }
+.toggle.on{ background:var(--ok-bg); border-color:var(--ok); color:var(--ok); } .toggle.on .dot{ background:var(--ok); }
+.toggle.off{ background:var(--off-bg); border-color:var(--off); color:var(--off); } .toggle.off .dot{ background:var(--off); }
+.toggle[disabled]{ opacity:.7; pointer-events:none; }
+
+/* ─── FAKE SEND TOAST ─────────────────────────────────────────────── */
+.fake-send-toast{
+  position:fixed; bottom:70px; left:50%; transform:translateX(-50%) translateY(20px);
+  z-index:500; max-width:400px; width:calc(100% - 32px);
+  background:rgba(76,5,82,.97); border:1px solid rgba(234,217,223,.3); border-radius:18px;
+  padding:14px 18px; box-shadow:0 8px 32px rgba(0,0,0,.4);
+  opacity:0; pointer-events:none; transition:opacity .3s, transform .3s;
+}
+.fake-send-toast.show{ opacity:1; transform:translateX(-50%) translateY(0); pointer-events:auto; }
+:root[data-theme="midnight"] .fake-send-toast{ background:rgba(14,10,36,.97); border-color:rgba(180,155,242,.3); }
+:root[data-theme="sun"] .fake-send-toast{ background:#fff; border-color:rgba(76,5,82,.3); }
+.fst-head{ display:flex; align-items:center; gap:8px; margin-bottom:5px; }
+.fst-icon{ font-size:18px; }
+.fst-title{ font-size:13px; font-weight:700; color:#EAD9DF; flex:1; }
+:root[data-theme="sun"] .fst-title{ color:#4C0552; }
+:root[data-theme="midnight"] .fst-title{ color:#B49BF2; }
+.fst-pill{ font-size:10px; font-weight:700; letter-spacing:.6px; text-transform:uppercase; background:rgba(255,255,255,.12); color:rgba(255,255,255,.7); padding:2px 8px; border-radius:999px; }
+:root[data-theme="sun"] .fst-pill{ color:#6A5A66; background:rgba(76,5,82,.1); }
+.fst-body{ font-size:12.5px; color:rgba(255,255,255,.7); line-height:1.45; }
+:root[data-theme="sun"] .fst-body{ color:#6A5A66; }
+:root[data-theme="midnight"] .fst-body{ color:#A9B2D8; }
+.fst-detail{ font-size:11.5px; color:rgba(255,255,255,.45); margin-top:4px; font-style:italic; }
+:root[data-theme="sun"] .fst-detail{ color:#9C8C98; }
+:root[data-theme="midnight"] .fst-detail{ color:#6E78A0; }
+
+/* ─── SECTIONS ────────────────────────────────────────────────────── */
+.sec{ margin-top:26px; }
+.sec-h{ display:flex; align-items:center; gap:10px; margin:0 0 12px; padding-left:4px; }
+.sec-h .label{ font-size:11.5px; font-weight:600; letter-spacing:2.4px; text-transform:uppercase; color:var(--mute); }
+.sec-h .count{ font-size:11px; font-weight:600; color:var(--violet); background:var(--violet-bg); padding:3px 11px; border-radius:999px; margin-left:auto; }
+.bubble{ background:var(--glass); border:1px solid var(--edge); border-radius:var(--r); padding:16px 18px; margin-bottom:11px; backdrop-filter:blur(13px); -webkit-backdrop-filter:blur(13px); box-shadow:0 10px 30px rgba(0,0,0,.12); }
+:root[data-theme="midnight"] .bubble{ box-shadow:0 10px 30px rgba(0,0,0,.3); }
+.empty{ border:1px dashed var(--edge); border-radius:var(--r); padding:18px; color:var(--mute); font-size:13.5px; text-align:center; }
+.tiny{ color:var(--faint); font-size:12.5px; padding:9px 4px; }
+.caught{ display:flex; align-items:center; gap:11px; font-size:14.5px; color:var(--teal); border-color:var(--teal); }
+.caught .em{ font-size:20px; }
+.inq .nm{ font-weight:600; font-size:17px; }
+.inq .ln{ font-size:13.5px; color:var(--mute); margin-top:4px; }
+.note{ font-size:12.5px; color:var(--mute); margin-top:6px; font-style:italic; }
+.recv{ font-size:11.5px; color:var(--faint); }
+.plan{ color:var(--plan); font-weight:600; }
+a.maillink{ color:var(--teal); text-decoration:none; } a.maillink:hover{ text-decoration:underline; }
+.daybubble{ display:inline-flex; align-items:center; font-size:11px; font-weight:700; padding:2px 9px; border-radius:999px; background:var(--violet-bg); color:var(--violet); border:1px solid var(--edge); margin-left:8px; }
+.daybubble.warn{ background:var(--amber-bg); color:var(--amber); }
+.daybubble.hot{ background:var(--rose-bg); color:var(--rose); }
+.contact{ font-size:11px; padding:3px 10px; border-radius:999px; border:1px solid var(--edge); cursor:pointer; color:var(--contact-ink); margin-right:7px; vertical-align:middle; }
+.contact.notc{ background:var(--amber-bg); border-color:var(--amber); color:var(--amber); font-weight:600; }
+.reveal{ font:inherit; font-size:11px; font-weight:600; padding:3px 11px; border-radius:999px; border:1px solid var(--edge); background:var(--grey-bg); color:var(--mute); cursor:pointer; vertical-align:middle; }
+.real{ font-size:11px; font-weight:600; line-height:1.5; margin-top:4px; }
+.row-actions{ display:flex; gap:8px; margin-top:13px; flex-wrap:wrap; }
+.task{ display:flex; gap:14px; align-items:flex-start; }
+.cbx{ -webkit-appearance:none; appearance:none; flex:none; width:26px; height:26px; margin-top:1px; border-radius:50%; border:1.5px solid var(--edge); background:var(--glass); cursor:pointer; position:relative; transition:.15s; }
+.cbx:checked{ background:linear-gradient(135deg,var(--teal),var(--violet)); border-color:transparent; }
+.cbx:checked::after{ content:''; position:absolute; left:8.5px; top:4px; width:6px; height:12px; border:solid #fff; border-width:0 2.5px 2.5px 0; transform:rotate(45deg); }
+.task .nm{ font-weight:500; font-size:15px; } .task .meta{ font-size:13px; color:var(--mute); margin-top:3px; }
+.task .due{ font-size:11px; font-weight:600; color:var(--amber); background:var(--amber-bg); border:1px solid var(--edge); padding:2px 9px; border-radius:999px; display:inline-block; margin-top:5px; }
+.pickwrap{ display:flex; flex-wrap:wrap; gap:8px; margin:4px 0 6px; }
+.pick{ font:inherit; font-size:13px; font-weight:600; cursor:pointer; min-height:40px; padding:0 14px; border-radius:12px; border:1px solid var(--edge); background:var(--glass); color:var(--ink); }
+.pick.on{ background:var(--violet-bg); border-color:var(--violet); color:var(--violet); }
+.spin{ display:inline-block; width:14px; height:14px; border:2px solid rgba(128,128,128,.35); border-top-color:currentColor; border-radius:50%; animation:spin .7s linear infinite; vertical-align:-2px; }
+@keyframes spin{ to{ transform:rotate(360deg); } }
+#busy{ position:fixed; left:50%; bottom:20px; transform:translateX(-50%) translateY(20px); z-index:120; display:flex; align-items:center; gap:9px; padding:10px 16px; border-radius:999px; background:#1b1622; color:#fff; border:1px solid rgba(255,255,255,.15); font-size:13px; font-weight:500; box-shadow:0 8px 26px rgba(0,0,0,.3); opacity:0; pointer-events:none; transition:opacity .18s, transform .18s; }
+#busy.on{ opacity:1; transform:translateX(-50%) translateY(0); }
+#toast{ position:fixed; left:50%; bottom:70px; transform:translateX(-50%) translateY(16px); z-index:130; display:flex; align-items:center; gap:8px; padding:10px 16px; border-radius:999px; background:#21202b; color:#fff; font-size:13px; font-weight:600; box-shadow:0 8px 26px rgba(0,0,0,.28); opacity:0; pointer-events:none; transition:opacity .18s, transform .18s; }
+#toast.on{ opacity:1; transform:translateX(-50%) translateY(0); }
+.scrim{ position:fixed; inset:0; background:var(--scrimbg); display:none; align-items:flex-end; justify-content:center; z-index:90; backdrop-filter:blur(4px); -webkit-backdrop-filter:blur(4px); }
+.scrim.on{ display:flex; }
+.sheet{ position:relative; background:var(--sheetbg); border:1px solid var(--edge); border-bottom:none; width:100%; max-width:560px; border-radius:26px 26px 0 0; padding:22px 20px calc(22px + env(safe-area-inset-bottom)); max-height:92vh; overflow:auto; }
+.closex{ position:absolute; top:14px; right:14px; width:34px; height:34px; border-radius:999px; border:1px solid var(--edge); background:var(--glass); color:var(--ink); font-size:15px; cursor:pointer; display:inline-flex; align-items:center; justify-content:center; z-index:2; }
+.sheet h3{ margin:0 0 4px; font-size:19px; font-weight:600; } .sheet p{ margin:0 0 6px; color:var(--mute); font-size:13px; }
+.sheet label{ display:block; font-size:11px; font-weight:600; color:var(--mute); margin:15px 0 5px; text-transform:uppercase; letter-spacing:1px; }
+.sheet input, .sheet textarea, .sheet select{ width:100%; font:inherit; font-size:15px; color:var(--ink); padding:12px 13px; border:1px solid var(--edge); border-radius:14px; background:var(--inputbg); }
+.sheet textarea{ min-height:140px; resize:vertical; line-height:1.55; } .sheet .acts{ display:flex; gap:10px; margin-top:20px; }
+.sheet select option{ color:#111; }
+.tworow{ display:flex; gap:10px; } .tworow > div{ flex:1; }
+@media(min-width:560px){ .scrim{ align-items:center; } .sheet{ border-radius:26px; border-bottom:1px solid var(--edge); } }
+@media(max-width:430px){ #app{ padding:20px 13px 100px; } }
+.specwrap{ display:flex; flex-wrap:wrap; gap:7px; margin:6px 0 10px; }
+.spec{ font-size:12px; padding:5px 11px; border-radius:999px; cursor:pointer; color:var(--ink); background:var(--glass); border:1px solid var(--edge); }
+.spec.on{ background:var(--violet-bg); border-color:var(--violet); color:var(--violet); font-weight:600; }
+.spec.more{ background:transparent; border-style:dashed; opacity:.85; }
+.matchbox{ border:1px solid var(--edge); border-radius:14px; padding:10px 12px; margin:8px 0; background:var(--grey-bg); font-size:13px; }
+.matchbox .warn{ font-size:11.5px; font-weight:600; color:var(--rose); margin:0 0 8px; }
+.matchbox .m{ margin:3px 0; }
+.matchbox details.readmore summary{ cursor:pointer; font-size:11.5px; color:var(--teal); list-style:none; }
+.matchbox details.readmore summary::-webkit-details-marker{ display:none; }
+.matchbox .rm{ font-size:12px; color:var(--mute); margin:2px 0; }
+.walk{ border:1px solid var(--violet); background:var(--violet-bg); border-radius:14px; padding:12px 14px 12px 12px; margin:2px 0 12px; font-size:13px; }
+.walk-h{ font-weight:700; color:var(--violet); margin-bottom:6px; }
+.walk ol{ margin:0; padding-left:20px; } .walk li{ margin:4px 0; line-height:1.5; }
+.walk-f{ font-size:11px; color:var(--mute); margin-top:8px; font-style:italic; }
+.finderlink{ display:inline-flex; align-items:center; gap:6px; font-size:13px; font-weight:600; padding:9px 14px; border-radius:999px; background:transparent; color:var(--finder); border:1px solid var(--finder); text-decoration:none; margin-top:4px; }
+.finderlink.pt{ color:var(--plan); border-color:var(--plan); }
+.linkrow{ display:flex; gap:8px; flex-wrap:wrap; margin-top:4px; }
+.demo-note{ margin:10px 0; padding:11px 14px; border-radius:12px; font-size:12px; font-weight:600; background:var(--violet-bg); border:1px solid var(--violet); color:var(--violet); line-height:1.5; }
+.bubble.wl{ background:var(--grey-bg); }
+:root[data-theme="hicon"] .btn.cta{ background:#0040A0; color:#fff; border-color:#000; }
+:root[data-theme="hicon"] .bubble,.bubble.pc{ } 
+</style>
+</head>
+<body>
+
+<div class="demo-banner">
+  <span>🧪 Femme &amp; Them — Demo / Test Mode</span>
+  <span class="db-pill">No Permissions</span>
+  <span class="db-pill">No Emails Sent</span>
+  <span class="db-pill">No Calendar Access</span>
+  <span class="db-pill">All Data Fake</span>
+</div>
+
+<div class="sky"></div>
+<div id="fx"></div>
+<div id="busy"><span class="spin"></span><span id="busyTxt">Working...</span></div>
+<div id="toast"></div>
+
+<!-- FAKE SEND TOAST -->
+<div class="fake-send-toast" id="fakeSendToast">
+  <div class="fst-head">
+    <span class="fst-icon" id="fstIcon">📬</span>
+    <span class="fst-title" id="fstTitle"></span>
+    <span class="fst-pill">Demo Only</span>
+  </div>
+  <div class="fst-body" id="fstBody"></div>
+  <div class="fst-detail" id="fstDetail"></div>
+</div>
+
+<div id="app">
+  <div class="top">
+    <div class="brand"><h1 id="brandTitle" title="Click to change font">Demo Dashboard</h1></div>
+    <div class="acts">
+      <button class="iconbtn" id="displayBtn" title="Display options">🌸</button>
+      <button class="btn" id="helpBtn">Help</button>
+    </div>
+  </div>
+  <div class="stats" id="stats"></div>
+  <div class="settings">
+    <button class="toggle off" id="accBtn"><span class="dot"></span>Not Accepting Clients</button>
+    <button class="btn small" id="editReply">Edit Automated Email</button>
+    <button class="btn small" id="schedBtn">Update schedule</button>
+  </div>
+
+  <div class="sec" id="caughtSec" style="display:none"><div class="bubble caught"><span class="em">✅</span> All caught up. No potential clients and no one waiting.</div></div>
+  <div class="sec" id="inqSec" style="display:none"><div class="sec-h"><span class="label">Potential Clients</span><span class="count" id="inqCount"></span></div><div id="inq"></div></div>
+  <div class="sec" id="waitSec" style="display:none"><div class="sec-h"><span class="label">My Waitlist</span><span class="count" id="wlCount"></span></div><div id="waitlist"></div></div>
+  <div class="sec"><div class="sec-h"><span class="label">Tasks</span><span class="count" id="taskCount"></span></div><div id="tasks"><div class="tiny">Loading...</div></div><button class="btn key full" id="addTask" style="margin-top:4px">+ Add task</button></div>
+
+  <div class="sec" style="margin-top:36px">
+    <div style="display:flex;justify-content:center;gap:9px;flex-wrap:wrap;align-items:center">
+      <button class="btn" id="setupBtn">Set up</button>
+      <button class="toggle off" id="testBtn"><span class="dot"></span>Test data: Off</button>
+      <button class="btn" id="refresh">Refresh</button>
+      <button class="btn" id="hiddenBtn">Hidden</button>
+    </div>
+    <div class="tiny" style="text-align:center;margin-top:14px">Dashboard Created by <a class="maillink" href="https://www.linkedin.com/in/damienhomiak/" target="_blank" rel="noopener">Damien Homiak</a> · June 2026 · <b>Demo / No-Permissions Build</b></div>
+  </div>
+</div>
+
+<div class="scrim" id="scrim"></div>
+
+<script>
+// ─────────────────────────────────────────────────────────────────────
+//  ALL FAKE DATA — no Google APIs, no permissions, no emails, no calendar
+// ─────────────────────────────────────────────────────────────────────
+
+let THERAPIST = 'Demo Therapist';
+let ACCEPTING = false;
+let AUTO_REPLY_ON = false;
+let TEST_ON = false;
+let IGNORED = []; // array of email strings
+let CONSULT_MIN = 15;
+let MEET_LINK = '';
+let MEET_MSG = '';
+let HIDDEN_NOTCE_SHOWN = false;
+
+let AUTOREPLY = {
+  from: 'hello@femmeandthem.co',
+  replyTo: 'hello@femmeandthem.co',
+  subject: 'Thanks for reaching out to Femme & Them',
+  body: 'Hi there,\n\nThank you for reaching out to Femme & Them. We have received your request and will be in touch within two business days.\n\nIf anything urgent comes up, please contact a crisis line or your nearest emergency room.\n\nWarmly,\nFemme & Them Team'
+};
+
+let TASKS = [
+  {id:1, task:'Follow up with three clients who came in last week', notes:'Check in on the Tuesday inquiries', due:'', done:false},
+  {id:2, task:'Update your open times before Thursday', notes:'', due:'', done:false},
+  {id:3, task:'Review the automated reply email', notes:'Make sure it still sounds right', due:'', done:false}
+];
+let nextTaskId = 10;
+
+function dAgo(n){ const d=new Date(); d.setDate(d.getDate()-n); return d.toISOString().slice(0,10); }
+
+let INQUIRIES = [
+  {id:1, name:'Jordan Ellison', email:'jordan.ellison@example.invalid', phone:'(360) 555-0110', bday:'1994-03-15', insurance:'Molina Medicaid', looking:'Looking for an affirming therapist. Dealing with anxiety and identity questions.', times:'Weekday mornings', ts:dAgo(2), days:2, contacted:false, revealShown:false, done:false},
+  {id:2, name:'Maya Hoffman', email:'maya.hoffman@example.invalid', phone:'(360) 555-0111', bday:'1990-07-22', insurance:'Out of pocket', looking:'Recently came out as nonbinary. Want support with family and identity.', times:'Tue or Thu afternoons', ts:dAgo(9), days:9, contacted:false, revealShown:false, done:false},
+  {id:3, name:'Liam Castellano', email:'liam.castellano@example.invalid', phone:'(360) 555-0112', bday:'1998-11-04', insurance:'CHPW Medicaid', looking:'ADHD and burnout. Want help with executive function and reducing overwhelm.', times:'Evenings after 5', ts:dAgo(16), days:16, contacted:false, revealShown:false, done:false},
+  {id:4, name:'Aisha Bello', email:'aisha.bello@example.invalid', phone:'(360) 555-0113', bday:'1987-05-30', insurance:'First Choice', looking:'Couple seeking poly-affirming support. Both partners want to attend.', times:'Weekends', ts:dAgo(1), days:1, contacted:true, revealShown:false, done:false},
+  {id:5, name:'Rowan Petrov', email:'rowan.petrov@example.invalid', phone:'(360) 555-0114', bday:'1995-09-12', insurance:'Apple Health', looking:'Autistic adult seeking a neurodivergent-affirming space. Unmasking focus.', times:'Friday mornings', ts:dAgo(22), days:22, contacted:false, revealShown:false, done:false}
+];
+
+let WAITLIST = [
+  {id:1, name:'Tobias Klein', email:'tobias.klein@example.invalid', phone:'(360) 555-0201', insurance:'Molina Medicaid', looking:'Waiting for a Tuesday slot. Anxiety and burnout.', ts:dAgo(12), days:12, contacted:false, revealShown:false},
+  {id:2, name:'Amira Haddad', email:'amira.haddad@example.invalid', phone:'(360) 555-0202', insurance:'Out of pocket', looking:'Flexible about timing. Grief and life transition work.', ts:dAgo(5), days:5, contacted:true, revealShown:false}
+];
+
+const REFERRAL_DIR = [
+  {name:'Cedar & Sage Counseling', link:'#', specialties:'Trauma, EMDR, Anxiety, PTSD', insurance:'Apple Health, Premera, Self-pay', notes:'Sliding scale available', verified:true},
+  {name:'Harbor Light Therapy', link:'#', specialties:'LGBTQ+, Gender, Identity, Neurodivergent', insurance:'Regence, Kaiser PPO, Self-pay', notes:'Telehealth statewide', verified:true},
+  {name:'Open Door Wellness', link:'#', specialties:'Perinatal, Parenting, Grief & loss', insurance:'Apple Health, Coordinated Care', notes:'Spanish-speaking clinicians', verified:false},
+  {name:'Northstar Psychology', link:'#', specialties:'ADHD, Autism, Children & teens', insurance:'Cigna, UnitedHealthcare, Self-pay', notes:'Testing and assessments', verified:true},
+  {name:'Rooted Mind Collective', link:'#', specialties:'BIPOC, Anxiety, Depression, Substance use', insurance:'Apple Health, First Choice', notes:'Group options available', verified:false},
+  {name:'Quiet Harbor Counseling', link:'#', specialties:'Eating disorders, Body image, Anxiety', insurance:'Premera, Self-pay', notes:'HAES-informed', verified:true}
+];
+
+const REFERRAL_REASONS = [
+  {reason:'Outside our clinical scope', subject:'Some referral options from Femme & Them', template:'Hello there,\n\nThank you for reaching out. After reviewing what you are looking for, we think you would be best supported by a provider who specializes in this area. Below are a few options we trust.\n\n'},
+  {reason:'Looking for in-person sessions', subject:'Referrals for in-person care', template:'Hello there,\n\nThank you for reaching out. Since you are looking for in-person sessions, here are some local options that may be a better fit.\n\n'},
+  {reason:'Insurance we do not accept', subject:'Referral options for your plan', template:'Hello there,\n\nThank you for reaching out. We are not in-network with your plan, so here are a few providers who may be able to bill it.\n\n'},
+  {reason:'We are at capacity', subject:'A few other options from Femme & Them', template:'Hello there,\n\nThank you for reaching out. Our team is full right now, so we wanted to share a few other providers who may have openings.\n\n'}
+];
+
+let EMAIL_TEMPLATES = [
+  {name:'Consult confirmation', subject:'Your consultation with Femme & Them', body:'Hi there,\n\nThank you for reaching out. I am glad to confirm your free consultation. I have sent a calendar invite with the date, time, and video link.\n\nIf the time no longer works, just reply and we will find another.\n\nWarmly,\nFemme & Them Team'},
+  {name:'Which time works', subject:'Booking your free consult', body:'Hi there,\n\nThank you for reaching out. I would love to set up a free consultation. Could you let me know which time works and I will send a calendar invite?\n\nWarmly,\nFemme & Them Team'},
+  {name:'Following up', subject:'Following up on your inquiry', body:'Hi there,\n\nI wanted to gently follow up on your inquiry. I would still love to connect for a free consult if you are interested.\n\nWarmly,\nFemme & Them Team'},
+  {name:'Welcome and next steps', subject:'Welcome to Femme & Them', body:'Hi there,\n\nWelcome, and thank you for trusting us with your care. Here is what happens next: we will meet for a short consult, and if it feels like a fit, we will talk through scheduling, paperwork, and insurance.\n\nWarmly,\nFemme & Them Team'}
+];
+
+let SCHEDULE_SLOTS = ['Monday at 10:00 AM','Tuesday at 2:00 PM','Wednesday at 9:00 AM','Thursday at 11:00 AM','Friday at 3:00 PM'];
+
+const SIG = 'Warmly,\n\nFemme & Them Team\nhttps://www.femmeandthem.co/\nhello@femmeandthem.co\n(360) 450-4405';
+const SPEC_LIST = ['Trans','LGBTQ+','ENM/Poly','Kink','Neurodivergent','BIPOC','Perinatal','Autism','ADHD','Parenting','Children & teens'];
+const ALL_SPECS = ['Trans','LGBTQ+','ENM/Poly','Kink','Neurodivergent','BIPOC','Perinatal','Autism','ADHD','Parenting','Children & teens','EMDR','Eating disorders','Substance use','Grief & loss','PTSD','Couples','Families'];
+
+// ─────────────────────────────────────────────────────────────────────
+//  HELPERS
+// ─────────────────────────────────────────────────────────────────────
+const $ = id => document.getElementById(id);
+const esc = s => (''+(s==null?'':s)).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
+const escA = s => esc(s).replace(/"/g,'&quot;').replace(/[\r\n]+/g,' ');
+const peopleLabel = n => n+(n===1?' person':' people');
+function fakeDelay(ms=380){ return new Promise(r=>setTimeout(r,ms)); }
+function todayISO(){ const d=new Date(); return d.getFullYear()+'-'+('0'+(d.getMonth()+1)).slice(-2)+'-'+('0'+d.getDate()).slice(-2); }
+
+let _busy=0;
+function showBusy(t){ _busy++; const b=$('busy'); if(b) b.classList.add('on'); }
+function hideBusy(){ _busy=Math.max(0,_busy-1); if(!_busy){ const b=$('busy'); if(b) b.classList.remove('on'); } }
+let _toastT=null;
+function showToast(msg){ const el=$('toast'); if(!el) return; el.textContent='✓ '+(msg||'Done'); el.classList.add('on'); if(_toastT) clearTimeout(_toastT); _toastT=setTimeout(()=>el.classList.remove('on'), 2200); }
+
+let _fstTimer=null;
+function fakeSend(type, to, subject, extra={}){
+  const t=$('fakeSendToast'), ti=$('fstTitle'), bo=$('fstBody'), de=$('fstDetail'), ic=$('fstIcon');
+  if(!t) return;
+  const titles={email:'Email would be sent',cal:'Calendar invite would be created',sms:'Message would be sent'};
+  const icons={email:'📬',cal:'📅',sms:'💬'};
+  ic.textContent=icons[type]||'📬'; ti.textContent=titles[type]||'Action simulated';
+  if(type==='email'){
+    bo.textContent='To: '+(to||'client')+' · Subject: '+(subject||'(no subject)');
+    de.textContent='In production this sends via MailApp. In demo mode, nothing left this browser.';
+  } else if(type==='cal'){
+    bo.textContent=(extra.title||'Appointment')+' · '+(extra.when||'TBD');
+    de.textContent='In production this creates a Google Calendar event. In demo mode, nothing was scheduled.';
+  }
+  t.classList.add('show');
+  if(_fstTimer) clearTimeout(_fstTimer);
+  _fstTimer=setTimeout(()=>t.classList.remove('show'), 5000);
+}
+
+function btnLoad(el,label){ if(!el) return; if(el.dataset._html==null) el.dataset._html=el.innerHTML; el.disabled=true; el.innerHTML='<span class="spin"></span>'+(label?' '+esc(label):''); }
+function btnReset(el){ if(!el) return; el.disabled=false; if(el.dataset._html!=null){ el.innerHTML=el.dataset._html; el.dataset._html=null; } }
+function linkify(t){ const s=''+(t==null?'':t); const re=/(https?:\/\/[^\s]+)/g; let out='',last=0,m; while((m=re.exec(s))){ out+=esc(s.slice(last,m.index)); out+='<a class="maillink" href="'+esc(m[1])+'" target="_blank" rel="noopener">'+esc(m[1])+'</a>'; last=m.index+m[1].length; } out+=esc(s.slice(last)); return out; }
+
+// ─────────────────────────────────────────────────────────────────────
+//  MODAL
+// ─────────────────────────────────────────────────────────────────────
+const scrim=$('scrim');
+let onCloseAttempt=null;
+function closeM(){ onCloseAttempt=null; scrim.classList.remove('on'); scrim.innerHTML=''; }
+function requestClose(){ if(onCloseAttempt){ onCloseAttempt(); return; } closeM(); }
+scrim.addEventListener('click',e=>{ if(e.target===scrim) requestClose(); });
+document.addEventListener('keydown',e=>{ if(e.key==='Escape') requestClose(); });
+
+// ─────────────────────────────────────────────────────────────────────
+//  RENDER
+// ─────────────────────────────────────────────────────────────────────
+function renderAll(){ renderSettings(); renderStats(); renderInq(); renderWaitlist(); renderTasks(); updateEmpty(); }
+
+function renderSettings(){
+  const ab=$('accBtn'); ab.disabled=false; ab.className='toggle '+(ACCEPTING?'on':'off');
+  ab.innerHTML='<span class="dot"></span>'+(ACCEPTING?'Accepting Clients':'Not Accepting Clients');
+  const tb=$('testBtn'); tb.disabled=false; tb.className='toggle '+(TEST_ON?'on':'off');
+  tb.innerHTML='<span class="dot"></span>Test data: '+(TEST_ON?'On':'Off');
+  const hb=$('hiddenBtn'); if(hb) hb.textContent='Hidden'+(IGNORED.length?(' ('+IGNORED.length+')'):'');
+  $('brandTitle').textContent=THERAPIST?""+THERAPIST+"'s Dashboard":'Demo Dashboard';
+}
+
+function renderStats(){
+  const ni=visibleInq().length, wl=WAITLIST.length, tk=TASKS.filter(t=>!t.done).length;
+  $('stats').textContent=ni+' potential client'+(ni===1?'':'s')+'   ·   '+wl+' on waitlist   ·   '+tk+' task'+(tk===1?'':'s');
+}
+
+function visibleInq(){ return INQUIRIES.filter(o=>!o.done && !IGNORED.includes(o.email)); }
+
+function dayBubble(days, kind){
+  if(days===null||days===undefined||isNaN(days)) return '';
+  const cls=days>=14?'hot':(days>=7?'warn':'');
+  const lbl=(kind==='wait')?(days===1?' day on waitlist':' days on waitlist'):(days===1?' day waiting':' days waiting');
+  return '<span class="daybubble '+cls+'">'+days+lbl+'</span>';
+}
+
+function cardHead(o, kind){
+  const recv=o.ts?'Received '+esc(o.ts):''; const db=dayBubble(o.days,kind);
+  const top=(recv||db)?'<div class="recv">'+recv+db+'</div>':'';
+  const contactKey=(kind==='wait')?'data-contact-wl="'+o.id+'"':'data-contact-i="'+o.id+'"';
+  const cbubble=o.contacted?'':'<button class="contact notc" '+contactKey+'>Not contacted</button>';
+  const idHTML=o.revealShown
+    ?'<div class="real">'+esc(o.name)+'  ·  '+esc(o.phone||'')+'  ·  '+esc(o.email||'')+'</div>'
+    :'<span><button class="reveal" data-reveal="'+kind+'-'+o.id+'">Show contact info</button></span>';
+  const nm='<div class="nm" style="margin-top:5px">'+cbubble+idHTML+'</div>';
+  let body=''; if(o.insurance) body+='<div class="ln"><span class="plan">'+esc(o.insurance)+'</span></div>';
+  const noteTxt=o.looking; if(noteTxt) body+='<div class="note">'+linkify(noteTxt)+'</div>';
+  return top+nm+body;
+}
+
+function renderInq(){
+  const list=visibleInq(); const n=list.length;
+  const c=$('inqCount'); c.textContent=peopleLabel(n); c.style.display=n?'':'none';
+  if(!n){ $('inq').innerHTML=''; return; }
+  $('inq').innerHTML=list.map(o=>{
+    const acts='<div class="row-actions">'
+      +'<button class="btn small" data-refer="'+o.id+'">Refer out</button>'
+      +'<button class="btn small" data-wait-add="'+o.id+'">Add to Waitlist</button>'
+      +'<button class="btn small" data-compose="inq-'+o.id+'">Email</button>'
+      +'<button class="btn small" data-ignore="'+escA(o.email)+'">Ignore</button>'
+      +'<button class="btn key small" data-sched="inq-'+o.id+'">Schedule Consultation</button>'
+      +'</div>';
+    return '<div class="bubble inq pc" data-card="inq-'+o.id+'">'+cardHead(o,'inq')+acts+'</div>';
+  }).join('');
+}
+
+function renderWaitlist(){
+  const arr=WAITLIST.slice(); const n=arr.length;
+  $('wlCount').textContent=peopleLabel(n); $('wlCount').style.display=n?'':'none';
+  if(!n){ $('waitlist').innerHTML=''; return; }
+  $('waitlist').innerHTML=arr.map(o=>{
+    const acts='<div class="row-actions">'
+      +'<button class="btn small" data-compose="wl-'+o.id+'">Email</button>'
+      +'<button class="btn key small" data-sched="wl-'+o.id+'">Schedule Consultation</button>'
+      +'<button class="btn small" data-triage-wl="'+o.id+'">Send to team</button>'
+      +'<button class="btn small" data-refer-wl="'+o.id+'">Refer out</button>'
+      +'<button class="btn small" data-ignore="'+escA(o.email)+'">Ignore</button>'
+      +'</div>';
+    return '<div class="bubble inq wl" data-card="wl-'+o.id+'">'+cardHead(o,'wait')+acts+'</div>';
+  }).join('');
+}
+
+function renderTasks(){
+  const open=TASKS.filter(t=>!t.done); const n=open.length;
+  const tc=$('taskCount'); tc.textContent=n; tc.style.display=n?'':'none';
+  if(!n){ $('tasks').innerHTML='<div class="empty">No open tasks.</div>'; return; }
+  $('tasks').innerHTML=open.slice().reverse().map(t=>{
+    const meta=t.notes?'<div class="meta">'+linkify(t.notes)+'</div>':'';
+    const due=t.due?'<div class="due">Due '+esc(t.due)+'</div>':'';
+    return '<div class="bubble"><div class="task"><input type="checkbox" class="cbx" data-task-id="'+t.id+'">'
+      +'<div style="flex:1"><div class="nm">'+esc(t.task)+'</div>'+meta+due+'</div></div></div>';
+  }).join('');
+}
+
+function updateEmpty(){
+  const ni=visibleInq().length, wl=WAITLIST.length;
+  $('inqSec').style.display=ni?'':'none';
+  $('waitSec').style.display=wl?'':'none';
+  $('caughtSec').style.display=(!ni&&!wl)?'':'none';
+}
+
+// ─────────────────────────────────────────────────────────────────────
+//  TEST DATA TOGGLE
+// ─────────────────────────────────────────────────────────────────────
+function addTestData(){
+  if(INQUIRIES.some(x=>x.email.includes('example.invalid') && x.name.includes('Test'))) return;
+  INQUIRIES.push(
+    {id:101, name:'Test Riley Quinn', email:'riley.test@example.invalid', phone:'(360) 555-0190', bday:'1996-04-20', insurance:'Apple Health', looking:'Test inquiry: exploring gender identity and wanting affirming support.', times:'Mornings', ts:dAgo(3), days:3, contacted:false, revealShown:false, done:false},
+    {id:102, name:'Test Sam Avery', email:'sam.test@example.invalid', phone:'(360) 555-0191', bday:'2000-01-01', insurance:'Out of pocket', looking:'Test inquiry: ADHD and anxiety, open to telehealth.', times:'Afternoons', ts:dAgo(6), days:6, contacted:false, revealShown:false, done:false}
+  );
+  WAITLIST.push({id:101, name:'Test Dana Cole', email:'dana.test@example.invalid', phone:'(360) 555-0192', insurance:'Self-pay', looking:'Test waitlist person.', ts:dAgo(8), days:8, contacted:false, revealShown:false});
+  TASKS.push({id:nextTaskId++, task:'Test task: try checking me off', notes:'This is sample data. Turn test data off to remove it.', due:'', done:false});
+}
+function removeTestData(){
+  INQUIRIES=INQUIRIES.filter(x=>!x.email.includes('example.invalid')||!x.name.startsWith('Test'));
+  WAITLIST=WAITLIST.filter(x=>!x.email.includes('example.invalid')||!x.name.startsWith('Test'));
+  TASKS=TASKS.filter(t=>!/^test task/i.test(t.task));
+}
+
+// ─────────────────────────────────────────────────────────────────────
+//  EVENT DELEGATION
+// ─────────────────────────────────────────────────────────────────────
+$('accBtn').onclick=async()=>{ ACCEPTING=!ACCEPTING; renderSettings(); showToast(ACCEPTING?'Now accepting clients':'Not accepting clients'); };
+$('testBtn').onclick=async()=>{
+  TEST_ON=!TEST_ON;
+  if(TEST_ON) addTestData(); else removeTestData();
+  renderAll(); showToast(TEST_ON?'Test data on':'Test data off');
+};
+
+$('app').addEventListener('change',e=>{
+  const el=e.target;
+  if(el.dataset.taskId){
+    const id=Number(el.dataset.taskId); el.disabled=true;
+    setTimeout(()=>{ const t=TASKS.find(x=>x.id===id); if(t) t.done=true; renderTasks(); renderStats(); showToast('Task done'); }, 300);
+  }
+});
+
+$('app').addEventListener('click',e=>{
+  // Reveal contact info
+  const rev=e.target.closest('[data-reveal]');
+  if(rev){
+    const [kind,idStr]=rev.dataset.reveal.split('-'); const id=Number(idStr);
+    const list=kind==='wl'?WAITLIST:INQUIRIES; const o=list.find(x=>x.id===id);
+    if(o){ o.revealShown=!o.revealShown; kind==='wl'?renderWaitlist():renderInq(); } return;
+  }
+  // Contacted — inquiry
+  const ci=e.target.closest('[data-contact-i]');
+  if(ci){ const id=Number(ci.dataset.contactI); const o=INQUIRIES.find(x=>x.id===id); if(o){ o.contacted=true; renderInq(); showToast('Marked contacted'); } return; }
+  // Contacted — waitlist
+  const cw=e.target.closest('[data-contact-wl]');
+  if(cw){ const id=Number(cw.dataset.contactWl); const o=WAITLIST.find(x=>x.id===id); if(o){ o.contacted=true; renderWaitlist(); showToast('Marked contacted'); } return; }
+  // Add to waitlist
+  const wa=e.target.closest('[data-wait-add]');
+  if(wa){ const id=Number(wa.dataset.waitAdd); const o=INQUIRIES.find(x=>x.id===id); if(o){ o.done=true; WAITLIST.push({id:Date.now(), name:o.name, email:o.email, phone:o.phone, insurance:o.insurance, looking:o.looking, ts:o.ts, days:o.days, contacted:o.contacted, revealShown:false}); } renderAll(); showToast('Added to waitlist'); return; }
+  // Ignore
+  const ig=e.target.closest('[data-ignore]');
+  if(ig){ const em=ig.dataset.ignore; if(em && !IGNORED.includes(em)) IGNORED.push(em); renderAll(); showToast('Card hidden'); renderSettings(); return; }
+  // Refer out — inquiry
+  const ref=e.target.closest('[data-refer]');
+  if(ref){ openRefer('inq', Number(ref.dataset.refer)); return; }
+  // Refer out — waitlist
+  const refw=e.target.closest('[data-refer-wl]');
+  if(refw){ openRefer('wl', Number(refw.dataset.referWl)); return; }
+  // Compose — inq or wl
+  const comp=e.target.closest('[data-compose]');
+  if(comp){ const [kind,idStr]=comp.dataset.compose.split('-'); const id=Number(idStr); const list=kind==='wl'?WAITLIST:INQUIRIES; const o=list.find(x=>x.id===id); if(o) openCompose(o.email, o.name); return; }
+  // Schedule — inq or wl
+  const sched=e.target.closest('[data-sched]');
+  if(sched){ const [kind,idStr]=sched.dataset.sched.split('-'); const id=Number(idStr); const list=kind==='wl'?WAITLIST:INQUIRIES; const o=list.find(x=>x.id===id); if(o) openSchedule(kind, o); return; }
+  // Send to team (triage)
+  const triage=e.target.closest('[data-triage-wl]');
+  if(triage){ openTriageConfirm(Number(triage.dataset.triageWl)); return; }
+});
+
+// ─────────────────────────────────────────────────────────────────────
+//  SCHEDULE MODAL
+// ─────────────────────────────────────────────────────────────────────
+function openSchedule(kind, o){
+  onCloseAttempt=null; let selDur=CONSULT_MIN;
+  const durs=[15,20,25,30].map(d=>'<button class="pick '+(d===selDur?'on':'')+'" data-dur="'+d+'">'+d+' min</button>').join('');
+  scrim.innerHTML='<div class="sheet"><button class="closex" id="sx">✕</button><h3>Schedule consultation</h3>'
+    +'<p>'+esc(o.name||'Client')+(o.email?'  ·  '+esc(o.email):'')+'</p>'
+    +'<div class="demo-note">📅 Demo mode: no calendar invite will actually be created or sent. The confirmation below shows what would happen in production.</div>'
+    +'<div class="tworow"><div><label>Date</label><input id="s-date" type="date" value="'+todayISO()+'"></div>'
+    +'<div><label>Start time</label><input id="s-time" type="time" value="12:00"></div></div>'
+    +'<label>Length</label><div class="pickwrap" id="s-durs">'+durs+'</div>'
+    +'<label>Your meeting link</label><input id="s-link" value="'+escA(MEET_LINK)+'" placeholder="https://meet.google.com/...">'
+    +'<label>Short message (optional)</label><textarea id="s-msg" rows="3">'+esc(MEET_MSG)+'</textarea>'
+    +'<div class="acts"><button class="btn cta full" id="s-go">Schedule and send invite (demo)</button></div></div>';
+  scrim.classList.add('on'); $('sx').onclick=closeM;
+  $('s-durs').onclick=e=>{ const b=e.target.closest('[data-dur]'); if(!b) return; selDur=Number(b.dataset.dur); [].forEach.call($('s-durs').children,x=>x.classList.remove('on')); b.classList.add('on'); };
+  $('s-go').onclick=async()=>{
+    const date=$('s-date').value, time=$('s-time').value; if(!date){ $('s-date').focus(); return; }
+    const link=$('s-link').value, msg=$('s-msg').value;
+    CONSULT_MIN=selDur; MEET_LINK=link; MEET_MSG=msg;
+    btnLoad($('s-go'),'Scheduling...');
+    await fakeDelay();
+    if(kind==='inq'){ const idx=INQUIRIES.findIndex(x=>x.id===o.id); if(idx>-1) INQUIRIES.splice(idx,1); }
+    else { WAITLIST=WAITLIST.filter(x=>x.id!==o.id); }
+    o.contacted=true;
+    const host=scrim.querySelector('.sheet');
+    host.innerHTML='<div style="text-align:center;padding:30px 16px"><div style="font-size:34px">✅</div><div style="font-size:16px;font-weight:600;margin-top:8px">Consultation scheduled (demo)</div><div class="note" style="font-style:normal;margin-top:8px">In production: a Google Calendar invite ('+selDur+' min) would be sent to '+esc(o.email||'the client')+' and added to your calendar.</div></div>';
+    fakeSend('cal',o.email,'Consultation with '+o.name,{title:'Consultation with '+o.name, when:date+' at '+time});
+    setTimeout(()=>{ setTimeout(()=>fakeSend('email',o.email,'Your consultation with Femme & Them'),500); closeM(); renderAll(); },1800);
+  };
+}
+
+// ─────────────────────────────────────────────────────────────────────
+//  COMPOSE EMAIL MODAL
+// ─────────────────────────────────────────────────────────────────────
+function openCompose(to, name){
+  onCloseAttempt=null;
+  const opts='<option value="">Start from scratch</option>'+EMAIL_TEMPLATES.map((t,i)=>'<option value="'+i+'">'+esc(t.name)+'</option>').join('');
+  scrim.innerHTML='<div class="sheet"><button class="closex" id="cx">✕</button><h3>Email '+(name?esc(name):'client')+'</h3>'
+    +'<p>'+(to?esc(to):'No email on file')+'</p>'
+    +'<div class="demo-note">📬 Demo mode: no email will be sent. You can draft and preview freely.</div>'
+    +'<label>Template</label><select id="c-tpl">'+opts+'</select>'
+    +'<label>Subject</label><input id="c-subj" value="">'
+    +'<label>Message</label><textarea id="c-body" rows="10"></textarea>'
+    +'<label>Save as template (name it)</label><input id="c-tname" placeholder="Template name">'
+    +'<div class="acts"><button class="btn cta full" id="c-send"'+(to?'':' disabled')+'>Send email (demo)</button><button class="btn" id="c-save">Save as template</button></div></div>';
+  scrim.classList.add('on'); $('cx').onclick=closeM;
+  $('c-tpl').onchange=()=>{ const v=$('c-tpl').value; if(v==='') return; const t=EMAIL_TEMPLATES[Number(v)]; if(t){ $('c-subj').value=t.subject||''; $('c-body').value=t.body||''; $('c-tname').value=t.name||''; } };
+  $('c-save').onclick=async()=>{
+    const nm=$('c-tname').value.trim(); if(!nm){ $('c-tname').focus(); return; }
+    const existing=EMAIL_TEMPLATES.findIndex(t=>t.name.toLowerCase()===nm.toLowerCase());
+    const entry={name:nm, subject:$('c-subj').value, body:$('c-body').value};
+    if(existing>-1) EMAIL_TEMPLATES[existing]=entry; else EMAIL_TEMPLATES.push(entry);
+    showToast('Template "'+nm+'" saved'); btnReset($('c-save')); $('c-save').textContent='Saved ✓';
+  };
+  $('c-send').onclick=async()=>{
+    if(!to) return; btnLoad($('c-send'),'Sending...');
+    await fakeDelay();
+    fakeSend('email', to, $('c-subj').value);
+    // mark contacted
+    const inqMatch=INQUIRIES.find(x=>x.email===to); if(inqMatch) inqMatch.contacted=true;
+    const wlMatch=WAITLIST.find(x=>x.email===to); if(wlMatch) wlMatch.contacted=true;
+    const host=scrim.querySelector('.sheet');
+    host.innerHTML='<div style="text-align:center;padding:30px 16px"><div style="font-size:34px">✅</div><div style="font-size:16px;font-weight:600;margin-top:8px">Email queued (demo)</div><div class="note" style="font-style:normal;margin-top:8px">In production this would send via MailApp. Marked as contacted.</div></div>';
+    setTimeout(()=>{ closeM(); renderAll(); }, 1700);
+  };
+}
+
+// ─────────────────────────────────────────────────────────────────────
+//  REFER OUT MODAL
+// ─────────────────────────────────────────────────────────────────────
+function openRefer(kind, id){
+  const list=kind==='wl'?WAITLIST:INQUIRIES;
+  const o=list.find(x=>x.id===id); if(!o) return;
+  onCloseAttempt=()=>confirmReferClose(kind,id,o.email);
+  scrim.innerHTML='<div class="sheet"><button class="closex" id="rx">✕</button><h3>Refer out</h3>'
+    +'<div id="referHost"><span class="spin"></span> Loading referral tools...</div>'
+    +'<div class="acts"><button class="btn cta full" id="r-send">Send referral email (demo)</button></div></div>';
+  scrim.classList.add('on'); $('rx').onclick=requestClose;
+  buildReferPanel($('referHost'), o.email, o.insurance||'', o.looking||'');
+  $('r-send').onclick=()=>doSendRefer(kind, id, o.email);
+}
+function doSendRefer(kind, id, email){
+  const subj=$('rf-subj')?$('rf-subj').value:'', body=$('rf-body')?$('rf-body').value:'';
+  btnLoad($('r-send'),'Sending...');
+  setTimeout(()=>{
+    if(kind==='wl'){ WAITLIST=WAITLIST.filter(x=>x.id!==id); }
+    else { const o=INQUIRIES.find(x=>x.id===id); if(o){ o.done=true; o.contacted=true; } }
+    fakeSend('email', email, subj);
+    const host=scrim.querySelector('.sheet');
+    host.innerHTML='<div style="text-align:center;padding:30px 16px"><div style="font-size:34px">✅</div><div style="font-size:16px;font-weight:600;margin-top:8px">Referral email queued (demo)</div><div class="note" style="font-style:normal;margin-top:8px">In production this would send via MailApp and mark the card as referred out.</div></div>';
+    setTimeout(()=>{ closeM(); renderAll(); }, 1700);
+  }, 450);
+}
+function confirmReferClose(kind,id,email){
+  onCloseAttempt=null;
+  const subj=$('rf-subj')?$('rf-subj').value:'', body=$('rf-body')?$('rf-body').value:'';
+  const host=scrim.querySelector('.sheet'); if(!host){ closeM(); return; }
+  host.innerHTML='<h3>Send email first?</h3><p>Do you want to send this referral email before closing?</p><div class="pickwrap"><button class="pick" id="cf-yes">Yes, send</button><button class="pick" id="cf-no">Just close</button></div>';
+  $('cf-yes').onclick=()=>doSendRefer(kind,id,email);
+  $('cf-no').onclick=closeM;
+}
+function buildReferPanel(host, clientEmail, insurance, note){
+  const curated=SPEC_LIST;
+  const insLabel=(insurance&&insurance.trim())?insurance.trim():'NA';
+  const noteHtml=note?'<label>Client notes</label><div class="note">'+linkify(note)+'</div>':'';
+  const bubbles=curated.map(s=>'<button type="button" class="spec" data-spec="'+escA(s)+'">'+esc(s)+'</button>').join('');
+  const rOpts='<option value="">Choose a reason...</option>'+REFERRAL_REASONS.map((r,i)=>'<option value="'+i+'">'+esc(r.reason)+'</option>').join('');
+  const walk=TEST_ON?('<div class="walk"><div class="walk-h">How to refer out, step by step</div><ol><li>Pick the <b>specialties</b> this client needs.</li><li>Choose a <b>reason</b> for referring out. This loads a starter email.</li><li>Look at the <b>suggested providers</b> below the reason.</li><li>Tap <b>Add to email</b> to insert them.</li><li>Review and edit the email freely.</li><li>Tap <b>Send referral email</b>.</li></ol><div class="walk-f">This guide only shows while Test data is on.</div></div>'):'';
+  host.innerHTML=walk
+    +'<div class="demo-note">🔍 Demo mode: indexing Referral List for '+esc(insLabel)+'. Matches are from the demo directory.</div>'
+    +noteHtml
+    +'<label>Specialties</label><div class="specwrap" id="rf-specs">'+bubbles+'<button type="button" class="spec more" id="rf-more">+ more</button></div>'
+    +'<label style="margin-top:10px">Reason for referring out</label><select id="rf-reason">'+rOpts+'</select>'
+    +'<div id="rf-matches" class="matchbox">Pick a reason and specialties to find matches.</div>'
+    +'<div class="linkrow"><a class="finderlink" href="#" onclick="return false">↗ Referral Finder (demo)</a><a class="finderlink pt" href="https://www.psychologytoday.com/us/therapists" target="_blank" rel="noopener">↗ Psychology Today</a></div>'
+    +'<label style="margin-top:12px">Email to '+esc(clientEmail)+'</label>'
+    +'<input id="rf-subj" value=""><textarea id="rf-body" rows="10" placeholder="Choose a reason above to load a template..."></textarea>';
+  const chosen=new Set(); let matches=[]; let moreLoaded=false;
+  function refreshMatches(){
+    const ri=$('rf-reason').value; const mb=$('rf-matches');
+    if(ri===''){ mb.innerHTML='Pick a reason and specialties to find matches.'; return; }
+    const r=REFERRAL_REASONS[Number(ri)];
+    const specs=Array.from(chosen).map(s=>s.toLowerCase());
+    matches=REFERRAL_DIR.filter(d=>!specs.length||specs.some(sp=>d.specialties.toLowerCase().includes(sp))).slice(0,3);
+    const warn='<div class="warn">⚠ Referral matching is demo data only. Verify all providers before sending in production.</div>';
+    if(!matches.length){ mb.innerHTML=warn+'No matches — try fewer specialties.'; }
+    else {
+      mb.innerHTML=warn+matches.map(m=>'<div class="m">• <b>'+esc(m.name)+'</b>'
+        +(m.notes?' · '+esc(m.notes):'')+' '+(m.verified?'✓':'')
+        +'<details class="readmore"><summary>read more</summary>'
+        +(m.specialties?'<div class="rm"><b>Specialties:</b> '+esc(m.specialties)+'</div>':'')
+        +(m.insurance?'<div class="rm"><b>Insurance:</b> '+esc(m.insurance)+'</div>':'')
+        +'</details></div>').join('')
+        +'<button type="button" class="btn key full" id="rf-add" style="margin-top:10px">Add to email</button>';
+      $('rf-add').onclick=()=>{
+        const ta=$('rf-body'); if(!ta) return;
+        const block=matches.map((m,i)=>'Referral '+(i+1)+': '+m.name).join('\n\n');
+        let body=ta.value; const idx=body.indexOf(SIG);
+        if(idx>-1){ body=body.slice(0,idx).replace(/\s+$/,'')+'\n\n'+block+'\n\n'+body.slice(idx); } else { body=body.replace(/\s+$/,'')+'\n\n'+block; }
+        ta.value=body; $('rf-add').textContent='Added ✓'; $('rf-add').disabled=true;
+      };
+    }
+    let txt=(r.template||'').trim(); $('rf-body').value=(txt?txt+'\n\n':'')+SIG; $('rf-subj').value=r.subject||'';
+  }
+  $('rf-reason').onchange=refreshMatches;
+  $('rf-specs').addEventListener('click',e=>{
+    const more=e.target.closest('#rf-more');
+    if(more){ if(moreLoaded) return; moreLoaded=true;
+      const have=new Set(curated.map(s=>s.toLowerCase()));
+      const extra=ALL_SPECS.filter(s=>!have.has(s.toLowerCase()));
+      more.insertAdjacentHTML('beforebegin',extra.map(s=>'<button type="button" class="spec" data-spec="'+escA(s)+'">'+esc(s)+'</button>').join(''));
+      more.remove(); return; }
+    const b=e.target.closest('.spec'); if(!b||b.id==='rf-more') return; const s=b.dataset.spec;
+    if(chosen.has(s)){ chosen.delete(s); b.classList.remove('on'); } else { chosen.add(s); b.classList.add('on'); }
+    refreshMatches();
+  });
+}
+
+// ─────────────────────────────────────────────────────────────────────
+//  SEND TO TEAM (TRIAGE) MODAL
+// ─────────────────────────────────────────────────────────────────────
+function openTriageConfirm(id){
+  onCloseAttempt=null;
+  scrim.innerHTML='<div class="sheet"><button class="closex" id="trx">✕</button><h3>Send to the team?</h3>'
+    +'<p>This sends the client to the team\'s triage page on the Ops Dashboard to be routed to someone else, and removes them from your waitlist.</p>'
+    +'<div class="demo-note">👥 Demo mode: no data will actually be sent to the Ops Dashboard.</div>'
+    +'<div class="acts"><button class="btn cta full" id="tr-go">Yes, send to team (demo)</button><button class="btn" id="tr-no">Cancel</button></div></div>';
+  scrim.classList.add('on'); $('trx').onclick=closeM; $('tr-no').onclick=closeM;
+  $('tr-go').onclick=async()=>{
+    btnLoad($('tr-go'),'Sending...'); await fakeDelay();
+    WAITLIST=WAITLIST.filter(x=>x.id!==id);
+    const host=scrim.querySelector('.sheet');
+    host.innerHTML='<div style="text-align:center;padding:30px 16px"><div style="font-size:34px">✅</div><div style="font-size:16px;font-weight:600;margin-top:8px">Sent to team (demo)</div><div class="note" style="font-style:normal;margin-top:8px">In production this would write to the Ops Dashboard Triage tab and remove them from your waitlist.</div></div>';
+    setTimeout(()=>{ closeM(); renderAll(); }, 1700);
+  };
+}
+
+// ─────────────────────────────────────────────────────────────────────
+//  SCHEDULE EDITOR
+// ─────────────────────────────────────────────────────────────────────
+const DAYS=['Monday','Tuesday','Wednesday','Thursday','Friday','Saturday','Sunday'];
+function fmtTime(t){ const m=(''+t).match(/^(\d{1,2}):(\d{2})$/); if(!m) return ''; let h=parseInt(m[1],10); const min=m[2]; const ap=h<12?'AM':'PM'; let h12=h%12; if(h12===0) h12=12; return h12+':'+min+' '+ap; }
+$('schedBtn').onclick=openScheduleEditor;
+function openScheduleEditor(){
+  onCloseAttempt=null;
+  const MAX=25;
+  scrim.innerHTML='<div class="sheet"><button class="closex" id="sex">✕</button><h3>Update your open times</h3>'
+    +'<p>Add a day and time for each opening. Up to 25 slots.</p>'
+    +'<div class="acts" style="margin-top:6px"><button class="btn cta full" id="se-save1">Save</button></div>'
+    +'<div id="slotwrap" style="margin-top:10px"></div>'
+    +'<div id="slotcount" style="margin-top:8px;padding:11px 13px;border:1px solid var(--edge);border-radius:14px;background:var(--grey-bg);font-weight:600;color:var(--ink)"></div>'
+    +'<div class="acts"><button class="btn cta full" id="se-save2">Save</button></div></div>';
+  scrim.classList.add('on'); $('sex').onclick=closeM;
+  const wrap=$('slotwrap');
+  function rowEl(day,time){
+    const div=document.createElement('div'); div.style.cssText='display:flex;gap:8px;margin-bottom:8px';
+    div.innerHTML='<select style="flex:1.2;font:inherit;font-size:15px;color:var(--ink);padding:10px 12px;border:1px solid var(--edge);border-radius:14px;background:var(--inputbg)">'
+      +'<option value="">Day</option>'+DAYS.map(d=>'<option value="'+d+'"'+(d===day?' selected':'')+'>'+d+'</option>').join('')+'</select>'
+      +'<input type="time" value="'+(time||'')+'" style="flex:1;font:inherit;font-size:15px;color:var(--ink);padding:10px 12px;border:1px solid var(--edge);border-radius:14px;background:var(--inputbg)">'
+      +'<button style="min-width:42px;font:inherit;font-size:13px;cursor:pointer;border:1px solid var(--edge);border-radius:14px;background:var(--glass);color:var(--ink)">✕</button>';
+    const sel=div.querySelector('select'), tim=div.querySelector('input'), clr=div.querySelector('button');
+    const onChange=()=>{ const rs=[].slice.call(wrap.children); const last=rs[rs.length-1]; const lastSel=last&&last.querySelector('select'),lastTim=last&&last.querySelector('input'); if(last&&lastSel&&lastTim&&(lastSel.value||lastTim.value)&&rs.length<MAX) wrap.appendChild(rowEl('','')); updateCount(); };
+    sel.addEventListener('change',onChange); tim.addEventListener('change',onChange); tim.addEventListener('input',onChange);
+    clr.onclick=()=>{ div.remove(); ensureBlank(); updateCount(); };
+    return div;
+  }
+  function ensureBlank(){ if([].slice.call(wrap.children).length>=MAX) return; const rs=[].slice.call(wrap.children); const last=rs[rs.length-1]; const ls=last&&last.querySelector('select'),lt=last&&last.querySelector('input'); if(!last||ls&&lt&&(ls.value||lt.value)) wrap.appendChild(rowEl('','')); }
+  function filledRows(){ return [].slice.call(wrap.children).filter(r=>{ const s=r.querySelector('select'),t=r.querySelector('input'); return s&&t&&s.value&&t.value; }); }
+  function updateCount(){ $('slotcount').textContent=filledRows().length+' Sessions Bookable'; }
+  // pre-fill existing
+  SCHEDULE_SLOTS.forEach(s=>{ const m=s.match(/^(Monday|Tuesday|Wednesday|Thursday|Friday|Saturday|Sunday)\s+at\s+(\d{1,2}):(\d{2})\s*([AaPp][Mm])/); if(!m) return; let h=parseInt(m[2],10); const min=m[3]; const ap=m[4].toUpperCase(); if(ap==='PM'&&h<12) h+=12; if(ap==='AM'&&h===12) h=0; wrap.appendChild(rowEl(m[1],('0'+h).slice(-2)+':'+min)); });
+  ensureBlank(); updateCount();
+  const save=async()=>{
+    const rows=filledRows(); SCHEDULE_SLOTS=rows.map(r=>r.querySelector('select').value+' at '+fmtTime(r.querySelector('input').value));
+    showToast('Schedule saved'); closeM();
+  };
+  $('se-save1').onclick=save; $('se-save2').onclick=save;
+}
+
+// ─────────────────────────────────────────────────────────────────────
+//  ADD TASK
+// ─────────────────────────────────────────────────────────────────────
+$('addTask').onclick=()=>{
+  onCloseAttempt=null;
+  scrim.innerHTML='<div class="sheet"><button class="closex" id="tx">✕</button><h3>Add task</h3>'
+    +'<label>Task</label><input id="t-name" placeholder="What needs doing">'
+    +'<label>Notes</label><input id="t-notes" placeholder="Optional">'
+    +'<label>Deadline (optional)</label><input id="t-due" type="date">'
+    +'<div class="acts"><button class="btn cta full" id="t-add">Add task</button></div></div>';
+  scrim.classList.add('on'); $('tx').onclick=closeM; $('t-name').focus();
+  $('t-add').onclick=async()=>{
+    const n=$('t-name').value.trim(); if(!n) return;
+    TASKS.push({id:nextTaskId++, task:n, notes:$('t-notes').value.trim(), due:$('t-due').value, done:false});
+    closeM(); renderTasks(); renderStats(); showToast('Task added');
+  };
+};
+
+// ─────────────────────────────────────────────────────────────────────
+//  EDIT AUTOMATED REPLY
+// ─────────────────────────────────────────────────────────────────────
+function openEditReply(){
+  onCloseAttempt=null;
+  scrim.innerHTML='<div class="sheet"><button class="closex" id="arx">✕</button><h3>Automated email</h3>'
+    +'<p>This is the message that goes out automatically when a new inquiry arrives, if the toggle below is on.</p>'
+    +'<div style="margin:10px 0 4px;display:flex;gap:8px;flex-wrap:wrap;align-items:center">'
+      +'<button class="toggle '+(AUTO_REPLY_ON?'on':'off')+'" id="ar-toggle"><span class="dot"></span>Automated reply: '+(AUTO_REPLY_ON?'On':'Off')+'</button>'
+      +'<button class="btn small" id="ar-sig">Import Gmail signature (demo)</button>'
+    +'</div>'
+    +'<label>From</label><input id="ar-from" value="'+escA(AUTOREPLY.from)+'">'
+    +'<label>Reply-to</label><input id="ar-reply" value="'+escA(AUTOREPLY.replyTo)+'">'
+    +'<label>Subject</label><input id="ar-subj" value="'+escA(AUTOREPLY.subject)+'">'
+    +'<label>Message</label><textarea id="ar-body" rows="9">'+esc(AUTOREPLY.body)+'</textarea>'
+    +'<div class="acts"><button class="btn cta full" id="ar-save">Save reply</button><button class="btn" id="ar-x">Cancel</button></div></div>';
+  scrim.classList.add('on'); $('arx').onclick=closeM; $('ar-x').onclick=closeM;
+  $('ar-toggle').onclick=()=>{ AUTO_REPLY_ON=!AUTO_REPLY_ON; const b=$('ar-toggle'); b.className='toggle '+(AUTO_REPLY_ON?'on':'off'); b.innerHTML='<span class="dot"></span>Automated reply: '+(AUTO_REPLY_ON?'On':'Off'); showToast('Saved'); };
+  $('ar-sig').onclick=()=>{
+    const ta=$('ar-body'); const sig='\n\nWarmly,\n'+THERAPIST+'\nhttps://www.femmeandthem.co/\nhello@femmeandthem.co\n(360) 450-4405';
+    ta.value=ta.value.replace(/\s+$/,'')+sig; showToast('Demo signature appended');
+    const b=$('ar-sig'); b.textContent='Signature added ✓'; b.disabled=true;
+  };
+  $('ar-save').onclick=async()=>{
+    AUTOREPLY.from=$('ar-from').value; AUTOREPLY.replyTo=$('ar-reply').value; AUTOREPLY.subject=$('ar-subj').value; AUTOREPLY.body=$('ar-body').value;
+    showToast('Reply saved'); closeM();
+  };
+}
+$('editReply').onclick=openEditReply;
+
+// ─────────────────────────────────────────────────────────────────────
+//  HIDDEN CARDS
+// ─────────────────────────────────────────────────────────────────────
+$('hiddenBtn').onclick=openHidden;
+function openHidden(){
+  onCloseAttempt=null;
+  const all=[...INQUIRIES,...WAITLIST].filter(x=>IGNORED.includes(x.email));
+  const uniq=[]; const seen=new Set();
+  all.forEach(x=>{ if(!seen.has(x.email)){ seen.add(x.email); uniq.push(x); } });
+  scrim.innerHTML='<div class="sheet"><button class="closex" id="hdx">✕</button><h3>Hidden cards</h3>'
+    +'<p>People you tapped Ignore on. Restore to bring their card back.</p>'
+    +(uniq.length?uniq.map(o=>'<div class="bubble" style="display:flex;align-items:center;gap:10px;justify-content:space-between"><div><div class="nm" style="font-size:15px">'+esc(o.name||'(no name)')+'</div><div class="recv">'+esc(o.email||'')+'</div></div><button class="btn small" data-unhide="'+escA(o.email)+'">Restore</button></div>').join('')+'<button class="btn full" id="hd-all" style="margin-top:10px">Restore all</button>':'<div class="recv" style="padding:6px 2px">No hidden cards.</div>')
+    +'</div>';
+  scrim.classList.add('on'); $('hdx').onclick=closeM;
+  scrim.querySelectorAll('[data-unhide]').forEach(b=>{ b.onclick=()=>{ IGNORED=IGNORED.filter(e=>e!==b.dataset.unhide); renderAll(); renderSettings(); showToast('Card restored'); openHidden(); }; });
+  const hda=$('hd-all'); if(hda) hda.onclick=()=>{ IGNORED=[]; renderAll(); renderSettings(); showToast('All restored'); closeM(); };
+}
+
+// ─────────────────────────────────────────────────────────────────────
+//  SETUP MODAL
+// ─────────────────────────────────────────────────────────────────────
+$('setupBtn').onclick=()=>openSetup(false);
+function openSetup(firstRun){
+  onCloseAttempt=null;
+  scrim.innerHTML='<div class="sheet"><button class="closex" id="sux">✕</button>'
+    +'<h3>'+(firstRun?'Welcome — set up your dashboard':'Set up your dashboard')+'</h3>'
+    +'<p>Do these once and you are ready. You can change any of it later.</p>'
+    +'<label>1. Your name</label><div style="display:flex;gap:8px"><input id="su-name" value="'+escA(THERAPIST)+'" placeholder="First and last name"><button class="btn" id="su-save" style="min-width:90px">Save</button></div>'
+    +'<label>2. Your open times</label><button class="btn full" id="su-sched">Set your open times</button>'
+    +'<label>3. Are you accepting new clients?</label><button class="toggle '+(ACCEPTING?'on':'off')+'" id="su-acc"><span class="dot"></span>'+(ACCEPTING?'Accepting Clients':'Not Accepting Clients')+'</button>'
+    +'<label>4. Your automatic reply</label><button class="btn full" id="su-reply">Edit automatic reply</button>'
+    +'<div class="acts"><button class="btn cta full" id="su-done">Done</button></div></div>';
+  scrim.classList.add('on'); $('sux').onclick=closeM; $('su-done').onclick=()=>{ closeM(); renderAll(); };
+  $('su-save').onclick=()=>{ const nm=$('su-name').value.trim(); if(!nm) return; THERAPIST=nm; $('su-save').textContent='Saved ✓'; $('su-save').disabled=true; renderSettings(); showToast('Name saved'); };
+  $('su-sched').onclick=()=>{ openScheduleEditor(); };
+  $('su-reply').onclick=()=>{ openEditReply(); };
+  $('su-acc').onclick=()=>{ ACCEPTING=!ACCEPTING; const b=$('su-acc'); b.className='toggle '+(ACCEPTING?'on':'off'); b.innerHTML='<span class="dot"></span>'+(ACCEPTING?'Accepting Clients':'Not Accepting Clients'); };
+}
+
+// ─────────────────────────────────────────────────────────────────────
+//  HELP MODAL
+// ─────────────────────────────────────────────────────────────────────
+$('helpBtn').onclick=()=>{
+  onCloseAttempt=null;
+  scrim.innerHTML='<div class="sheet"><button class="closex" id="hx">✕</button><h3>Get help</h3>'
+    +'<p>What do you need?</p>'
+    +'<div class="demo-note">📋 Demo mode: the guide link and help email are simulated. No message will be sent.</div>'
+    +'<div class="acts" style="flex-direction:column">'
+      +'<button class="btn cta full" id="h-docs">Read the guide (demo)</button>'
+      +'<button class="btn full" id="h-mail">Email for help (demo)</button>'
+    +'</div></div>';
+  scrim.classList.add('on'); $('hx').onclick=closeM;
+  $('h-docs').onclick=()=>{ const host=scrim.querySelector('.sheet'); host.innerHTML='<button class="closex" id="hx2">✕</button><h3>Guide (demo)</h3><p>In production, this opens the Femme &amp; Them Dashboard Guide document. In demo mode, no external link is available.</p><div class="acts"><button class="btn cta full" id="h-ok">Close</button></div>'; $('hx2').onclick=closeM; $('h-ok').onclick=closeM; };
+  $('h-mail').onclick=()=>{
+    const host=scrim.querySelector('.sheet');
+    host.innerHTML='<button class="closex" id="hx3">✕</button><h3>Email for help (demo)</h3>'
+      +'<p>In production this sends to hello@femmeandthem.co. In demo mode nothing is sent.</p>'
+      +'<label>Subject</label><input id="h-subj" placeholder="What is this about">'
+      +'<label>Message</label><textarea id="h-body" rows="6" placeholder="Describe what you need"></textarea>'
+      +'<div class="acts"><button class="btn cta full" id="h-send">Send email (demo)</button></div>';
+    $('hx3').onclick=closeM; $('h-subj').focus();
+    $('h-send').onclick=async()=>{ const sub=$('h-subj').value.trim(), msg=$('h-body').value.trim(); if(!sub&&!msg) return;
+      btnLoad($('h-send'),'Sending...'); await fakeDelay();
+      fakeSend('email','hello@femmeandthem.co',sub||'Dashboard help request');
+      host.innerHTML='<div style="text-align:center;padding:30px 16px"><div style="font-size:34px">✅</div><div style="font-size:16px;font-weight:600;margin-top:8px">Help email queued (demo)</div><div class="note" style="font-style:normal;margin-top:8px">In production this would send to hello@femmeandthem.co via MailApp.</div></div>';
+      setTimeout(closeM, 1700);
+    };
+  };
+};
+
+// ─────────────────────────────────────────────────────────────────────
+//  REFRESH
+// ─────────────────────────────────────────────────────────────────────
+$('refresh').onclick=async()=>{
+  const b=$('refresh'); btnLoad(b,'Loading'); await fakeDelay(600); btnReset(b); renderAll(); showToast('Refreshed');
+};
+
+// ─────────────────────────────────────────────────────────────────────
+//  THEME / DISPLAY
+// ─────────────────────────────────────────────────────────────────────
+const THEMES={midnight:{e:'🌙',n:'Midnight'},sakura:{e:'🌸',n:'Cherry blossom'},sun:{e:'✦',n:'Orchid'},hicon:{e:'★',n:'High visibility'}};
+const THEME_ORDER=['midnight','sakura','sun','hicon'];
+const FONTS=[{n:'System',css:"system-ui,-apple-system,'Segoe UI',Arial,sans-serif"},{n:'Poppins',css:"'Poppins',system-ui,Arial,sans-serif"},{n:'Arial',css:"Arial,Helvetica,sans-serif"},{n:'Verdana',css:"Verdana,Geneva,sans-serif"},{n:'Georgia',css:"Georgia,'Times New Roman',serif"}];
+const SIZES=[{n:'Normal',v:'normal',z:1},{n:'Large',v:'large',z:1.12},{n:'Larger',v:'larger',z:1.25}];
+function gp(k,d){ try{ return localStorage.getItem(k)||d; }catch(e){ return d; } }
+function sp(k,v){ try{ localStorage.setItem(k,v); }catch(e){} }
+let curTheme=gp('ftTheme','midnight'); if(!THEMES[curTheme]) curTheme='midnight';
+let curSize=gp('ftSize','normal'); let curFont=gp('ftFont','System');
+function applyDisplay(){
+  document.documentElement.setAttribute('data-theme',curTheme);
+  const sz=SIZES.find(s=>s.v===curSize)||SIZES[0]; document.documentElement.style.setProperty('--zoom',sz.z);
+  const f=(FONTS.find(x=>x.n===curFont)||FONTS[0]).css; document.documentElement.style.setProperty('--font',f);
+  const db=$('displayBtn'); if(db) db.textContent=THEMES[curTheme].e;
+  applyEffects(curTheme);
+}
+function applyEffects(theme){
+  const fx=$('fx'); if(!fx) return; fx.innerHTML='';
+  const reduce=window.matchMedia&&window.matchMedia('(prefers-reduced-motion:reduce)').matches;
+  if(theme==='sakura'){ if(reduce) return; for(let i=0;i<9;i++){ const p=document.createElement('div'); p.className='petal'; const sz=10+Math.random()*9; p.style.width=sz+'px'; p.style.height=sz+'px'; p.style.left=(Math.random()*100)+'%'; const dur=8+Math.random()*9; p.style.animationDuration=dur+'s'; p.style.animationDelay=(-Math.random()*dur)+'s'; p.style.setProperty('--sway',(Math.random()*80-40)+'px'); fx.appendChild(p); }
+  } else if(theme==='midnight'){ const n=reduce?20:40; for(let i=0;i<n;i++){ const s=document.createElement('div'); s.className='star'; const sz=1+Math.random()*2; s.style.width=sz+'px'; s.style.height=sz+'px'; s.style.left=(Math.random()*100)+'%'; s.style.top=(Math.random()*100)+'%'; const d=2+Math.random()*4; s.style.animationDuration=d+'s'; s.style.animationDelay=(-Math.random()*d)+'s'; fx.appendChild(s); } }
+}
+(function(){ applyDisplay(); })();
+$('displayBtn').onclick=openDisplay;
+function openDisplay(){
+  const themeBtns=THEME_ORDER.map(k=>'<button class="pick '+(k===curTheme?'on':'')+'" data-theme-pick="'+k+'">'+THEMES[k].e+'  '+THEMES[k].n+'</button>').join('');
+  const sizeBtns=SIZES.map(s=>'<button class="pick '+(s.v===curSize?'on':'')+'" data-size-pick="'+s.v+'">'+s.n+'</button>').join('');
+  const fontOpts=FONTS.map(f=>'<option value="'+f.n+'"'+(f.n===curFont?' selected':'')+'>'+f.n+'</option>').join('');
+  scrim.innerHTML='<div class="sheet"><button class="closex" id="dx">✕</button><h3>Display</h3>'
+    +'<label>Theme</label><div class="pickwrap" id="d-themes">'+themeBtns+'</div>'
+    +'<label>Text size</label><div class="pickwrap" id="d-sizes">'+sizeBtns+'</div>'
+    +'<label>Font</label><select id="d-font">'+fontOpts+'</select>'
+    +'<p class="tiny" style="padding-left:0">You can also click the dashboard title to cycle fonts.</p>'
+    +'<div class="acts"><button class="btn cta full" id="d-done">Done</button></div></div>';
+  scrim.classList.add('on'); $('dx').onclick=closeM; $('d-done').onclick=closeM;
+  $('d-themes').onclick=e=>{ const b=e.target.closest('[data-theme-pick]'); if(!b) return; curTheme=b.dataset.themePick; sp('ftTheme',curTheme); applyDisplay(); openDisplay(); };
+  $('d-sizes').onclick=e=>{ const b=e.target.closest('[data-size-pick]'); if(!b) return; curSize=b.dataset.sizePick; sp('ftSize',curSize); applyDisplay(); openDisplay(); };
+  $('d-font').onchange=()=>{ curFont=$('d-font').value; sp('ftFont',curFont); applyDisplay(); };
+}
+$('brandTitle').onclick=()=>{ const i=FONTS.findIndex(f=>f.n===curFont); curFont=FONTS[(i+1)%FONTS.length].n; sp('ftFont',curFont); applyDisplay(); };
+
+// ─────────────────────────────────────────────────────────────────────
+//  INITIAL RENDER + FIRST-RUN NOTICE
+// ─────────────────────────────────────────────────────────────────────
+renderAll();
+setTimeout(()=>{
+  if(HIDDEN_NOTCE_SHOWN) return; HIDDEN_NOTCE_SHOWN=true;
+  try{ if(localStorage.getItem('ftClinNotice')==='1') return; }catch(e){}
+  scrim.innerHTML='<div class="sheet"><button class="closex" id="nx">✕</button><h3>Demo mode — quick heads up</h3>'
+    +'<p>This is a fully self-contained demo of the Femme &amp; Them clinician dashboard. Nothing here connects to Google — no spreadsheet, no email, no calendar.</p>'
+    +'<p>Every button, modal, and flow works. Emails and calendar invites show a confirmation toast describing what would happen in production, but nothing actually sends.</p>'
+    +'<p>Turn on <b>Test data</b> at the bottom to add extra fake clients, and try the <b>Refer out</b> walkthrough.</p>'
+    +'<div class="acts"><button class="btn cta full" id="n-ok">Got it, start exploring</button></div></div>';
+  scrim.classList.add('on');
+  const dismiss=()=>{ try{ localStorage.setItem('ftClinNotice','1'); }catch(e){} closeM(); };
+  $('nx').onclick=dismiss; $('n-ok').onclick=dismiss;
+}, 500);
+</script>
+</body>
+</html>
