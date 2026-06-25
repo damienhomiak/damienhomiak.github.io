@@ -230,7 +230,7 @@ body.is-landing .hero-art:hover .brand-mark{animation:spin 7s linear infinite}
 .cs-wrap{padding:14px 0}
 .cs-card{background:var(--cs-bg);color:#fff;border-radius:var(--radius-lg);overflow:hidden;border-top:5px solid var(--cs-accent)}
 .theme-teal{--cs-bg:#0a3f42;--cs-bg2:#0d6b6e;--cs-accent:#F5A623}
-.theme-slate{--cs-bg:#17202e;--cs-bg2:#26344a;--cs-accent:#5BC0C2}
+.theme-slate{--cs-bg:#12262b;--cs-bg2:#1e3b40;--cs-accent:#6fd2d0}
 .theme-char{--cs-bg:#221d1b;--cs-bg2:#3a2f2a;--cs-accent:#F5A623}
 .cs-header{padding:38px 44px 30px;background:linear-gradient(160deg,var(--cs-bg2),var(--cs-bg))}
 .cs-eyebrow{display:inline-flex;align-items:center;gap:8px;font-size:.72rem;font-weight:700;text-transform:uppercase;letter-spacing:2px;color:var(--cs-accent);margin-bottom:14px}
@@ -445,7 +445,7 @@ body.is-landing .hero-art:hover .brand-mark{animation:spin 7s linear infinite}
 .cs-demo{display:inline-flex;align-items:center;gap:7px;font-size:.85rem;font-weight:600;color:#fff;background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.2);border-radius:100px;padding:7px 14px;text-decoration:none;cursor:pointer;transition:all .15s}
 .cs-demo:hover{background:rgba(255,255,255,.18);border-color:rgba(255,255,255,.35)}
 .cs-demo svg{width:15px;height:15px}
-.tp-box-orange{background:linear-gradient(135deg,#fff3dc,#fffaf2);border:1px solid #f3d9a6;border-radius:var(--radius-lg);padding:30px 34px;max-width:760px;margin:0 auto}
+.tp-box-orange{background:#ece5da;border:1px solid #dcd4c7;border-radius:var(--radius-lg);padding:30px 34px;max-width:760px;margin:0 auto}
 .wtile .task{font-family:'DM Sans',sans-serif;font-weight:600;font-size:.92rem;line-height:1.35}
 .wtile .tap{font-size:.72rem;color:rgba(255,255,255,.5);margin-top:auto}
 .wtile .verdict{display:none;margin-top:10px}
@@ -1054,6 +1054,53 @@ nav{padding:0 20px}.nav-links{gap:14px}.nav-links a:not(.nav-cta){display:none}
 .who-reveal .wr-body{padding:2px 20px 18px 68px}
 .who-reveal .wr-body p{margin:0;font-size:.95rem;line-height:1.6;color:rgba(255,255,255,.92)}
 @media(max-width:600px){.who-reveal .wr-body{padding-left:20px}}
+
+[data-aud="health"] .lane-cta{background:radial-gradient(120% 120% at 0% 0%,#0e5c5e,#0a3638)}
+[data-aud="health"] .lane-cta .rr-role,[data-aud="health"] .lane-cta .rr-clause,[data-aud="health"] .lane-cta .rr-who{color:#a7e3df}
+[data-aud="health"] .lane-cta .btn-orange{background:#eef4f2;color:#0a3638}
+[data-aud="health"] .lane-cta .btn-orange:hover{background:#fff}
+[data-aud="health"] .lane-cta .btn-light{border-color:rgba(255,255,255,.5)}
+.qs-avatar{display:flex;align-items:center;gap:22px;justify-content:flex-end;text-align:right}
+.qs-text{flex:1;min-width:0}
+.qs-pic{width:90px;height:90px;border-radius:50%;object-fit:cover;flex:0 0 90px;border:3px solid var(--teal-light);box-shadow:0 6px 18px rgba(13,107,110,.18)}
+@media(max-width:600px){.qs-avatar{flex-direction:column;align-items:flex-end;gap:14px}.qs-pic{width:72px;height:72px;flex-basis:72px}}
+.np-intro .np-resume2{background:rgba(255,255,255,.12);border-color:rgba(255,255,255,.5);color:#fff;margin-left:8px}
+#copyTag{cursor:default;-webkit-user-select:none;user-select:none}
+.an-modal{position:fixed;inset:0;background:rgba(10,20,22,.55);-webkit-backdrop-filter:blur(3px);backdrop-filter:blur(3px);z-index:10000;display:none;align-items:center;justify-content:center;padding:20px}
+.an-modal.open{display:flex}
+.an-card{background:#fff;border-radius:18px;max-width:560px;width:100%;max-height:84vh;overflow:auto;padding:24px 26px;box-shadow:0 30px 80px rgba(0,0,0,.4)}
+.an-head{display:flex;justify-content:space-between;align-items:center;margin-bottom:8px;font-family:'DM Sans',sans-serif;font-size:1.1rem}
+.an-x{background:none;border:none;font-size:1.6rem;line-height:1;cursor:pointer;color:var(--gray)}
+.an-kpi{background:var(--teal-light);border-radius:12px;padding:14px 16px;margin:8px 0 4px;text-align:center}
+.an-kpi .an-num{font-family:'DM Sans',sans-serif;font-size:2rem;font-weight:700;color:var(--teal-deep)}
+.an-kpi .an-lab{font-size:.78rem;color:var(--gray);text-transform:uppercase;letter-spacing:.05em}
+.an-card h4{margin:16px 0 8px;font-size:.82rem;text-transform:uppercase;letter-spacing:.05em;color:var(--gray)}
+.an-rows{display:flex;flex-direction:column;gap:6px}
+.an-row{display:flex;align-items:center;gap:10px;font-size:.82rem}
+.an-row .an-k{flex:0 0 44%;color:var(--dark);overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.an-row .an-bar{flex:1;height:10px;background:var(--off-white);border-radius:6px;overflow:hidden}
+.an-row .an-bar span{display:block;height:100%;background:linear-gradient(90deg,var(--teal),var(--orange))}
+.an-row .an-v{flex:0 0 36px;text-align:right;font-weight:700;color:var(--teal-deep)}
+.an-empty{color:var(--gray);font-size:.85rem}
+.an-foot{display:flex;justify-content:space-between;align-items:center;margin-top:18px;border-top:1px solid var(--border);padding-top:14px}
+.an-reset{background:none;border:1px solid var(--border);border-radius:100px;padding:7px 14px;font-size:.8rem;cursor:pointer;color:var(--gray)}
+.an-note{font-size:.72rem;color:var(--gray-light)}
+
+.thinker-card{background:linear-gradient(160deg,var(--teal-light),#fff);border:1px solid var(--border);border-radius:var(--radius-lg);padding:36px 38px;position:relative;overflow:hidden}
+.thinker-card::before{content:"";position:absolute;top:0;left:0;width:5px;height:100%;background:linear-gradient(to bottom,var(--teal),var(--orange))}
+.thinker-card h2{margin:8px 0 10px}
+.thinker-lead{font-size:1.05rem;color:var(--dark);line-height:1.6;max-width:640px;margin:0 0 24px}
+.thinker-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:16px}
+.thinker-item{background:#fff;border:1px solid var(--border);border-radius:14px;padding:18px 18px 16px;position:relative}
+.thinker-item .ti-num{font-family:'DM Sans',sans-serif;font-weight:700;font-size:.8rem;letter-spacing:.05em;color:var(--orange-deep)}
+.thinker-item h4{margin:8px 0 5px;font-family:'DM Sans',sans-serif;font-size:1rem;color:var(--teal-deep)}
+.thinker-item p{margin:0;font-size:.88rem;color:var(--gray);line-height:1.5}
+@media(max-width:680px){.thinker-grid{grid-template-columns:1fr 1fr}.thinker-card{padding:26px 20px}}
+[data-aud="therapy"] .lane-cta{background:radial-gradient(120% 120% at 0% 0%,#2f6b5e,#17413a)}
+[data-aud="therapy"] .lane-cta .rr-role,[data-aud="therapy"] .lane-cta .rr-clause,[data-aud="therapy"] .lane-cta .rr-who{color:#bfe6d8}
+[data-aud="therapy"] .lane-cta .btn-orange{background:#f1f6f2;color:#17413a}
+[data-aud="therapy"] .lane-cta .btn-orange:hover{background:#fff}
+.qs-initials{display:flex;align-items:center;justify-content:center;background:var(--teal);color:#fff;font-family:'DM Sans',sans-serif;font-weight:700;font-size:1.7rem}
 </style>
 </head>
 <body>
@@ -1265,7 +1312,7 @@ nav{padding:0 20px}.nav-links{gap:14px}.nav-links a:not(.nav-cta){display:none}
       <p class="role-titles" style="color:var(--dark)"><b>Open to:</b> Patient Access Coordinator &middot; Care Coordinator &middot; Program Coordinator &middot; Clinic Operations Coordinator &middot; Healthcare Administration</p>
       <p class="health-notes">I speak the language access work runs on: time-to-third-appointment, referral leakage, no-show drivers, and the access and quality measures (HEDIS-style access metrics and value-based care) that decide whether patients actually get seen. I also treat equity of access as an operations problem, since affirming, in-network matches are not only the right thing, they shorten time-to-care and reduce drop-off.</p>
       <div class="lane-btns">
-        <a href="#" class="btn-primary resume-link" onclick="return resumeLink(event)" data-track="health_resume">View my resume</a>
+        <a href="#" class="btn-primary resume-link" onclick="return resumeLink(event)" data-track="health_resume">Download my resume</a>
         <a href="#contact" class="btn-secondary">Contact me</a>
       </div>
       <button class="dl-summary" type="button" onclick="return docLinkPrompt(event,'summary-health','one-page summary')" data-track="dl_health">View one-page summary</button>
@@ -1426,6 +1473,7 @@ nav{padding:0 20px}.nav-links{gap:14px}.nav-links a:not(.nav-cta){display:none}
         <span class="np-cred"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2l2.4 7.4H22l-6 4.5 2.3 7.1L12 16.7 5.7 21l2.3-7.1-6-4.5h7.6z"/></svg>AI Fluency</span>
       </div>
       <button class="dl-summary" type="button" onclick="return docLinkPrompt(event,'summary-nonprofit','one-page summary')" data-track="dl_nonprofit">View one-page summary</button>
+      <a href="#" class="dl-summary np-resume2" onclick="return resumeLink(event)" data-track="np_resume">Download my resume</a>
     </div>
   </div>
 
@@ -1697,29 +1745,18 @@ nav{padding:0 20px}.nav-links{gap:14px}.nav-links a:not(.nav-cta){display:none}
         <li>Helped write and develop fair handbook policies</li>
         <li>Consultation and implementation, by the same person</li>
       </ul>
-      <div class="wins-ba">
-        <div class="wins-ba-cap">What changed for the practice</div>
-        <div class="wins-ba-col"><div class="wba-label">Before</div><ul>
-          <li>Referrals scattered everywhere</li>
-          <li>Owner-dependent systems</li>
-          <li>Missed or late follow-up</li>
-          <li>Administrative stress</li>
-        </ul></div>
-        <div class="wins-ba-col after"><div class="wba-label">After</div><ul>
-          <li>One place to track every referral</li>
-          <li>Documented processes your team follows</li>
-          <li>Consistent client communication</li>
-          <li>Operational clarity</li>
-        </ul></div>
-      </div>
     </div>
   </div>
   <div class="section">
-    <h2 class="section-title">A systems thinker who cares how things feel to use</h2>
-    <div class="about-grid" style="margin-top:32px">
-      <div class="about-photo about-logo"><div class="brand-mark"></div></div>
-      <div class="about-text">
-        <p>I keep practices organized and responsive, and I care as much about how the work feels to receive as whether it runs: listen first, communicate clearly, follow through, and leave things better than I found them.</p>
+    <div class="thinker-card">
+      <div class="lane-eyebrow" style="color:var(--teal-deep)"><span class="brand-mark"></span>How I work</div>
+      <h2>A systems thinker who cares how things feel to use.</h2>
+      <p class="thinker-lead">I keep practices organized and responsive, and I care as much about how the work feels to receive as whether it actually runs.</p>
+      <div class="thinker-grid">
+        <div class="thinker-item"><span class="ti-num">01</span><h4>Listen first</h4><p>I learn how your practice really works before I change a thing.</p></div>
+        <div class="thinker-item"><span class="ti-num">02</span><h4>Communicate clearly</h4><p>Plain updates, no jargon, no surprises for you or your clinicians.</p></div>
+        <div class="thinker-item"><span class="ti-num">03</span><h4>Follow through</h4><p>I finish what I start and close the loop, every time.</p></div>
+        <div class="thinker-item"><span class="ti-num">04</span><h4>Leave it better</h4><p>Calm, documented systems your team can run without me.</p></div>
       </div>
     </div>
   </div>
@@ -1757,23 +1794,9 @@ nav{padding:0 20px}.nav-links{gap:14px}.nav-links a:not(.nav-cta){display:none}
   </div>
 </div>
 
-<!-- Health: how I think about operations (above credentials) -->
-<div class="section tight" data-aud="health">
-  <div class="up-head">
-    <div class="lane-eyebrow"><span class="brand-mark"></span>How I think about operations</div>
-    <h2>I follow the patient&rsquo;s path and fix what slows it down.</h2>
-  </div>
-  <div class="flow-strip">
-    <span class="flow-node">Referral</span><span class="flow-arrow">&rarr;</span>
-    <span class="flow-node">Intake</span><span class="flow-arrow">&rarr;</span>
-    <span class="flow-node">Scheduling</span><span class="flow-arrow">&rarr;</span>
-    <span class="flow-node">Care</span>
-  </div>
-</div>
-
 <!-- CREDENTIALS (health + everything) -->
 <div data-aud="health">
-  <div class="section" style="padding-top:0">
+  <div class="section" style="padding-top:28px">
     <div class="section-label"><span class="brand-mark"></span>Education &amp; credentials</div>
     <h2 class="section-title">Education &amp; credentials</h2>
     <div class="creds-grid">
@@ -1814,19 +1837,22 @@ nav{padding:0 20px}.nav-links{gap:14px}.nav-links a:not(.nav-cta){display:none}
       <p>On your team, that could look like patients and families getting clear, timely follow-through; providers spending less of their energy chasing information; and the front line feeling a little less chaotic and a lot more supported. I would not just keep up with the work in front of me; I would pay attention to where people are struggling and look for small, respectful changes that make their day easier.</p>
       <p>If you are looking for someone who genuinely cares about patients, can handle the details, and has the judgment to take on more over time, I would welcome the chance to talk. Please feel free to reach out using the form below.</p>
     </div>
-    <div class="quote-strip" style="text-align:right;margin:30px auto">
-      <q>Damien operates as external executive functioning for our team. They bring clarity where there's complexity, structure where there's ambiguity, and momentum where things might otherwise stall. They don't just plan or advise; they make things happen.</q>
-      <div class="qa">Cappy Shapiro <span class="qa-role">· Clinical Manager, Femme &amp; Them, PLLC</span></div>
+    <div class="quote-strip qs-avatar" style="margin:30px auto">
+      <div class="qs-text">
+        <q>Damien operates as external executive functioning for our team. They bring clarity where there's complexity, structure where there's ambiguity, and momentum where things might otherwise stall. They don't just plan or advise; they make things happen.</q>
+        <div class="qa">Cappy Shapiro <span class="qa-role">· Clinical Manager, Femme &amp; Them, PLLC</span></div>
+      </div>
+      <img class="qs-pic" src="https://www.damienhomiak.com/1775663104046.png" alt="Cappy Shapiro" loading="lazy" decoding="async" onerror="this.outerHTML='<div class=&quot;qs-pic qs-initials&quot; aria-label=&quot;Cappy Shapiro&quot;>CS</div>'">
     </div>
   </div>
 </div>
 
 <!-- Per-lane single call to action -->
 <div class="lane-cta-wrap">
-  <div data-aud="health" class="lane-only"><div class="section tight"><div class="lane-cta reveal-on-scroll">
+  <div data-aud="health" class="lane-only"><div class="section tight" style="padding-top:0;margin-top:-26px"><div class="lane-cta reveal-on-scroll">
     <h3 id="roleRotator">Looking for a <span class="rr-role">practice operations coordinator</span> <span class="rr-who">who</span> <span class="rr-clause">keeps care running smoothly</span>?</h3>
     <div class="lcta-row">
-      <a class="btn-orange lcta-btn resume-link" href="#" onclick="return resumeLink(event)" data-track="cta_health_resume">View my resume</a>
+      <a class="btn-orange lcta-btn resume-link" href="#" onclick="return resumeLink(event)" data-track="cta_health_resume">Download my resume</a>
       <a class="btn-light lcta-btn" href="#contact" data-track="cta_health_contact">Contact me</a>
     </div>
   </div></div></div>
@@ -1903,10 +1929,12 @@ nav{padding:0 20px}.nav-links{gap:14px}.nav-links a:not(.nav-cta){display:none}
         <a class="fsocial" href="mailto:damienhomiak@gmail.com" title="Email damienhomiak@gmail.com" aria-label="Email"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="m3 7 9 6 9-6"/></svg></a>
         <a class="fsocial" href="tel:+13604864267" title="Call or text (360) 486-4267" aria-label="Call or text"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.13.96.36 1.9.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.91.34 1.85.57 2.81.7A2 2 0 0 1 22 16.92z"/></svg></a>
       </div>
-      Olympia, WA &amp; Remote &nbsp;·&nbsp; &copy; 2026
+      Olympia, WA &amp; Remote &nbsp;·&nbsp; <span id="copyTag" ondblclick="openAnalytics()">&copy; 2026</span>
     </div>
   </div>
 </footer>
+
+<div id="analytics" class="an-modal" aria-hidden="true"><div class="an-card"><div class="an-head"><b>Site analytics</b><button class="an-x" onclick="closeAnalytics()" aria-label="Close">&times;</button></div><div id="anBody"></div><div class="an-foot"><button class="an-reset" onclick="resetAnalytics()">Reset data</button><span class="an-note">Stored on this device only.</span></div></div></div>
 
 <!-- inline editor modal -->
 <!-- Logo launcher -->
@@ -1955,12 +1983,37 @@ var currentKey='all';
 var landingMode=false;
 // Lightweight, privacy-friendly analytics hook. Works with Plausible or GA if present,
 // otherwise no-ops. Swap in your own endpoint/provider as needed.
+function anGet(k){ try{ return JSON.parse(localStorage.getItem(k)||'{}'); }catch(e){ return {}; } }
+function anSet(k,v){ try{ localStorage.setItem(k,JSON.stringify(v)); }catch(e){} }
+function anEvent(name){ if(!name) return; try{ var e=anGet('dh_an_events'); e[name]=(e[name]||0)+1; anSet('dh_an_events',e); }catch(e2){} }
+function anHit(){ try{ var h=anGet('dh_an_hits'); var d=new Date().toISOString().slice(0,10); h[d]=(h[d]||0)+1; anSet('dh_an_hits',h); }catch(e){} }
+anHit();
+function openAnalytics(){ renderAnalytics(); var m=document.getElementById('analytics'); if(m) m.classList.add('open'); }
+function closeAnalytics(){ var m=document.getElementById('analytics'); if(m) m.classList.remove('open'); }
+function resetAnalytics(){ try{ localStorage.removeItem('dh_an_hits'); localStorage.removeItem('dh_an_events'); }catch(e){} renderAnalytics(); }
+function renderAnalytics(){
+  var hits=anGet('dh_an_hits'), ev=anGet('dh_an_events'), body=document.getElementById('anBody'); if(!body) return;
+  var total=0,d; for(d in hits) total+=hits[d];
+  var html='<div class="an-kpi"><div class="an-num">'+total+'</div><div class="an-lab">total visits (this device)</div></div>';
+  var dates=Object.keys(hits).sort(), maxh=1; dates.forEach(function(x){ if(hits[x]>maxh) maxh=hits[x]; });
+  html+='<h4>Visits by date</h4><div class="an-rows">';
+  if(!dates.length) html+='<div class="an-empty">No visits recorded yet.</div>';
+  dates.forEach(function(x){ html+='<div class="an-row"><span class="an-k">'+x+'</span><span class="an-bar"><span style="width:'+Math.round(hits[x]/maxh*100)+'%"></span></span><span class="an-v">'+hits[x]+'</span></div>'; });
+  html+='</div>';
+  var keys=Object.keys(ev).sort(function(a,b){return ev[b]-ev[a];}), maxe=1; keys.forEach(function(k){ if(ev[k]>maxe) maxe=ev[k]; });
+  html+='<h4>Clicks &amp; actions</h4><div class="an-rows">';
+  if(!keys.length) html+='<div class="an-empty">No clicks recorded yet.</div>';
+  keys.forEach(function(k){ html+='<div class="an-row"><span class="an-k" title="'+k+'">'+k+'</span><span class="an-bar"><span style="width:'+Math.round(ev[k]/maxe*100)+'%"></span></span><span class="an-v">'+ev[k]+'</span></div>'; });
+  html+='</div>';
+  body.innerHTML=html;
+}
 function track(event, detail){
   try{
     if(window.plausible){ window.plausible(event,{props:detail||{}}); }
     if(window.gtag){ window.gtag('event',event,detail||{}); }
     if(window.dataLayer){ window.dataLayer.push(Object.assign({event:event},detail||{})); }
   }catch(e){}
+  try{ var lbl=event; if(detail){ if(event==='link_click'&&detail.id){ lbl='click: '+detail.id; } else if(detail.lane){ lbl=event+' ('+detail.lane+')'; } } anEvent(lbl); }catch(e){}
 }
 document.addEventListener('click',function(ev){
   var a=ev.target.closest&&ev.target.closest('[data-track]');
@@ -2005,6 +2058,7 @@ function setAud(key,fromUser,locked){
     VALID.forEach(function(k){ if(k!==key){ var b=document.createElement('button'); b.className='switch-btn s-'+k; b.textContent=LANE_NAMES[k]; b.onclick=function(){ setAud(k,true); }; others.appendChild(b); } });
   }
   if(key==='all'){ wrap.style.display=''; bar.classList.remove('show'); }
+  else if(key==='health'){ wrap.style.display='none'; bar.classList.remove('show'); if(others) others.innerHTML=''; }
   else { wrap.style.display='none'; bar.classList.add('show'); }
   if(bottom){ bottom.classList.remove('show'); }
   if(fromUser){ window.scrollTo({top:0,behavior:'smooth'}); }
@@ -2410,9 +2464,9 @@ function applyResumeLinks(url){
 }
 function resumeLink(ev){
   if(ev) ev.preventDefault();
-  var file = (typeof currentKey!=='undefined' && currentKey==='nonprofit') ? 'DamienHomiakAIResume2026.pdf' : 'DamienHomiakHealthcareResume2026.pdf';
-  var a=document.createElement('a'); a.href=file; a.download=file; a.rel='noopener'; document.body.appendChild(a); a.click(); a.remove();
-  if(typeof track==='function') track('resume_open',{});
+  var url = (typeof currentKey!=='undefined' && currentKey==='nonprofit') ? 'https://www.damienhomiak.com/DamienHomiakAIResume2026.pdf' : 'https://www.damienhomiak.com/DamienHomiakHealthcareResume2026.pdf';
+  var a=document.createElement('a'); a.href=url; a.download=''; a.rel='noopener'; document.body.appendChild(a); a.click(); a.remove();
+  if(typeof track==='function') track('resume_open',{lane:(typeof currentKey!=='undefined'?currentKey:'')});
   return false;
 }
 applyResumeLinks('https://docs.google.com/document/d/1Lyqhci8hPM53UcZE9OOXKC3pNBsSQB8W/edit?usp=sharing');
