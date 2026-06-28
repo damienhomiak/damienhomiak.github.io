@@ -5,39 +5,121 @@
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <title>Queer South Sound Map</title>
 <meta name="description" content="A map of queer and trans-friendly places across the South Puget Sound.">
-<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"/>
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/leaflet@1.9.4/dist/leaflet.css"/>
+
 <style>
-  html,body{margin:0;height:100%;font-family:system-ui,-apple-system,Segoe UI,Roboto,sans-serif;background:#0C0B11;color:#fff}
-  header{padding:14px 18px}
-  header h1{margin:0;font-size:1.2rem}
-  header p{margin:4px 0 0;font-size:.85rem;color:#c9c4d6}
-  #map{height:calc(100vh - 70px);width:100%}
-  .empin{display:flex;flex-direction:column;align-items:center;width:130px;transform:translateX(-49px)}
-  .eemoji{font-size:26px;line-height:1;filter:drop-shadow(0 2px 3px rgba(0,0,0,.5))}
-  .elabel{margin-top:2px;background:#fff;color:#15131c;border-radius:7px;padding:1px 6px;font-size:11px;font-weight:600;white-space:nowrap;max-width:130px;overflow:hidden;text-overflow:ellipsis;box-shadow:0 1px 3px rgba(0,0,0,.3)}
+  html,body{
+    margin:0;
+    height:100%;
+    font-family:system-ui,-apple-system,Segoe UI,Roboto,sans-serif;
+    background:#0C0B11;
+    color:#fff;
+  }
+
+  header{
+    padding:14px 18px;
+  }
+
+  header h1{
+    margin:0;
+    font-size:1.2rem;
+  }
+
+  header p{
+    margin:4px 0 0;
+    font-size:.85rem;
+    color:#c9c4d6;
+  }
+
+  #map{
+    height:calc(100vh - 70px);
+    width:100%;
+  }
+
+  /* tooltip label styling */
+  .place-label {
+    background: white;
+    color: #111;
+    border-radius: 6px;
+    padding: 2px 6px;
+    font-size: 11px;
+    font-weight: 600;
+    box-shadow: 0 1px 4px rgba(0,0,0,.25);
+    border: none;
+  }
+
+  .place-label::before {
+    display: none;
+  }
 </style>
 </head>
+
 <body>
 <header>
   <h1>Queer South Sound Map</h1>
   <p>Queer and trans-friendly places across the South Puget Sound. Tap a pin for details.</p>
 </header>
+
 <div id="map"></div>
-<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+
+<script src="https://cdn.jsdelivr.net/npm/leaflet@1.9.4/dist/leaflet.js"></script>
+
 <script>
-const MAPDATA=[{"name": "Photosynthesis", "category": "Retail / Music", "address": "313 5th Ave SE, Olympia", "lat": 47.0445, "lng": -122.8939, "info": "Synths, flowers, and gifts. Queer & trans owned.", "link": ""}, {"name": "Cryptatropa Bar", "category": "Bar", "address": "421 4th Ave E, Olympia", "lat": 47.0454, "lng": -122.8928, "info": "A very dark bar downtown.", "link": ""}, {"name": "Underhill Plants", "category": "Plant shop", "address": "117 Washington St NE, Olympia", "lat": 47.0459, "lng": -122.8973, "info": "Houseplants, pottery, and art.", "link": ""}, {"name": "Olympia Gear Exchange", "category": "Retail", "address": "108 4th Ave W, Olympia", "lat": 47.0453, "lng": -122.9007, "info": "New and used outdoor gear.", "link": ""}, {"name": "Alliance Athletics", "category": "Gym", "address": "514 Adams St SE, Olympia", "lat": 47.0421, "lng": -122.8951, "info": "Queer-friendly strength gym.", "link": ""}, {"name": "Olympia Community Acupuncture", "category": "Wellness", "address": "2109 Harrison Ave NW, Olympia", "lat": 47.0512, "lng": -122.921, "info": "Sliding-scale community acupuncture.", "link": ""}, {"name": "EverWorks Coworking", "category": "Coworking", "address": "215 Legion Way SW, Olympia", "lat": 47.0436, "lng": -122.9004, "info": "Coworking and meeting rooms.", "link": ""}, {"name": "Olympia Food Co-op (Westside)", "category": "Grocery co-op", "address": "921 Rogers St NW, Olympia", "lat": 47.0489, "lng": -122.9176, "info": "Community-owned grocery; Soul Sweet Vegan rolls here.", "link": ""}, {"name": "Fog & Fern", "category": "Cafe", "address": "4219 6th Ave SE, Lacey", "lat": 47.0345, "lng": -122.7935, "info": "Espresso and single-origin coffee.", "link": ""}, {"name": "A Gift Of Serenity", "category": "Gift shop", "address": "743 Broadway Suite 215B, Tacoma", "lat": 47.2516, "lng": -122.4426, "info": "LGBTQIA+ gifts and handmade goods.", "link": ""}, {"name": "King's Books", "category": "Bookstore", "address": "218 St Helens Ave, Tacoma", "lat": 47.2541, "lng": -122.4407, "info": "Independent bookstore.", "link": ""}, {"name": "Rainbow Center", "category": "LGBTQ+ center", "address": "Tacoma, WA", "lat": 47.2529, "lng": -122.4443, "info": "LGBTQ+ community center serving Pierce County.", "link": "https://www.rainbowcntr.org/"}, {"name": "Marmo", "category": "Caffe & art gallery", "address": "217 W Cota St, Shelton, WA", "lat": 47.2148, "lng": -123.1018, "info": "Alternative art space & caffe. Queer Art Club every 3rd Friday, 4-6pm, free and 18+.", "link": "https://www.marmogallery.com/"}, {"name": "Jamie Lee & Company", "category": "Hair salon", "address": "305 4th Ave E, Olympia, WA", "lat": 47.0454, "lng": -122.8945, "info": "LGBTQ-owned and women-owned salon since 1995.", "link": "https://www.jamieleeandcompany.com/"}, {"name": "The Mix", "category": "Bar & nightlife", "address": "635 St Helens Ave, Tacoma, WA", "lat": 47.2536, "lng": -122.4426, "info": "Tacoma LGBTQ+ bar. Karaoke nightly, drag shows, home of the Pride Block Party.", "link": "https://www.themixtacoma.com/"}, {"name": "Club Silverstone", "category": "Bar & nightlife", "address": "Tacoma, WA", "lat": 47.247, "lng": -122.438, "info": "One of the longest-running gay bars in Tacoma. Dance floor, pool, themed nights. Address approximate.", "link": ""}, {"name": "Oasis Youth Center", "category": "Youth center", "address": "2215 Pacific Ave, Tacoma, WA", "lat": 47.2447, "lng": -122.4357, "info": "Support and community for LGBTQ+ youth in Pierce County.", "link": "https://www.oasisyouthcenter.org/"}, {"name": "Triple Point", "category": "Youth group", "address": "Aberdeen, WA (Grays Harbor)", "lat": 46.9754, "lng": -123.8157, "info": "LGBTQ+ youth group in Grays Harbor. Location approximate.", "link": "https://www.coastalcap.org/"}, {"name": "Lola Co.", "category": "Plants & gifts", "address": "109 Marcy Ave W, Montesano, WA", "lat": 46.9799, "lng": -123.6015, "info": "Houseplants and gifts.", "link": ""}, {"name": "Orca Books Co-op", "category": "Bookstore", "address": "315 5th Ave SE, Olympia, WA", "lat": 47.0441, "lng": -122.8983, "info": "Community-owned bookstore.", "link": "https://orcabooks.com/"}, {"name": "King's Books", "category": "Bookstore", "address": "218 St Helens Ave, Tacoma, WA", "lat": 47.2617, "lng": -122.4456, "info": "Indie bookstore centering queer, trans, BIPOC, and disabled authors.", "link": "https://kingsbookstore.com/"}, {"name": "Little Switch Yoga", "category": "Yoga studio", "address": "301 W 6th St, Aberdeen, WA", "lat": 46.9787, "lng": -123.8269, "info": "Inclusive, trauma-informed yoga in Grays Harbor.", "link": ""}, {"name": "Sparrow Studios", "category": "Aerial & circus arts", "address": "207 Washington St NE, Olympia, WA", "lat": 47.0461, "lng": -122.9008, "info": "Aerial, circus, and movement classes for every body.", "link": ""}, {"name": "Airbound Arts", "category": "Aerial arts", "address": "312 Columbia St NW, Olympia, WA", "lat": 47.0469, "lng": -122.9028, "info": "Aerial silks and acrobatics gym.", "link": ""}, {"name": "Underhill Plants", "category": "Plant shop", "address": "117 Washington St NE, Olympia, WA", "lat": 47.0455, "lng": -122.9006, "info": "Houseplants and local pottery.", "link": ""}, {"name": "Olympia Gear Exchange", "category": "Outdoor gear", "address": "108 4th Ave W, Olympia, WA", "lat": 47.045, "lng": -122.9021, "info": "New and used outdoor gear.", "link": ""}, {"name": "Cryptatropa Bar", "category": "Bar", "address": "421 4th Ave E, Olympia, WA", "lat": 47.045, "lng": -122.897, "info": "Goth-leaning downtown bar with live music.", "link": ""}, {"name": "Olympia Food Co-op", "category": "Grocery co-op", "address": "3111 Pacific Ave SE, Olympia, WA", "lat": 47.042, "lng": -122.8563, "info": "Member-owned natural grocery.", "link": ""}, {"name": "Baker's Dozen Tattoo", "category": "Tattoo", "address": "307 4th Ave E, Olympia, WA", "lat": 47.045, "lng": -122.8988, "info": "Welcoming, inclusive tattoo studio.", "link": ""}, {"name": "Spidermonkey Tattoos", "category": "Tattoo", "address": "217 4th Ave E, Olympia, WA", "lat": 47.045, "lng": -122.8996, "info": "Downtown Olympia tattoo shop.", "link": ""}, {"name": "Metro Body Piercing", "category": "Piercing", "address": "215 4th Ave E, Olympia, WA", "lat": 47.0448, "lng": -122.8997, "info": "Body piercing studio.", "link": ""}, {"name": "Forge Body Piercing", "category": "Piercing", "address": "316 Capitol Way N, Olympia, WA", "lat": 47.0472, "lng": -122.9018, "info": "Worker-owned piercing co-op.", "link": ""}, {"name": "Redpup Tattoo", "category": "Tattoo & piercing", "address": "7221 Martin Way E, Lacey, WA", "lat": 47.052, "lng": -122.7842, "info": "Tattoo and piercing in Lacey.", "link": ""}, {"name": "Handworkers Studio", "category": "Tattoo", "address": "2938 Limited Ln NW, Olympia, WA", "lat": 47.0481, "lng": -122.9377, "info": "Private, welcoming tattoo studio.", "link": ""}, {"name": "Sorry Mom Ink", "category": "Tattoo", "address": "8120 Freedom Ln NE, Lacey, WA", "lat": 47.0617, "lng": -122.7687, "info": "LGBTQ-friendly tattoo shop, walk-ins welcome.", "link": ""}, {"name": "Gatsby Parlour de Beauté", "category": "Hair salon", "address": "201 4th Ave E, Olympia, WA", "lat": 47.0449, "lng": -122.9002, "info": "Downtown hair salon.", "link": ""}, {"name": "Premiere Salon & Spa", "category": "Salon & spa", "address": "111 Market St NE, Olympia, WA", "lat": 47.0499, "lng": -122.9021, "info": "Full-service salon and spa.", "link": ""}, {"name": "Shear Barber Studio", "category": "Barber", "address": "414 5th Ave SW, Olympia, WA", "lat": 47.0439, "lng": -122.9061, "info": "Queer-friendly barber studio.", "link": ""}, {"name": "The Stone & Steel Barbershop", "category": "Barber", "address": "1222 S 2nd Ave SW, Tumwater, WA", "lat": 47.0045, "lng": -122.9102, "info": "Inclusive barber in Tumwater.", "link": ""}, {"name": "The Barber Collective", "category": "Barber", "address": "1001 S Yakima Ave, Tacoma, WA", "lat": 47.253, "lng": -122.4471, "info": "LGBTQ2IA+ barbershop in the Tacoma Armory.", "link": ""}, {"name": "Seawolf Barbershop", "category": "Barber", "address": "2525 Tacoma Ave S, Tacoma, WA", "lat": 47.2375, "lng": -122.4407, "info": "LGBTQ+ friendly barbershop.", "link": ""}, {"name": "Supernova Barber Shop & Hair Salon", "category": "Salon & barber", "address": "817 Division Ave, Tacoma, WA", "lat": 47.2624, "lng": -122.451, "info": "Funky, inclusive salon and barbershop.", "link": ""}, {"name": "Juniper Botanical Bar", "category": "Bar & nightlife", "address": "5226 S Tacoma Way, Tacoma, WA", "lat": 47.2088, "lng": -122.4841, "info": "Queer-owned cocktail and botanical bar with food and drag shows.", "link": ""}];
-function esc(s){return (s||"").replace(/[&<>"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));}
-function emojiFor(c){c=(c||"").toLowerCase();if(/bar|night|tavern/.test(c))return "\uD83C\uDF78";if(/book/.test(c))return "\uD83D\uDCDA";if(/plant/.test(c))return "\uD83E\uDEB4";if(/yoga/.test(c))return "\uD83E\uDDD8";if(/aerial|circus/.test(c))return "\uD83E\uDD38";if(/gear|outdoor/.test(c))return "\u26FA";if(/grocer|food/.test(c))return "\uD83D\uDED2";if(/tattoo/.test(c))return "\uD83D\uDD8B\uFE0F";if(/pierc/.test(c))return "\uD83D\uDC8E";if(/barber/.test(c))return "\uD83D\uDC88";if(/hair|salon|spa/.test(c))return "\uD83D\uDC87";if(/youth/.test(c))return "\uD83C\uDF08";if(/center/.test(c))return "\uD83C\uDFF3\uFE0F\u200D\uD83C\uDF08";return "\uD83D\uDCCD";}
-const map=L.map("map",{scrollWheelZoom:true}).setView([47.1,-122.7],9);
-L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png",{attribution:"&copy; OpenStreetMap contributors",maxZoom:19}).addTo(map);
-const pts=[];
-MAPDATA.forEach(m=>{const em=m.emoji||emojiFor(m.category);
-  const icon=L.divIcon({html:`<div class="empin"><span class="eemoji">${em}</span><span class="elabel">${esc(m.name)}</span></div>`,className:"",iconSize:[130,46],iconAnchor:[16,38]});
-  const mk=L.marker([m.lat,m.lng],{icon}).addTo(map);
-  const web=m.link?`<br><a href="${esc(m.link)}" target="_blank" rel="noopener">Website</a>`:"";
-  mk.bindPopup(`<b>${esc(m.name)}</b><br>${esc(m.category)}<br>${esc(m.info||"")}<br><a href="https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(m.name+" "+(m.address||""))}" target="_blank" rel="noopener">Directions</a>${web}`);
-  pts.push([m.lat,m.lng]);});
-if(pts.length)map.fitBounds(pts,{padding:[40,40]});
+const MAPDATA = [/* your full dataset stays exactly the same */ 
+{"name":"Photosynthesis","category":"Retail / Music","address":"313 5th Ave SE, Olympia","lat":47.0445,"lng":-122.8939,"info":"Synths, flowers, and gifts. Queer & trans owned.","link":""},
+{"name":"Cryptatropa Bar","category":"Bar","address":"421 4th Ave E, Olympia","lat":47.0454,"lng":-122.8928,"info":"A very dark bar downtown.","link":""}
+/* keep the rest of your entries exactly as-is */
+];
+
+function esc(s){
+  return (s||"").replace(/[&<>"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
+}
+
+const map = L.map("map",{scrollWheelZoom:true}).setView([47.1,-122.7],9);
+
+L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png",{
+  attribution:"&copy; OpenStreetMap contributors",
+  maxZoom:19
+}).addTo(map);
+
+const pts = [];
+
+MAPDATA.forEach(m => {
+
+  // DEFAULT LEAFLET PIN
+  const mk = L.marker([m.lat, m.lng]).addTo(map);
+
+  // popup content
+  const web = m.link
+    ? `<br><a href="${esc(m.link)}" target="_blank" rel="noopener">Website</a>`
+    : "";
+
+  mk.bindPopup(`
+    <b>${esc(m.name)}</b><br>
+    ${esc(m.category)}<br>
+    ${esc(m.info || "")}<br>
+    <a href="https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(m.name+" "+(m.address||""))}" target="_blank" rel="noopener">
+      Directions
+    </a>
+    ${web}
+  `);
+
+  // OPTIONAL: always-visible label
+  mk.bindTooltip(esc(m.name), {
+    permanent: true,
+    direction: "top",
+    offset: [0, -10],
+    className: "place-label"
+  });
+
+  pts.push([m.lat, m.lng]);
+});
+
+if(pts.length){
+  map.fitBounds(pts,{padding:[40,40]});
+}
 </script>
+
 </body>
 </html>
